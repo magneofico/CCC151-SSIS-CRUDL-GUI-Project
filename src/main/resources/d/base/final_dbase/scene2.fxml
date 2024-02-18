@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="d.base.final_dbase.HelloController2">
+    <AnchorPane prefHeight="700.0" prefWidth="1000.0">
+        <children>
+            <BorderPane prefHeight="700.0" prefWidth="1000.0">
+                <right>
+                    <Pane prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+                        <children>
+
+                            <Button layoutX="47.0" layoutY="33.0" onAction="#switchToScene1" prefHeight="29.0" prefWidth="124.0" text="Switch to Scene 1">
+                                <stylesheets>
+                                    /Users/kristofferneo/databaseProjectJavaFX_IntelliJ/registration_database/target/java/com/example/registration_database/css/styling.css
+                                </stylesheets>
+                            </Button>
+                        </children>
+                    </Pane>
+                </right>
+                <left>
+                    <VBox prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+                </left>
+                <center>
+                    <Pane prefHeight="700.0" prefWidth="50.0" style="-fx-background-color: #1e1e1e;" BorderPane.alignment="CENTER">
+                        <children>
+                            <Label layoutX="52.0" layoutY="119.0" text="Last Name" textFill="WHITE">
+                                <font>
+                                    <Font name="SF Pro Display Regular" size="10.0" />
+                                </font></Label>
+                            <TextField layoutX="105.0" layoutY="112.0" prefHeight="7.0" prefWidth="200.0" promptText="e.g. DELA CRUZ" styleClass="text" />
+                            <Label layoutX="52.0" layoutY="152.0" text="First Name" textFill="WHITE">
+                                <font>
+                                    <Font name="SF Pro Display Regular" size="10.0" />
+                                </font>
+                            </Label>
+                            <TextField layoutX="105.0" layoutY="145.0" prefHeight="26.0" prefWidth="200.0" promptText="e.g. JUAN MIGUEL" styleClass="text-field" />
+                            <Label layoutX="38.0" layoutY="185.0" text="Middle Name" textFill="WHITE">
+                                <font>
+                                    <Font name="SF Pro Display Regular" size="10.0" />
+                                </font>
+                            </Label>
+                            <TextField layoutX="105.0" layoutY="178.0" prefHeight="26.0" prefWidth="200.0" promptText="e.g. MARTINEZ" styleClass="text-field" />
+                            <Label layoutX="52.0" layoutY="218.0" text="Student ID" textFill="WHITE">
+                                <font>
+                                    <Font name="SF Pro Display Regular" size="10.0" />
+                                </font>
+                            </Label>
+                            <TextField layoutX="105.0" layoutY="211.0" prefHeight="26.0" prefWidth="200.0" promptText="e.g. 2024-0001" styleClass="text" />
+                            <Label layoutX="64.0" layoutY="255.0" text="Gender" textFill="WHITE">
+                                <font>
+                                    <Font name="SF Pro Display Regular" size="10.0" />
+                                </font>
+                            </Label>
+                            <Label layoutX="52.0" layoutY="289.0" text="Year Level" textAlignment="RIGHT" textFill="WHITE">
+                                <font>
+                                    <Font name="SF Pro Display Regular" size="10.0" />
+                                </font>
+                            </Label>
+                            <TextField layoutX="105.0" layoutY="282.0" prefHeight="26.0" prefWidth="200.0" promptText="e.g. 1st Year" styleClass="text" />
+                            <Label layoutX="65.0" layoutY="321.0" text="Course" textAlignment="RIGHT" textFill="WHITE">
+                                <font>
+                                    <Font name="SF Pro Display Regular" size="10.0" />
+                                </font>
+                            </Label>
+                            <ComboBox layoutX="105.0" layoutY="314.0" prefWidth="150.0" promptText="enter-course-here" />
+                            <Button layoutX="94.0" layoutY="376.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="190.0" text="Register" textFill="WHITE">
+                                <font>
+                                    <Font size="23.0" />
+                                </font>
+                            </Button>
+                        </children>
+                    </Pane>
+                </center>
+            </BorderPane>
+        </children>
+    </AnchorPane>
+</StackPane>

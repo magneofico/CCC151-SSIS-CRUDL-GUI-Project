@@ -1,0 +1,175 @@
+.button
+{
+    -fx-background-color : #B8282B;
+    -fx-background-radius: .2em;
+    -fx-padding: 2px 25px;
+    -fx-font-size: 10px;
+    -fx-tab-max-width: 5px;
+}
+
+.button:hover
+{
+    -fx-background-color : #A1C1F4 ;
+}
+
+.button:pressed
+{
+    -fx-background-color : #73A3EF ;
+}
+
+/*TextField Settings*/
+
+{
+    -fx-primary-color: white;
+    -fx-secondary-color: white;
+    -fx-grey-color: #b9b9b9;
+    -fx-focus-color: -fx-secondary-color;
+}
+
+.text-field {
+    -fx-accent: -fx-primary-color;
+    -fx-background-color: #1e1e1e; /* Updated background color to #1e1e1e */
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-pref-width: 200px; /* Set your preferred width here */
+    -fx-pref-height: 9px; /* Updated preferred height to 30px */
+    -fx-border-color: white; /* Set the border color to white */
+    -fx-border-width: .3px; /* Set the border width to 1 pixel */
+    -fx-border-radius: 5px; /* Set the border radius to 0 for a sharp edge */
+    -fx-text-fill: white; /* Set the text color to white */
+}
+
+.text-field .text {
+    -fx-font-size: 10px; /* Updated prompt text size to 14px */
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-primary-color, #1e1e1e;
+    -fx-font-weight: bold;
+}
+
+
+/* ToggleButton settings */
+.toggle-button {
+    -fx-background-color: #B8282B; /* Default background color */
+    -fx-text-fill: white; /* Default text color */
+    -fx-padding: 5px 10px; /* Padding around the text */
+    -fx-background-radius: 0;
+}
+
+.toggle-button:selected {
+    -fx-background-color: white; /* Background color when selected */
+    -fx-text-fill: #B8282B; /* Default text color */
+}
+
+.toggle-button:hover {
+    -fx-background-color: #0D65B8; /* Background color on hover */
+    -fx-text-fill: white; /* Default text color */
+}
+
+
+
+/* ComboBox settings */
+.combo-box {
+    -fx-background-color: #1e1e1e; /* Background color of the dropdown button */
+    -fx-border-color: white; /* Border color */
+    -fx-border-width: .3px; /* Border width */
+    -fx-border-radius: 5px; /* Border radius for a rounded appearance */
+    -fx-pref-width: 200px; /* Adjust the preferred width */
+    -fx-pref-height: 26px; /*
+}
+
+.combo-box .arrow {
+    -fx-background-color: black; /* Transparent background for the arrow */
+}
+
+.combo-box-popup {
+    -fx-background-color: white; /* Background color of the dropdown popup */
+    -fx-border-color: #ccc; /* Border color of the dropdown popup */
+    -fx-border-width: 1px; /* Border width of the dropdown popup */
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white; /* Background color of the dropdown list */
+}
+
+.combo-box-popup .list-cell {
+    -fx-padding: 5px 10px; /* Padding for each item in the dropdown list */
+}
+
+
+
+
+
+
+
+
+
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-cell-size : 20;
+    -fx-background-color:   #2D75E8;
+}
+.table-view .column-header .label{
+
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+.table-view .cell{
+    -fx-cell-size: 30;
+    -fx-alignment: center-left;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell:selected {
+    -fx-background-color:  rgb(127, 172, 243);
+}
+.table-row-cell:selected .text {
+    -fx-fill : white ;
+
+}
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.table-view .increment-button ,.table-view .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 2em;
+
+}
+
+/* The main scrollbar **track** CSS class  */
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(  #2D75E8,80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color:derive( #2D75E8,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+
+/* chart properties */
+
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-legend-visible: false;
+}
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
+
+.chart-pie {
+    -fx-border-color: derive(-fx-pie-color, 1%);
+    -fx-border-width: 0px;
+}
