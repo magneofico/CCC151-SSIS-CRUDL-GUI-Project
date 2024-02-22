@@ -195,7 +195,7 @@
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font></Button>
-                                             <Button fx:id="findStudentIDEdit" layoutX="470.0" layoutY="46.0" mnemonicParsing="false" onAction="#editCrudl" prefHeight="17.0" prefWidth="71.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
+                                             <Button fx:id="windowSwitch3" layoutX="470.0" layoutY="46.0" mnemonicParsing="false" onAction="#findStudentIDEdit" prefHeight="17.0" prefWidth="71.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>

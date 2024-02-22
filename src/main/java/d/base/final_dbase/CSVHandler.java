@@ -190,8 +190,25 @@ public class CSVHandler {
         return studentsByCourse;
     }
 
+    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/student_registration.csv";
 
-
+    public static Student fetchStudentByID(String studentID) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 2) { // Assuming student ID is at least present
+                    String currentStudentID = parts[1].trim(); // Assuming student ID is at index 1
+                    if (currentStudentID.equals(studentID)) {
+                        // Create and return the Student object
+                        return new Student(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim(), parts[5].trim(), parts[6].trim(), parts[7].trim());
+                    }
+                }
+            }
+        }
+        // If no student with the specified ID is found, return null
+        return null;
+    }
 }
 
 

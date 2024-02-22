@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
-
 public class HelloApplication extends Application {
 
     private Stage primaryStage;
@@ -16,6 +16,10 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         switchToScene1();
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     private void initializeScene(String fxmlFileName, String title) {
@@ -28,6 +32,11 @@ public class HelloApplication extends Application {
             primaryStage.setTitle(title);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false); // Make the stage not resizable
+            primaryStage.setOnCloseRequest(event -> {
+                // Handle close request
+                event.consume(); // Consume the event to prevent the window from closing immediately
+                switchToScene2(); // Switch to Scene 2
+            });
             primaryStage.show();
 
             // Set the controller for the scene
@@ -59,8 +68,26 @@ public class HelloApplication extends Application {
         initializeScene("scene2.fxml", "Student Registration");
     }
 
-    public void switchToScene3(){
-        initializeScene("scene3.fxml", "CRUDL Implementation");
+    public void switchToScene3(String studentID) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scene3.fxml"));
+        try {
+            StackPane root = loader.load();
+            Scene scene = new Scene(root, 400, 600);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styling.css")).toExternalForm());
+
+            Stage newStage = new Stage();
+            newStage.setTitle("CRUDL Implementation");
+            newStage.setScene(scene);
+            newStage.setResizable(false);
+            newStage.show();
+
+            CrudlImplementation crudlController = loader.getController();
+            crudlController.setHelloApplication(this);
+            crudlController.initializeStudentID(studentID); // Pass the student ID to Scene 3 controller
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

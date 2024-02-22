@@ -3,7 +3,11 @@ package d.base.final_dbase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -13,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class HelloController2 {
@@ -114,6 +119,8 @@ public class HelloController2 {
     @FXML
     private Button backButton;
 
+    @FXML
+    private Button windowSwitch3;
 
 
 
@@ -206,6 +213,8 @@ public class HelloController2 {
         findCourseSearch.setOnAction(event -> handleCourseSearchButtonAction());
 
         backButton.setOnAction(event -> handleBackButtonAction());
+
+        windowSwitch3.setOnAction(event -> findStudentIDEdit());
 
 
     }
@@ -558,7 +567,14 @@ public class HelloController2 {
     }
 
     @FXML
-    private void editCrudl() {
-        helloApplication.switchToScene3();
+    private void findStudentIDEdit() {
+        String studentID = findStudentID.getText().trim();
+        if (studentID.isEmpty()) {
+            // Handle the case where the text field is empty (this should not happen due to your existing validation)
+            return;
+        }
+
+        // Open Scene 3 for editing student details
+        helloApplication.switchToScene3(studentID);
     }
 }
