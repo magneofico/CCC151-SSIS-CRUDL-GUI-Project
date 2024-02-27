@@ -39,6 +39,9 @@ public class CrudlImplementation {
     @FXML
     private Button saveUpdatedStudentData;
 
+    @FXML
+    private Button deleteStudentData;
+
     // Method to set the HelloApplication instance
     public void setHelloApplication(HelloApplication helloApplication) {
         this.helloApplication = helloApplication;
@@ -94,6 +97,8 @@ public class CrudlImplementation {
         });
 
         saveUpdatedStudentData.setOnAction(event -> handleSaveUpdatedStudentData());
+        deleteStudentData.setOnAction(event -> handleDeleteButton());
+
     }
 
     @FXML
@@ -110,9 +115,10 @@ public class CrudlImplementation {
         String updatedMiddleName = middleNameField.getText().trim();
         String updatedGender = genderField.getText().trim();
         String updatedYearLevel = yearLevelField.getText().trim();
+        String updatedCourse = CrudlCourseCode.getValue().trim();
 
         // Update the student record
-        boolean success = CSVHandler.updateStudent(studentID, updatedFirstName, updatedLastName, updatedMiddleName, updatedGender, updatedYearLevel);
+        boolean success = CSVHandler.updateStudent(studentID, updatedFirstName, updatedLastName, updatedMiddleName, updatedGender, updatedYearLevel, updatedCourse);
         if (success) {
             System.out.println("Student information updated successfully.");
         } else {
@@ -120,13 +126,59 @@ public class CrudlImplementation {
         }
     }
 
-
-
-
     @FXML
     private void handleSaveUpdatedStudentData() {
         System.out.println("Save button clicked."); // Add this line for debugging
         handleSaveButton(); // Call handleSaveButton when the saveUpdatedStudentData button is clicked
+    }
+
+
+
+
+
+    @FXML
+    private void handleDeleteButton() {
+        String studentID = studentIDField.getText().trim();
+        if (studentID.isEmpty()) {
+            System.out.println("Student ID is empty.");
+            return;
+        }
+
+        // Call a method to delete the student record
+        boolean success = deleteStudent(studentID);
+        if (success) {
+            System.out.println("Student information deleted successfully.");
+            // Clear the text fields
+            clearFields();
+        } else {
+            System.out.println("Failed to delete student information.");
+        }
+    }
+
+    private boolean deleteStudent(String studentID) {
+        try {
+            // Delete the student record from the CSV file
+            boolean success = CSVHandler.deleteStudent(studentID);
+            if (!success) {
+                System.out.println("Student with ID " + studentID + " not found.");
+            }
+            return success;
+        } catch (IOException e) {
+            System.out.println("Error occurred while deleting student data.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void clearFields() {
+        // Clear all text fields
+        firstNameField.clear();
+        lastNameField.clear();
+        middleNameField.clear();
+        genderField.clear();
+        yearLevelField.clear();
+        // Clear course ComboBox
+        CrudlCourseCode.getSelectionModel().clearSelection();
     }
 
     @FXML

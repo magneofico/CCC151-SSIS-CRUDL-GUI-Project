@@ -210,7 +210,7 @@ public class CSVHandler {
 
     // Method to update student information in the CSV file
     // To add parameter String updatedCourse
-    public static boolean updateStudent(String studentID, String updatedLastName, String updatedFirstName, String updatedMiddleName, String updatedSex, String updatedYearLevel) {
+    public static boolean updateStudent(String studentID, String updatedLastName, String updatedFirstName, String updatedMiddleName, String updatedSex, String updatedYearLevel, String updatedCourse) {
         try {
             // Load all students from the CSV file
             List<String> fileLines = new ArrayList<>();
@@ -234,7 +234,7 @@ public class CSVHandler {
                         parts[4] = updatedMiddleName;
                         parts[5] = updatedSex;
                         parts[6] = updatedYearLevel;
-//                        parts[7] = updatedCourse;
+                        parts[7] = updatedCourse;
                         fileLines.set(i, String.join(",", parts));
                         studentFound = true;
                         break;
@@ -259,6 +259,55 @@ public class CSVHandler {
             return false; // Update failed due to IO error
         }
     }
+
+
+
+
+    // Method to delete student information from the CSV file
+    public static boolean deleteStudent(String studentID) throws IOException {
+        // Read the student CSV file
+        File file = new File(STUDENT_CSV_FILE_PATH);
+        File tempFile = new File("temp.csv");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+
+        boolean found = false;
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length >= 2) { // Assuming student ID is at least present
+                String currentStudentID = parts[1].trim(); // Assuming student ID is at index 1
+                if (!currentStudentID.equals(studentID)) {
+                    // If current student ID does not match the one to delete, write the line to temp file
+                    bw.write(line + "\n");
+                } else {
+                    found = true;
+                }
+            }
+        }
+
+        br.close();
+        bw.close();
+
+        // Delete the original file
+        if (!file.delete()) {
+            System.out.println("Failed to delete the original file.");
+            return false;
+        }
+
+        // Rename the temp file to the original file name
+        if (!tempFile.renameTo(file)) {
+            System.out.println("Failed to rename the temp file.");
+            return false;
+        }
+
+        return found;
+    }
+
+
+
+
+
 }
 
 

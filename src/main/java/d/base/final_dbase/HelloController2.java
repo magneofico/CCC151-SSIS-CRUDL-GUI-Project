@@ -1,23 +1,15 @@
 package d.base.final_dbase;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class HelloController2 {
@@ -143,7 +135,12 @@ public class HelloController2 {
         yearLevelComboBox.getItems().addAll("1st", "2nd", "3rd", "4th", "5th");
         genderComboBox.getItems().addAll("Male", "Female");
 
-        populateCourseComboBox();
+        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
+        courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                courseCodeCombo.getEditor().setText(newValue);
+            }
+        });
 
         collegeComboBox.getItems().addAll(College.initializeColleges());
 
@@ -221,29 +218,27 @@ public class HelloController2 {
 
     }
 
-    private void populateCourseComboBox() {
-        try (BufferedReader br = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
-            String line;
-            HashSet<String> courseSet = new HashSet<>();
-            boolean headerSkipped = false;
-            while ((line = br.readLine()) != null) {
-                if (!headerSkipped) {
-                    headerSkipped = true;
-                    continue; // Skip the header
-                }
-                String[] parts = line.split(","); // Split the line by comma
-                if (parts.length > COURSE_COLUMN_INDEX) { // Check if the line has the desired column
-                    courseSet.add(parts[COURSE_COLUMN_INDEX].trim()); // Add the course data to the set
-                }
-            }
-            ObservableList<String> courseList = FXCollections.observableArrayList(courseSet);
-            courseCodeCombo.setItems(courseList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
+//    private void populateCourseComboBox() {
+//        try (BufferedReader br = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
+//            String line;
+//            HashSet<String> courseSet = new HashSet<>();
+//            boolean headerSkipped = false;
+//            while ((line = br.readLine()) != null) {
+//                if (!headerSkipped) {
+//                    headerSkipped = true;
+//                    continue; // Skip the header
+//                }
+//                String[] parts = line.split(","); // Split the line by comma
+//                if (parts.length > COURSE_COLUMN_INDEX) { // Check if the line has the desired column
+//                    courseSet.add(parts[COURSE_COLUMN_INDEX].trim()); // Add the course data to the set
+//                }
+//            }
+//            ObservableList<String> courseList = FXCollections.observableArrayList(courseSet);
+//            courseCodeCombo.setItems(courseList);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void addStudent() {
         // Get user input for last name
@@ -324,7 +319,12 @@ public class HelloController2 {
             e.printStackTrace();
         }
 
-        populateCourseComboBox();
+        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
+        courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                courseCodeCombo.getEditor().setText(newValue);
+            }
+        });
 
         try {
             studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
@@ -409,7 +409,12 @@ public class HelloController2 {
         }
 
         // Update the combo box with the new course
-        populateCourseComboBox();
+        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
+        courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                courseCodeCombo.getEditor().setText(newValue);
+            }
+        });
 
         try {
             // Update the table view with the new data
@@ -567,18 +572,6 @@ public class HelloController2 {
     private void switchToScene1() {
         helloApplication.switchToScene1();
     }
-//
-//    @FXML
-//    private void findStudentIDEdit() {
-//        String studentID = findStudentID.getText().trim();
-//        if (studentID.isEmpty()) {
-//            // Handle the case where the text field is empty (this should not happen due to your existing validation)
-//            return;
-//        }
-//
-//        // Open Scene 3 for editing student details
-//        helloApplication.switchToScene3(studentID);
-//    }
 
 
     private boolean windowSwitch3Clicked;

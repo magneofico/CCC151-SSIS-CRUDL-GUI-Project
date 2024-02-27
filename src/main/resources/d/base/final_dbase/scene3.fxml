@@ -17,7 +17,7 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button fx:id="saveUpdatedStudentData" layoutX="97.0" layoutY="414.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
+            <Button fx:id="saveUpdatedStudentData" layoutX="97.0" layoutY="438.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
@@ -79,7 +79,7 @@
                   <Font size="9.0" />
                </font>
             </Button>
-            <Button layoutX="129.0" layoutY="384.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Delete Student Data" textFill="WHITE">
+            <Button fx:id="deleteStudentData" layoutX="97.0" layoutY="401.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="220.0" text="Delete Student Data" textFill="WHITE">
                <font>
                   <Font size="9.0" />
                </font>
