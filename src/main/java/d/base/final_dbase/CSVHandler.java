@@ -78,7 +78,7 @@ public class CSVHandler {
                     continue;
                 }
                 String[] parts = line.split(",");
-                if (parts.length >= 8) {
+                if (parts.length >= 9) {
                     String sStudentID = parts[1].trim();
                     if (!studentMap.containsKey(sStudentID)) {
                         String[] studentData = {
@@ -89,7 +89,8 @@ public class CSVHandler {
                                 parts[4].trim(),
                                 parts[5].trim(),
                                 parts[6].trim(),
-                                parts[7].trim()
+                                parts[7].trim(),
+                                parts[8].trim()
                         };
                         studentMap.put(sStudentID, studentData);
                     }
@@ -114,7 +115,8 @@ public class CSVHandler {
             String sSex = data[5];
             String sLevel = data[6];
             String sCourse = data[7];
-            students.add(new Student(timestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sLevel, sCourse));
+            String sStatus = data[8];
+            students.add(new Student(timestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sLevel, sCourse, sStatus));
         }
 
         return students;
@@ -130,7 +132,7 @@ public class CSVHandler {
                     continue; // Skip the header
                 }
                 String[] parts = line.split(",");
-                if (parts.length >= 8) {
+                if (parts.length >= 9) {
                     String sStudentID = parts[1].trim();
                     if (sStudentID.equals(studentID)) {
                         // Create a new Student object with the retrieved data
@@ -141,7 +143,8 @@ public class CSVHandler {
                         String sSex = parts[5].trim();
                         String sLevel = parts[6].trim();
                         String sCourse = parts[7].trim();
-                        return new Student(stimestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sLevel, sCourse);
+                        String sStatus = parts[8].trim();
+                        return new Student(stimestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sLevel, sCourse, sStatus);
                     }
                 }
             }
@@ -162,7 +165,7 @@ public class CSVHandler {
                     continue; // Skip the header
                 }
                 String[] parts = line.split(",");
-                if (parts.length >= 8) {
+                if (parts.length >= 9) {
                     String sStudentID = parts[1].trim();
                     String sCourse = parts[7].trim();
                     if (sCourse.equals(courseCode)) {
@@ -174,7 +177,8 @@ public class CSVHandler {
                         String sSex = parts[5].trim();
                         String sLevel = parts[6].trim();
                         String sCourseForStudent = parts[7].trim();
-                        Student student = new Student(stimestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sLevel, sCourseForStudent);
+                        String sStatus = parts[8].trim();
+                        Student student = new Student(stimestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sLevel, sCourseForStudent, sStatus);
 
                         // Add the student to the list of students for the course
                         if (!studentsByCourse.containsKey(courseCode)) {
@@ -199,7 +203,7 @@ public class CSVHandler {
                     String currentStudentID = parts[1].trim(); // Assuming student ID is at index 1
                     if (currentStudentID.equals(studentID)) {
                         // Create and return the Student object
-                        return new Student(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim(), parts[5].trim(), parts[6].trim(), parts[7].trim());
+                        return new Student(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim(), parts[4].trim(), parts[5].trim(), parts[6].trim(), parts[7].trim(), parts[8].trim());
                     }
                 }
             }

@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             StackPane root = loader.load();
-            Scene scene = new Scene(root, 1000, 700);
+            Scene scene = new Scene(root, 1100, 800);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styling.css")).toExternalForm());
 
             primaryStage.setTitle(title);

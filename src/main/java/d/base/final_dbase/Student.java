@@ -12,8 +12,9 @@ public class Student {
     private final StringProperty sSex;
     private final StringProperty sYearLevel;
     private final StringProperty sCourse;
+    private final StringProperty sStatus;
 
-    public Student(String sTimestamp, String sStudentID, String sLastname, String sFirstname, String sMiddlename, String sSex, String sYearLevel, String sCourse) {
+    public Student(String sTimestamp, String sStudentID, String sLastname, String sFirstname, String sMiddlename, String sSex, String sYearLevel, String sCourse, String sStatus) {
         this.sTimestamp = new SimpleStringProperty(sTimestamp);
         this.sStudentID = new SimpleStringProperty(sStudentID);
         this.sLastname= new SimpleStringProperty(sLastname);
@@ -22,6 +23,7 @@ public class Student {
         this.sSex= new SimpleStringProperty(sSex);
         this.sYearLevel= new SimpleStringProperty(sYearLevel);
         this.sCourse= new SimpleStringProperty(sCourse);
+        this.sStatus = new SimpleStringProperty(sStatus);
     }
 
     public String getsCourse() {
@@ -56,6 +58,11 @@ public class Student {
         return sYearLevel.get();
     }
 
+    public String getsStatus() {
+        return sStatus.get();
+    }
+
+
 
 
     public StringProperty sTimestampProperty() {
@@ -88,6 +95,9 @@ public class Student {
 
     public StringProperty sCourseProperty() {
         return sCourse;
+    }
+    public StringProperty sStatusProperty() {
+        return sStatus;
     }
 
 

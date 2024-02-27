@@ -93,6 +93,9 @@ public class HelloController2 {
     @FXML
     private TableColumn<Student, String> sCourse;
 
+    @FXML
+    private TableColumn<Student, String> sStatus;
+
 
     @FXML
     private TextField findStudentID;
@@ -195,6 +198,7 @@ public class HelloController2 {
         sSex.setCellValueFactory(data -> data.getValue().sSexProperty());
         sYearLevel.setCellValueFactory(data -> data.getValue().sYearLevelProperty());
         sCourse.setCellValueFactory(data -> data.getValue().sCourseProperty());
+        sStatus.setCellValueFactory(data -> data.getValue().sStatusProperty());
 
         try {
             studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
@@ -262,6 +266,8 @@ public class HelloController2 {
         String sYearLevel = yearLevelComboBox.getValue();
         String sSex = genderComboBox.getValue().equals("Male") ? "M" : "F";
         String sCourse = courseCodeCombo.getValue(); // Get the selected course
+        String sStatus = "Enrolled"; // All students are enrolled initially
+
 
         // Get current timestamp
         LocalDateTime sTimestamp = LocalDateTime.now();
@@ -298,12 +304,12 @@ public class HelloController2 {
                     // Check if the CSV file already exists
                     if (!Files.exists(Paths.get(STUDENT_CSV_FILE_PATH))) {
                         // If not, write the header
-                        studentInfoWriter.write("Registration Time,Student ID,Last Name,First Name,Middle Name,Sex,Year Level,Course");
+                        studentInfoWriter.write("Registration Time,Student ID,Last Name,First Name,Middle Name,Sex,Year Level,Course,Status");
                         studentInfoWriter.newLine();
                     }
 
                     // Write the student information along with the timestamp to the CSV file
-                    String studentInfo = String.join(",", formattedTimestamp2, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sYearLevel, sCourse);
+                    String studentInfo = String.join(",", formattedTimestamp2, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sYearLevel, sCourse, sStatus);
                     studentInfoWriter.write(studentInfo);
                     studentInfoWriter.newLine();
                     System.out.println("Student added: " + sStudentID + " : (" + sCourse + ")" + sLastname + ", " + sFirstname + " " + sMiddlename);

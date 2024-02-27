@@ -14,24 +14,24 @@
 <StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="d.base.final_dbase.HelloController1">
 
     <!-- Left AnchorPane -->
-    <AnchorPane prefHeight="700.0" prefWidth="1000.0">
+    <AnchorPane prefHeight="800.0" prefWidth="1100.0">
         <children>
 
             <!-- Right AnchorPane -->
-            <AnchorPane layoutX="498.0" layoutY="-2.0" prefHeight="700" prefWidth="500.0">
+            <AnchorPane layoutX="550.0" prefHeight="800.0" prefWidth="550.0">
                 <children>
-                    <PasswordField fx:id="passwordField" layoutX="150.0" layoutY="252.0" prefHeight="14.0" prefWidth="238.0" promptText="Password" styleClass="text-fieldW" />
-                    <TextField fx:id="usernameField" layoutX="150.0" layoutY="212.0" prefHeight="26.0" prefWidth="238.0" promptText="Username" styleClass="text-fieldW" />
-                    <Button layoutX="150.0" layoutY="305.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleLogin" prefHeight="45.0" prefWidth="238.0" text="Log In" textFill="WHITE">
+                    <PasswordField fx:id="passwordField" layoutX="161.0" layoutY="255.0" prefHeight="14.0" prefWidth="238.0" promptText="Password" styleClass="text-fieldW" />
+                    <TextField fx:id="usernameField" layoutX="161.0" layoutY="215.0" prefHeight="26.0" prefWidth="238.0" promptText="Username" styleClass="text-fieldW" />
+                    <Button layoutX="161.0" layoutY="308.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleLogin" prefHeight="45.0" prefWidth="238.0" text="Log In" textFill="WHITE">
                   <font>
                      <Font name="SF Pro Display Medium" size="15.0" />
                   </font></Button>
-                    <Text layoutX="151.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back Admin!">
+                    <Text layoutX="162.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back Admin!">
                         <font>
                             <Font name="SF Pro Display Light" size="25.0" />
                         </font>
                     </Text>
-               <Label layoutX="220.0" layoutY="435.0" text="LOG IN DETAILS">
+               <Label layoutX="231.0" layoutY="438.0" text="LOG IN DETAILS">
                   <font>
                      <Font name="SF Pro Display Bold" size="13.0" />
                   </font>
@@ -41,7 +41,7 @@
                      <Font size="10.0" />
                   </font>
                </Label>
-               <Label layoutX="230.0" layoutY="474.0" text="password :  admin">
+               <Label layoutX="241.0" layoutY="477.0" text="password :  admin">
                   <font>
                      <Font size="10.0" />
                   </font>
@@ -52,7 +52,7 @@
 
             <AnchorPane prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: black;">
                 <children>
-               <ImageView fx:id="image" disable="true" fitHeight="703.0" fitWidth="502.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true">
+               <ImageView fx:id="image" disable="true" fitHeight="800.0" fitWidth="550.0" layoutX="-1.0" pickOnBounds="true">
                   <image>
                      <Image url="@../../../../java/d/base/final_dbase/assets/background.png" />
                   </image>

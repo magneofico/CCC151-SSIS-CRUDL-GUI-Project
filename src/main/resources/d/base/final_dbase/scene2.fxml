@@ -20,29 +20,29 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="d.base.final_dbase.HelloController2">
-    <AnchorPane prefHeight="700.0" prefWidth="1000.0">
+    <AnchorPane prefHeight="800.0" prefWidth="1100.0">
         <children>
-            <BorderPane prefHeight="700.0" prefWidth="1000.0">
+            <BorderPane prefHeight="800.0" prefWidth="1100.0">
                 <right>
-                    <Pane prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
-                        <TabPane prefHeight="700.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                    <Pane prefHeight="800.0" prefWidth="700.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
+                        <TabPane prefHeight="800.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
                             <tabs>
                                 <Tab text="Register Course">
                                     <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                            <BorderPane prefHeight="669.0" prefWidth="600.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="767.0" prefWidth="700.0">
+                                            <BorderPane prefHeight="669.0" prefWidth="705.0">
                                                 <center>
-                                                    <HBox prefHeight="47.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                                    <HBox minHeight="-Infinity" prefHeight="69.0" prefWidth="701.0" BorderPane.alignment="CENTER">
                                                         <children>
-                                                            <Label prefHeight="17.0" prefWidth="196.0" text="Registered Courses Tab" textFill="#1e1e1e">
+                                                            <Label prefHeight="24.0" prefWidth="219.0" text="Registered Courses Tab" textFill="#1e1e1e">
                                                                 <font>
-                                                                    <Font name="SF Pro Display Bold" size="16.0" />
+                                                                    <Font name="SF Pro Display Bold" size="20.0" />
                                                                 </font>
                                                                 <HBox.margin>
-                                                                    <Insets left="30.0" top="16.0" />
+                                                                    <Insets left="30.0" top="24.0" />
                                                                 </HBox.margin>
                                                             </Label>
-                                                            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Import Data" textFill="WHITE">
+                                                            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="88.0" text="Import Data" textFill="WHITE">
                                                                 <padding>
                                                                     <Insets bottom="3.5" top="3.5" />
                                                                 </padding>
@@ -50,10 +50,10 @@
                                                                     <Font name="SF Pro Display Regular" size="10.0" />
                                                                 </font>
                                                                 <HBox.margin>
-                                                                    <Insets left="170.0" top="16.0" />
+                                                                    <Insets left="225.0" top="24.0" />
                                                                 </HBox.margin>
                                                             </Button>
-                                                            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Export to csv." textFill="WHITE">
+                                                            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="88.0" text="Export to csv." textFill="WHITE">
                                                                 <padding>
                                                                     <Insets bottom="3.5" top="3.5" />
                                                                 </padding>
@@ -61,35 +61,35 @@
                                                                     <Font name="SF Pro Display Regular" size="10.0" />
                                                                 </font>
                                                                 <HBox.margin>
-                                                                    <Insets left="10.0" top="16.0" />
+                                                                    <Insets left="15.0" top="24.0" />
                                                                 </HBox.margin>
                                                             </Button>
                                                         </children>
                                                     </HBox>
                                                 </center>
                                                 <top>
-                                                    <Pane prefHeight="195.0" prefWidth="600.0" styleClass="paneB" BorderPane.alignment="CENTER">
+                                                    <Pane prefHeight="195.0" prefWidth="680.0" styleClass="paneB" BorderPane.alignment="CENTER">
                                                         <Label layoutX="32.0" layoutY="153.0" text="Course Name" textFill="#1e1e1e">
                                                             <font>
                                                                 <Font name="SF Pro Display Regular" size="10.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="courseNameField" layoutX="99.0" layoutY="146.0" prefHeight="7.0" prefWidth="350.0" promptText="e.g. Bachelor of Science in Accountancy" styleClass="text-fieldW" />
+                                                        <TextField fx:id="courseNameField" layoutX="99.0" layoutY="146.0" prefHeight="26.0" prefWidth="385.0" promptText="e.g. Bachelor of Science in Accountancy" styleClass="text-fieldW" />
                                                         <Label layoutX="34.0" layoutY="118.0" text="Course Code" textFill="#1e1e1e">
                                                             <font>
                                                                 <Font name="SF Pro Display Regular" size="10.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="courseCodeField" layoutX="98.0" layoutY="112.0" prefHeight="26.0" prefWidth="350.0" promptText="e.g. BSA" styleClass="text-fieldW" />
+                                                        <TextField fx:id="courseCodeField" layoutX="98.0" layoutY="112.0" prefHeight="26.0" prefWidth="385.0" promptText="e.g. BSA" styleClass="text-fieldW" />
                                                         <Label layoutX="55.0" layoutY="85.0" text="College" textFill="#1e1e1e">
                                                             <font>
                                                                 <Font name="SF Pro Display Regular" size="10.0" />
                                                             </font>
                                                         </Label>
-                                                        <ComboBox fx:id="collegeComboBox" editable="true" layoutX="98.0" layoutY="78.0" prefWidth="350.0" promptText="enter-college-here" styleClass="combo-box" stylesheets="@styling.css" />
-                                                        <Button fx:id="courseRegister" layoutX="462.0" layoutY="76.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="103.0" text="Register Course" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                                        <ComboBox fx:id="collegeComboBox" editable="true" layoutX="98.0" layoutY="78.0" prefHeight="27.0" prefWidth="385.0" promptText="enter-college-here" styleClass="combo-box" stylesheets="@styling.css" />
+                                                        <Button fx:id="courseRegister" layoutX="509.0" layoutY="76.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="156.0" text="Register Course" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                                             <font>
-                                                                <Font name="SF Pro Display Bold" size="11.0" />
+                                                                <Font name="SF Pro Display Bold" size="14.0" />
                                                             </font>
                                                         </Button>
                                                         <Label layoutX="31.0" layoutY="25.0" text="Register a Course">
@@ -102,15 +102,15 @@
                                                                 <Font name="SF Pro Display Light" size="9.0" />
                                                             </font>
                                                         </Label>
-                                                        <Line endX="442.45599365234375" layoutX="130.0" layoutY="68.0" startX="-100.0" stroke="#909090" strokeWidth="0.3" />
+                                                        <Line endX="537.9923095703125" layoutX="130.0" layoutY="68.0" startX="-100.0" stroke="#909090" strokeWidth="0.3" />
                                                     </Pane>
                                                 </top>
                                                 <bottom>
-                                                    <Pane prefHeight="392.0" prefWidth="600.0" styleClass="paneT" BorderPane.alignment="CENTER">
-                                                        <TableView fx:id="tableView" layoutX="3.0" layoutY="-31.0" onSort="#switchToScene1" prefHeight="417.0" prefWidth="594.0">
+                                                    <Pane prefHeight="423.0" prefWidth="700.0" styleClass="paneT" BorderPane.alignment="CENTER">
+                                                        <TableView fx:id="tableView" layoutX="6.0" onSort="#switchToScene1" prefHeight="498.0" prefWidth="690.0">
                                                             <columns>
-                                                                <TableColumn fx:id="tCourseCode" editable="false" prefWidth="112.5" resizable="false" text="Course Code" />
-                                                                <TableColumn fx:id="tCourseName" editable="false" prefWidth="480.5" resizable="false" text="Course Name" />
+                                                                <TableColumn fx:id="tCourseCode" editable="false" prefWidth="162.31793212890625" resizable="false" text="Course Code" />
+                                                                <TableColumn fx:id="tCourseName" editable="false" prefWidth="526.0" resizable="false" text="Course Name" />
                                                             </columns>
                                                             <columnResizePolicy>
                                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -123,21 +123,21 @@
                                     </content>
                                 </Tab>
                                 <Tab text="Students.xlms">
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="767.0" prefWidth="686.0">
                                         <children>
-                                            <BorderPane prefHeight="669.0" prefWidth="600.0">
+                                            <BorderPane layoutX="-4.0" prefHeight="771.0" prefWidth="705.0">
                                                 <top>
-                                                    <HBox prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                    <HBox prefHeight="69.0" prefWidth="709.0" BorderPane.alignment="CENTER">
                                                         <children>
-                                                            <Label prefHeight="17.0" prefWidth="196.0" text="Registered Students Tab" textFill="#1e1e1e">
+                                                            <Label prefHeight="24.0" prefWidth="230.0" text="Registered Students Tab" textFill="#1e1e1e">
                                                                 <HBox.margin>
-                                                                    <Insets left="30.0" top="16.0" />
+                                                                    <Insets left="30.0" top="23.0" />
                                                                 </HBox.margin>
                                                                 <font>
-                                                                    <Font name="SF Pro Display Bold" size="16.0" />
+                                                                    <Font name="SF Pro Display Bold" size="20.0" />
                                                                 </font>
                                                             </Label>
-                                                            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Import Data" textFill="WHITE">
+                                                            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="88.0" text="Import Data" textFill="WHITE">
                                                                 <padding>
                                                                     <Insets bottom="3.5" top="3.5" />
                                                                 </padding>
@@ -145,10 +145,10 @@
                                                                     <Font name="SF Pro Display Regular" size="10.0" />
                                                                 </font>
                                                                 <HBox.margin>
-                                                                    <Insets left="170.0" top="15.0" />
+                                                                    <Insets left="220.0" top="24.0" />
                                                                 </HBox.margin>
                                                             </Button>
-                                                            <Button layoutX="345.0" layoutY="25.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Export to csv." textFill="WHITE">
+                                                            <Button layoutX="345.0" layoutY="25.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="88.0" text="Export to csv." textFill="WHITE">
                                                                 <padding>
                                                                     <Insets bottom="3.5" top="3.5" />
                                                                 </padding>
@@ -156,22 +156,23 @@
                                                                     <Font name="SF Pro Display Regular" size="10.0" />
                                                                 </font>
                                                                 <HBox.margin>
-                                                                    <Insets left="10.0" top="15.0" />
+                                                                    <Insets left="15.0" top="24.0" />
                                                                 </HBox.margin>
                                                             </Button>
                                                         </children>
                                                     </HBox>
                                                 </top>
                                                 <bottom>
-                                                    <TableView fx:id="studentTable" onSort="#findStudentIDEdit" prefHeight="481.0" prefWidth="580.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
+                                                    <TableView fx:id="studentTable" minHeight="-Infinity" minWidth="-Infinity" onSort="#findStudentIDEdit" prefHeight="564.0" prefWidth="689.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
                                                         <columns>
                                                             <TableColumn fx:id="sStudentID" editable="false" prefWidth="73.66281127929688" resizable="false" text="Student ID" />
-                                                            <TableColumn fx:id="sLastname" editable="false" prefWidth="76.0" resizable="false" text="Lastname" />
+                                                            <TableColumn fx:id="sLastname" editable="false" prefWidth="69.0" resizable="false" text="Lastname" />
                                                             <TableColumn fx:id="sFirstname" editable="false" prefWidth="69.5" resizable="false" text="Firstname" />
-                                                            <TableColumn fx:id="sMiddlename" editable="false" prefWidth="74.0" resizable="false" text="M.I" />
-                                                            <TableColumn fx:id="sSex" editable="false" prefWidth="23.0" resizable="false" text="Sex" />
-                                                            <TableColumn fx:id="sYearLevel" editable="false" minWidth="0.0" prefWidth="27.0" resizable="false" text="Level" />
-                                                            <TableColumn fx:id="sCourse" editable="false" prefWidth="236.0" resizable="false" text="Course" />
+                                                            <TableColumn fx:id="sMiddlename" editable="false" prefWidth="73.90899658203125" resizable="false" text="M.I" />
+                                                            <TableColumn fx:id="sSex" editable="false" prefWidth="40.5909423828125" resizable="false" text="Sex" />
+                                                            <TableColumn fx:id="sYearLevel" editable="false" minWidth="0.0" prefWidth="45.868896484375" resizable="false" text="Level" />
+                                                            <TableColumn fx:id="sCourse" editable="false" minWidth="0.0" prefWidth="210.610595703125" resizable="false" text="Course" />
+                                             <TableColumn fx:id="sStatus" editable="false" minWidth="0.0" prefWidth="103.889404296875" resizable="false" text="Status" />
                                                         </columns>
                                                         <BorderPane.margin>
                                                             <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -179,39 +180,39 @@
                                                     </TableView>
                                                 </bottom>
                                                 <center>
-                                                    <Pane prefHeight="85.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                                    <Pane prefHeight="128.0" prefWidth="709.0" BorderPane.alignment="CENTER">
                                                         <styleClass>
                                                             <String fx:value="paneT" />
-                                                            <String fx:value="paneT" />
+                                                            <String fx:value="paneB" />
                                                         </styleClass>
                                                         <children>
-                                                            <TextField fx:id="findStudentID" layoutX="116.0" layoutY="42.0" prefHeight="26.0" prefWidth="249.0" styleClass="text-fieldW" />
+                                                            <TextField fx:id="findStudentID" layoutX="116.0" layoutY="42.0" prefHeight="26.0" prefWidth="330.0" styleClass="text-fieldW" />
                                                             <Label layoutX="58.0" layoutY="47.0" text="ID Number">
                                                                 <font>
                                                                     <Font name="SF Pro Display Regular" size="10.0" />
                                                                 </font>
                                                             </Label>
-                                                            <Button fx:id="findStudentIDSearch" layoutX="376.0" layoutY="46.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="88.0" text="Search" textFill="WHITE">
+                                                            <Button fx:id="findStudentIDSearch" layoutX="477.0" layoutY="45.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="88.0" text="Search" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font></Button>
-                                             <Button fx:id="windowSwitch3" layoutX="470.0" layoutY="46.0" mnemonicParsing="false" onAction="#findStudentIDEdit" prefHeight="17.0" prefWidth="71.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
+                                             <Button fx:id="windowSwitch3" layoutX="581.0" layoutY="45.0" mnemonicParsing="false" onAction="#findStudentIDEdit" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>
                                              </Button>
-                                             <TextField fx:id="findCourse" layoutX="116.0" layoutY="83.0" prefHeight="26.0" prefWidth="250.0" styleClass="text-fieldW" />
+                                             <TextField fx:id="findCourse" layoutX="116.0" layoutY="83.0" prefHeight="26.0" prefWidth="330.0" styleClass="text-fieldW" />
                                              <Label layoutX="72.0" layoutY="89.0" text="Course">
                                                 <font>
                                                    <Font name="SF Pro Display Regular" size="10.0" />
                                                 </font>
                                              </Label>
-                                             <Button fx:id="findCourseSearch" layoutX="376.0" layoutY="87.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="88.0" text="Search" textFill="WHITE">
+                                             <Button fx:id="findCourseSearch" layoutX="477.0" layoutY="86.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="88.0" text="Search" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>
                                              </Button>
-                                             <Button fx:id="findCourseEdit" layoutX="470.0" layoutY="87.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
+                                             <Button fx:id="findCourseEdit" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>
@@ -241,7 +242,7 @@
                     <VBox prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
                 </left>
                 <center>
-                    <Pane prefHeight="700.0" prefWidth="50.0" style="-fx-background-color: #1e1e1e;" BorderPane.alignment="CENTER">
+                    <Pane prefHeight="800.0" prefWidth="358.0" style="-fx-background-color: #1e1e1e;" BorderPane.alignment="CENTER">
                         <children>
                             <Label layoutX="52.0" layoutY="119.0" text="Last Name" textFill="WHITE">
                                 <font>
@@ -305,22 +306,22 @@
                         </font>
                      </Label>
                      <Line endX="442.45599365234375" layoutX="-124.0" layoutY="102.0" startX="159.82217407226562" stroke="WHITE" strokeWidth="0.3" />
-                     <Label layoutX="43.0" layoutY="639.0" text="Kristoffer Neo Senyahan" textFill="WHITE">
+                     <Label layoutX="43.0" layoutY="731.0" text="Kristoffer Neo Senyahan" textFill="WHITE">
                         <font>
-                           <Font name="SF Pro Display Semibold" size="6.0" />
+                           <Font name="SF Pro Display Semibold" size="8.0" />
                         </font>
                      </Label>
-                     <Label layoutX="43.0" layoutY="645.0" text="BS Computer Science - Second Year" textFill="WHITE">
-                        <font>
-                           <Font name="SF Pro Display Light" size="6.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="43.0" layoutY="651.0" text="Mindanao State University - Iligan Institure of Technology" textFill="WHITE">
+                     <Label layoutX="43.0" layoutY="739.0" text="BS Computer Science - Second Year" textFill="WHITE">
                         <font>
                            <Font name="SF Pro Display Light" size="6.0" />
                         </font>
                      </Label>
-                     <Label layoutX="43.0" layoutY="657.0" text="SSIS Graphic User Interface Output for CCC151" textFill="WHITE">
+                     <Label layoutX="43.0" layoutY="745.0" text="Mindanao State University - Iligan Institure of Technology" textFill="WHITE">
+                        <font>
+                           <Font name="SF Pro Display Light" size="6.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="43.0" layoutY="751.0" text="SSIS Graphic User Interface Output for CCC151" textFill="WHITE">
                         <font>
                            <Font name="SF Pro Display Light" size="6.0" />
                         </font>
@@ -328,6 +329,9 @@
                         </children>
                     </Pane>
                 </center>
+            <bottom>
+               <Pane prefHeight="0.0" prefWidth="1100.0" BorderPane.alignment="CENTER" />
+            </bottom>
             </BorderPane>
         </children>
     </AnchorPane>
