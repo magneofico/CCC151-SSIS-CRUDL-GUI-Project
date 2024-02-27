@@ -3,9 +3,7 @@ package d.base.final_dbase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -208,6 +206,58 @@ public class CSVHandler {
         }
         // If no student with the specified ID is found, return null
         return null;
+    }
+
+    // Method to update student information in the CSV file
+    // To add parameter String updatedCourse
+    public static boolean updateStudent(String studentID, String updatedLastName, String updatedFirstName, String updatedMiddleName, String updatedSex, String updatedYearLevel) {
+        try {
+            // Load all students from the CSV file
+            List<String> fileLines = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    fileLines.add(line);
+                }
+            }
+
+            // Find the student with the provided student ID
+            boolean studentFound = false;
+            for (int i = 0; i < fileLines.size(); i++) {
+                String[] parts = fileLines.get(i).split(",");
+                if (parts.length >= 8) {
+                    String currentStudentID = parts[1].trim();
+                    if (currentStudentID.equals(studentID)) {
+                        // Update the student's information
+                        parts[2] = updatedLastName;
+                        parts[3] = updatedFirstName;
+                        parts[4] = updatedMiddleName;
+                        parts[5] = updatedSex;
+                        parts[6] = updatedYearLevel;
+//                        parts[7] = updatedCourse;
+                        fileLines.set(i, String.join(",", parts));
+                        studentFound = true;
+                        break;
+                    }
+                }
+            }
+
+            // If the student was found and updated, rewrite the file with the new data
+            if (studentFound) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(STUDENT_CSV_FILE_PATH))) {
+                    for (String line : fileLines) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
+                }
+                return true; // Update successful
+            } else {
+                return false; // Student with provided ID isn't found
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Update failed due to IO error
+        }
     }
 }
 

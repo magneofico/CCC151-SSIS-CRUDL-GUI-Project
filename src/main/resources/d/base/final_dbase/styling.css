@@ -96,6 +96,12 @@
     -fx-background-color: #1e1e1e; /* Background color */
     -fx-text-fill: white; /* Set prompt text color to white */
 }
+.combo-box2 .text-field {
+    -fx-opacity: 1; /* Make the text field fully visible */
+    -fx-font-size: 10;
+    -fx-background-color: #1e1e1e; /* Background color */
+    -fx-text-fill: white; /* Set prompt text color to white */
+}
 
 .combo-box .text-field:focused {
     -fx-background-color: transparent; /* Keep the background transparent when focused */

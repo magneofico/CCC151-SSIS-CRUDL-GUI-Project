@@ -214,8 +214,10 @@ public class HelloController2 {
 
         backButton.setOnAction(event -> handleBackButtonAction());
 
-        windowSwitch3.setOnAction(event -> findStudentIDEdit());
-
+        windowSwitch3.setOnAction(event -> {
+            windowSwitch3Clicked();
+            findStudentIDEdit();
+        });
 
     }
 
@@ -565,6 +567,21 @@ public class HelloController2 {
     private void switchToScene1() {
         helloApplication.switchToScene1();
     }
+//
+//    @FXML
+//    private void findStudentIDEdit() {
+//        String studentID = findStudentID.getText().trim();
+//        if (studentID.isEmpty()) {
+//            // Handle the case where the text field is empty (this should not happen due to your existing validation)
+//            return;
+//        }
+//
+//        // Open Scene 3 for editing student details
+//        helloApplication.switchToScene3(studentID);
+//    }
+
+
+    private boolean windowSwitch3Clicked;
 
     @FXML
     private void findStudentIDEdit() {
@@ -574,7 +591,23 @@ public class HelloController2 {
             return;
         }
 
-        // Open Scene 3 for editing student details
-        helloApplication.switchToScene3(studentID);
+        if (windowSwitch3Clicked) {
+            // Open Scene 3 for editing student details
+            helloApplication.switchToScene3(studentID);
+        } else {
+            // Handle the case where the windowSwitch3 button is not clicked
+            System.out.println("windowSwitch3 button is not clicked.");
+        }
     }
+
+    @FXML
+    private void windowSwitch3Clicked() {
+        // Set the flag to indicate that the windowSwitch3 button is clicked
+        windowSwitch3Clicked = true;
+    }
+
+
+
+
+
 }

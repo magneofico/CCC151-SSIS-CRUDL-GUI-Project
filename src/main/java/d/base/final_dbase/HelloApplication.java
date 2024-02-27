@@ -1,6 +1,7 @@
 package d.base.final_dbase;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -16,10 +17,11 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         switchToScene1();
-    }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
+        primaryStage.setOnCloseRequest(event -> {
+            // Handle close request here
+            Platform.exit(); // Close the application
+        });
     }
 
     private void initializeScene(String fxmlFileName, String title) {
@@ -44,10 +46,20 @@ public class HelloApplication extends Application {
                 case "scene1.fxml" -> {
                     HelloController1 scene1Controller = loader.getController();
                     scene1Controller.setHelloApplication(this);
+
+                    primaryStage.setOnCloseRequest(event -> {
+                        // Handle close request here
+                        Platform.exit(); // Close the application
+                    });
                 }
                 case "scene2.fxml" -> {
                     HelloController2 scene2Controller = loader.getController();
                     scene2Controller.setHelloApplication(this);
+
+                    primaryStage.setOnCloseRequest(event -> {
+                        // Handle close request here
+                        Platform.exit(); // Close the application
+                    });
                 }
                 case "scene3.fxml" -> {
                     CrudlImplementation studentCourseEdit = loader.getController();

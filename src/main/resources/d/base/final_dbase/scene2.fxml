@@ -163,7 +163,7 @@
                                                     </HBox>
                                                 </top>
                                                 <bottom>
-                                                    <TableView fx:id="studentTable" prefHeight="481.0" prefWidth="580.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
+                                                    <TableView fx:id="studentTable" onSort="#findStudentIDEdit" prefHeight="481.0" prefWidth="580.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
                                                         <columns>
                                                             <TableColumn fx:id="sStudentID" editable="false" prefWidth="73.66281127929688" resizable="false" text="Student ID" />
                                                             <TableColumn fx:id="sLastname" editable="false" prefWidth="76.0" resizable="false" text="Lastname" />
