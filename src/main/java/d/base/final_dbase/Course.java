@@ -62,7 +62,6 @@ public class Course {
         }
     }
 
-
     public static void populateCollegeComboBox(ComboBox<String> comboBox) {
         comboBox.getItems().clear(); // Clear existing items
         for (Map.Entry<String, String> entry : colleges.entrySet()) {
