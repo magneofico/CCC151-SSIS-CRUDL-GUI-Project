@@ -1,3 +1,9 @@
+/**
+ * @author Kristoffer Neo Senyahan | BSCS2
+ * @project SSIS CCC151 Project
+ *
+ */
+
 package d.base.final_dbase;
 
 import javafx.application.Application;
@@ -65,6 +71,11 @@ public class HelloApplication extends Application {
                     CrudlImplementation studentCourseEdit = loader.getController();
                     studentCourseEdit.setHelloApplication(this);
                 }
+                case "scene4.fxml" -> {
+                    CourseEditImplementation CourseEdit = loader.getController();
+                    CourseEdit.setHelloApplication(this);
+                }
+
             }
 
         } catch (Exception e) {
@@ -96,6 +107,28 @@ public class HelloApplication extends Application {
             CrudlImplementation crudlController = loader.getController();
             crudlController.setHelloApplication(this);
             crudlController.initializeStudentID(studentID); // Pass the student ID to Scene 3 controller
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void switchToScene4(String courseCode) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("scene4.fxml"));
+        try {
+            StackPane root = loader.load();
+            Scene scene = new Scene(root, 400, 600);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styling.css")).toExternalForm());
+
+            Stage newStage = new Stage();
+            newStage.setTitle("Course CRUDL Implementation");
+            newStage.setScene(scene);
+            newStage.setResizable(false);
+            newStage.show();
+
+            CourseEditImplementation courseEditController = loader.getController();
+            courseEditController.setHelloApplication(this);
+            courseEditController.initializeCourseFields(courseCode); // Pass the student ID to Scene 3 controller
 
         } catch (IOException e) {
             e.printStackTrace();

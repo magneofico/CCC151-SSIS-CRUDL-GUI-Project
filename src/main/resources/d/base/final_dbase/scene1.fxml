@@ -36,12 +36,12 @@
                      <Font name="SF Pro Display Bold" size="13.0" />
                   </font>
                </Label>
-               <Label layoutX="229.0" layoutY="463.0" text="username :  admin">
+               <Label layoutX="241.0" layoutY="463.0" text="username :  admin">
                   <font>
                      <Font size="10.0" />
                   </font>
                </Label>
-               <Label layoutX="241.0" layoutY="477.0" text="password :  admin">
+               <Label layoutX="241.0" layoutY="475.0" text="password :  admin">
                   <font>
                      <Font size="10.0" />
                   </font>

@@ -167,12 +167,12 @@
                                                         <columns>
                                                             <TableColumn fx:id="sStudentID" editable="false" prefWidth="73.66281127929688" resizable="false" text="Student ID" />
                                                             <TableColumn fx:id="sLastname" editable="false" prefWidth="69.0" resizable="false" text="Lastname" />
-                                                            <TableColumn fx:id="sFirstname" editable="false" prefWidth="69.5" resizable="false" text="Firstname" />
-                                                            <TableColumn fx:id="sMiddlename" editable="false" prefWidth="73.90899658203125" resizable="false" text="M.I" />
-                                                            <TableColumn fx:id="sSex" editable="false" prefWidth="40.5909423828125" resizable="false" text="Sex" />
-                                                            <TableColumn fx:id="sYearLevel" editable="false" minWidth="0.0" prefWidth="45.868896484375" resizable="false" text="Level" />
-                                                            <TableColumn fx:id="sCourse" editable="false" minWidth="0.0" prefWidth="210.610595703125" resizable="false" text="Course" />
-                                             <TableColumn fx:id="sStatus" editable="false" minWidth="0.0" prefWidth="103.889404296875" resizable="false" text="Status" />
+                                                            <TableColumn fx:id="sFirstname" editable="false" prefWidth="94.94635009765625" resizable="false" text="Firstname" />
+                                                            <TableColumn fx:id="sMiddlename" editable="false" prefWidth="77.0537109375" resizable="false" text="M.I" />
+                                                            <TableColumn fx:id="sSex" editable="false" prefWidth="45.87518310546875" resizable="false" text="Sex" />
+                                                            <TableColumn fx:id="sYearLevel" editable="false" minWidth="0.0" prefWidth="42.94647216796875" resizable="false" text="Level" />
+                                                            <TableColumn fx:id="sCourse" editable="false" minWidth="0.0" prefWidth="200.46441650390625" resizable="false" text="Course" />
+                                             <TableColumn fx:id="sStatus" editable="false" minWidth="0.0" prefWidth="86.58935546875" resizable="false" text="Status" />
                                                         </columns>
                                                         <BorderPane.margin>
                                                             <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -212,7 +212,7 @@
                                                    <Font size="10.0" />
                                                 </font>
                                              </Button>
-                                             <Button fx:id="findCourseEdit" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
+                                             <Button fx:id="windowSwitch4" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" onAction="#findCourseEdit" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>

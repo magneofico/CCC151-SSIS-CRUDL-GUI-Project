@@ -8,6 +8,8 @@ public record College(String code, String name) {
         return "(" + code + ") " + name;
     }
 
+
+
     // Define a static method to initialize the list of colleges
     public static List<College> initializeColleges() {
         return List.of(

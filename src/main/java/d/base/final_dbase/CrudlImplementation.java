@@ -1,11 +1,10 @@
 package d.base.final_dbase;
 
-
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -34,6 +33,9 @@ public class CrudlImplementation {
     private TextField yearLevelField;
 
     @FXML
+    private TextField enrollmentStatus;
+
+    @FXML
     private ComboBox<String> CrudlCourseCode;
 
     @FXML
@@ -41,6 +43,9 @@ public class CrudlImplementation {
 
     @FXML
     private Button deleteStudentData;
+
+    @FXML
+    private Button closeButton;
 
     // Method to set the HelloApplication instance
     public void setHelloApplication(HelloApplication helloApplication) {
@@ -60,6 +65,7 @@ public class CrudlImplementation {
                 genderField.setText(student.getsSex());
                 yearLevelField.setText(student.getsYearLevel());
                 CrudlCourseCode.setValue(student.getsCourse()); // Set student's course
+                enrollmentStatus.setText(student.getsStatus());
             } else {
                 // Handle the case where student data is not found
                 System.out.println("Student data not found for ID: " + studentID);
@@ -96,8 +102,12 @@ public class CrudlImplementation {
             }
         });
 
+
+
         saveUpdatedStudentData.setOnAction(event -> handleSaveUpdatedStudentData());
         deleteStudentData.setOnAction(event -> handleDeleteButton());
+
+        closeButton.setOnAction(event -> backToTable());
 
     }
 
@@ -131,10 +141,6 @@ public class CrudlImplementation {
         System.out.println("Save button clicked."); // Add this line for debugging
         handleSaveButton(); // Call handleSaveButton when the saveUpdatedStudentData button is clicked
     }
-
-
-
-
 
     @FXML
     private void handleDeleteButton() {
@@ -179,10 +185,17 @@ public class CrudlImplementation {
         yearLevelField.clear();
         // Clear course ComboBox
         CrudlCourseCode.getSelectionModel().clearSelection();
+        enrollmentStatus.clear();
     }
+
+
 
     @FXML
     private void backToTable() {
-        helloApplication.switchToScene2();
+        // Get the stage associated with the current scene
+        Stage stage = (Stage) closeButton.getScene().getWindow(); // Assuming backButton is a button in the scene
+
+        // Close the stage to exit the current scene
+        stage.close();
     }
 }

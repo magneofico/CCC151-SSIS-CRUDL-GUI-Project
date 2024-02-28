@@ -17,73 +17,69 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button fx:id="saveUpdatedStudentData" layoutX="97.0" layoutY="438.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
+            <Button fx:id="saveUpdatedStudentData" layoutX="97.0" layoutY="459.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </Button>
-            <Label layoutX="60.0" layoutY="163.0" text="Surname" textAlignment="RIGHT">
+            <Label layoutX="60.0" layoutY="147.0" text="Surname" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="lastNameField" layoutX="108.0" layoutY="157.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
-            <Label layoutX="56.0" layoutY="195.0" text="Firstname" textAlignment="RIGHT">
+            <TextField fx:id="lastNameField" layoutX="108.0" layoutY="141.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
+            <Label layoutX="56.0" layoutY="179.0" text="Firstname" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="firstNameField" layoutX="108.0" layoutY="188.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
-            <Label layoutX="46.0" layoutY="225.0" text="Middlename" textAlignment="RIGHT">
+            <TextField fx:id="firstNameField" layoutX="108.0" layoutY="172.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
+            <Label layoutX="46.0" layoutY="209.0" text="Middlename" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="middleNameField" layoutX="108.0" layoutY="219.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
-            <Label layoutX="53.0" layoutY="257.0" text="Student ID" textAlignment="RIGHT">
+            <TextField fx:id="middleNameField" layoutX="108.0" layoutY="203.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
+            <Label layoutX="53.0" layoutY="241.0" text="Student ID" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="studentIDField" layoutX="108.0" layoutY="250.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
-            <Label layoutX="83.0" layoutY="288.0" text="Sex" textAlignment="RIGHT">
+            <TextField fx:id="studentIDField" layoutX="108.0" layoutY="234.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
+            <Label layoutX="83.0" layoutY="272.0" text="Sex" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="genderField" layoutX="108.0" layoutY="281.0" prefHeight="26.0" prefWidth="68.0" styleClass="text-fieldW" />
-            <Label layoutX="67.0" layoutY="319.0" text="Course" textAlignment="RIGHT">
+            <TextField fx:id="genderField" layoutX="108.0" layoutY="265.0" prefHeight="26.0" prefWidth="68.0" styleClass="text-fieldW" />
+            <Label layoutX="67.0" layoutY="303.0" text="Course" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label layoutX="184.0" layoutY="288.0" text="Year Level" textAlignment="RIGHT">
+            <Label layoutX="184.0" layoutY="272.0" text="Year Level" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="yearLevelField" layoutX="237.0" layoutY="280.0" prefHeight="26.0" prefWidth="100.0" styleClass="text-fieldW" />
-            <ComboBox fx:id="CrudlCourseCode" editable="true" layoutX="108.0" layoutY="312.0" prefWidth="230.0" promptText="Course" styleClass="combo-box2" stylesheets="@styling.css" />
-            <Label layoutX="118.0" layoutY="85.0" prefHeight="29.0" prefWidth="178.0" text="Edit Student Data">
+            <TextField fx:id="yearLevelField" layoutX="237.0" layoutY="264.0" prefHeight="26.0" prefWidth="100.0" styleClass="text-fieldW" />
+            <ComboBox fx:id="CrudlCourseCode" editable="true" layoutX="108.0" layoutY="296.0" prefWidth="230.0" promptText="Course" styleClass="combo-box2" stylesheets="@styling.css" />
+            <Label layoutX="118.0" layoutY="82.0" prefHeight="29.0" prefWidth="178.0" text="Edit Student Data" AnchorPane.bottomAnchor="489.0" AnchorPane.leftAnchor="118.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="82.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="133.0" layoutY="361.0" mnemonicParsing="false" text="Enroll Student" textFill="WHITE">
+            <Button fx:id="deleteStudentData" layoutX="97.0" layoutY="422.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="220.0" text="Delete Student Data" textFill="WHITE">
                <font>
                   <Font size="9.0" />
                </font>
             </Button>
-            <Button layoutX="200.0" layoutY="361.0" mnemonicParsing="false" text="Unenroll Student" textFill="WHITE">
+            <Label layoutX="67.0" layoutY="358.0" text="Student Enrollment Status">
                <font>
-                  <Font size="9.0" />
+                  <Font size="10.0" />
                </font>
-            </Button>
-            <Button fx:id="deleteStudentData" layoutX="97.0" layoutY="401.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="220.0" text="Delete Student Data" textFill="WHITE">
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Button>
+            </Label>
+            <TextField fx:id="enrollmentStatus" editable="false" layoutX="189.0" layoutY="352.0" prefHeight="26.0" prefWidth="149.0" styleClass="text-fieldW" />
          </children>
       </AnchorPane>
    </children>

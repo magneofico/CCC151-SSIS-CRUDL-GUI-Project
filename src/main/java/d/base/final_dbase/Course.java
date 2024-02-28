@@ -16,6 +16,7 @@ public class Course {
     private final StringProperty courseCode;
     private final StringProperty courseName;
 
+
     public Course(String timestamp, String courseCode, String courseName) {
         this.timestamp = new SimpleStringProperty(timestamp);
         this.courseCode = new SimpleStringProperty(courseCode);

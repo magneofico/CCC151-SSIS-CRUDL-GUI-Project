@@ -61,6 +61,7 @@
 
 .text-fieldW .text {
     -fx-font-size: 10px; /* Updated prompt text size to 14px */
+
 }
 
 .text-fieldW:focused {
@@ -248,4 +249,27 @@
 
 .table-view .table-row-cell .table-cell {
     -fx-border-width: 0px; /* Remove border for individual cells */
+}
+
+
+
+
+
+
+.toggle-button {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-background-radius: 0; /* Set border radius to 0 for sharp edges */
+}
+
+.toggle-button:selected {
+    -fx-background-color: #FCD12A;
+    -fx-text-fill: black;
+    -fx-background-radius: 0; /* Set border radius to 0 for sharp edges */
+}
+
+.toggle-button:disabled {
+    -fx-background-color: gray;
+    -fx-text-fill: white;
+    -fx-background-radius: 0; /* Set border radius to 0 for sharp edges */
 }

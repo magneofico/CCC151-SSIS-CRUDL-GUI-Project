@@ -57,9 +57,6 @@ public class HelloController2 {
     private TableView<Course> tableView;
 
     @FXML
-    private TableColumn<Course, String> timestamp;
-
-    @FXML
     private TableColumn<Course, String> tCourseCode;
 
     @FXML
@@ -68,9 +65,6 @@ public class HelloController2 {
     /* These @FXML are for Student Registration Table. */
     @FXML
     private TableView<Student> studentTable;
-
-    @FXML
-    private TableColumn<Student, String> sTimestamp;
 
     @FXML
     private TableColumn<Student, String> sStudentID;
@@ -117,6 +111,8 @@ public class HelloController2 {
     @FXML
     private Button windowSwitch3;
 
+    @FXML
+    private Button windowSwitch4;
 
 
 
@@ -124,7 +120,6 @@ public class HelloController2 {
 
     private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/student_registration.csv";
     private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/course_registration.csv";
-    private static final int COURSE_COLUMN_INDEX = 2; // Assuming the course data is in the second column(0-based index)
 
     // Assuming you have an instance of HelloApplication
     private HelloApplication helloApplication;
@@ -220,29 +215,12 @@ public class HelloController2 {
             findStudentIDEdit();
         });
 
-    }
+        windowSwitch4.setOnAction(event -> {
+            windowSwitch4Clicked();
+            findCourseEdit();
+        });
 
-//    private void populateCourseComboBox() {
-//        try (BufferedReader br = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
-//            String line;
-//            HashSet<String> courseSet = new HashSet<>();
-//            boolean headerSkipped = false;
-//            while ((line = br.readLine()) != null) {
-//                if (!headerSkipped) {
-//                    headerSkipped = true;
-//                    continue; // Skip the header
-//                }
-//                String[] parts = line.split(","); // Split the line by comma
-//                if (parts.length > COURSE_COLUMN_INDEX) { // Check if the line has the desired column
-//                    courseSet.add(parts[COURSE_COLUMN_INDEX].trim()); // Add the course data to the set
-//                }
-//            }
-//            ObservableList<String> courseList = FXCollections.observableArrayList(courseSet);
-//            courseCodeCombo.setItems(courseList);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    }
 
     private void addStudent() {
         // Get user input for last name
@@ -266,7 +244,7 @@ public class HelloController2 {
         String sYearLevel = yearLevelComboBox.getValue();
         String sSex = genderComboBox.getValue().equals("Male") ? "M" : "F";
         String sCourse = courseCodeCombo.getValue(); // Get the selected course
-        String sStatus = "Enrolled"; // All students are enrolled initially
+        String sStatus = "ENROLLED"; // All students are enrolled initially
 
 
         // Get current timestamp
@@ -430,6 +408,7 @@ public class HelloController2 {
         }
     }
 
+
     private String capitalizeFirstLetter(String str) {
         if (str == null || str.isEmpty()) {
             return str;
@@ -473,6 +452,19 @@ public class HelloController2 {
                 }
             } catch (IOException e) {
                 e.printStackTrace(); // Handle the exception accordingly
+                // Print the stack trace to the console for debugging purposes
+
+                // Display an alert indicating the error
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("An error occurred. Please try again.");
+                errorAlert.showAndWait();
+
+                // Check if the user clicked OK
+                if (errorAlert.getResult() == ButtonType.OK) {
+                    return; // If OK clicked, return without further action
+                }
             }
         } else {
             // Display an alert indicating that the student ID is empty
@@ -484,13 +476,14 @@ public class HelloController2 {
         }
     }
 
+
     private void handleCourseSearchButtonAction() {
         String courseCode = findCourse.getText().trim();
         if (!courseCode.isEmpty()) {
             try {
                 // Replace "students.csv" with the actual file path
                 Map<String, List<Student>> studentsByCourse = CSVHandler.getStudentsByCourse(STUDENT_CSV_FILE_PATH, courseCode);
-                if (studentsByCourse != null) {
+                if (!studentsByCourse.isEmpty()) {
                     // Clear previous data in the table
                     studentTable.getItems().clear();
 
@@ -507,7 +500,8 @@ public class HelloController2 {
                     alert.showAndWait();
                 }
             } catch (IOException e) {
-                e.printStackTrace(); // Handle the exception accordingly
+                // Handle the exception accordingly
+                e.printStackTrace();
             }
         } else {
             // Display an alert indicating that the course code is empty
@@ -518,6 +512,8 @@ public class HelloController2 {
             alert.showAndWait();
         }
     }
+
+
 
     private void handleBackButtonAction() {
         // Clear the search field
@@ -603,6 +599,45 @@ public class HelloController2 {
     private void windowSwitch3Clicked() {
         // Set the flag to indicate that the windowSwitch3 button is clicked
         windowSwitch3Clicked = true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private boolean windowSwitch4Clicked;
+
+    @FXML
+    private void findCourseEdit() {
+        String courseCode = findCourse.getText().trim();
+        if (courseCode.isEmpty()) {
+            // Handle the case where the text field is empty (this should not happen due to your existing validation)
+            return;
+        }
+
+        if (windowSwitch4Clicked) {
+            // Open Scene 4 for editing course details
+            helloApplication.switchToScene4(courseCode);
+        } else {
+            // Display a message indicating that the windowSwitch4 button must be clicked
+            System.out.println("Cannot open Scene 4. Please click the windowSwitch4 button.");
+        }
+    }
+
+    @FXML
+    private void windowSwitch4Clicked() {
+        // Set the flag to indicate that the windowSwitch4 button is clicked
+        windowSwitch4Clicked = true;
     }
 
 
