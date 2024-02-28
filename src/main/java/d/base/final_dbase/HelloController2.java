@@ -36,7 +36,7 @@ public class HelloController2 {
     private ComboBox<String> courseCodeCombo;
 
     @FXML
-    private ComboBox<College> collegeComboBox;
+    private ComboBox<String> collegeComboBox;
 
     @FXML
     private Button registerThisStudent;
@@ -140,7 +140,7 @@ public class HelloController2 {
             }
         });
 
-        collegeComboBox.getItems().addAll(College.initializeColleges());
+        Course.populateCollegeComboBox(collegeComboBox);
 
         yearLevelComboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
@@ -249,7 +249,7 @@ public class HelloController2 {
 
         // Get current timestamp
         LocalDateTime sTimestamp = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         String formattedTimestamp2 = sTimestamp.format(formatter);
 
         try (BufferedReader brS = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
@@ -335,7 +335,7 @@ public class HelloController2 {
         }
 
         // Get selected college name from ComboBox
-        String selectedCollegeName = String.valueOf(collegeComboBox.getValue()); // Retrieve the selected college name as a String
+        String collegeAssigned = collegeComboBox.getValue() != null ? collegeComboBox.getValue() : "";
 
         // Get current timestamp
         LocalDateTime timestamp = LocalDateTime.now();
@@ -380,10 +380,10 @@ public class HelloController2 {
             }
 
             // Write the course information to the CSV file
-            String courseInfo = String.join(",", newCourse.getTimestamp(), courseCode, courseName, selectedCollegeName);
+            String courseInfo = String.join(",", newCourse.getTimestamp(), courseCode, courseName, collegeAssigned);
             courseInfoWriter.write(courseInfo);
             courseInfoWriter.newLine();
-            System.out.println("Course added: (" + courseCode + ") " + courseName + " - " + selectedCollegeName);
+            System.out.println("Course added: (" + courseCode + ") " + courseName + " - " + collegeAssigned);
 
             // Clear the text fields
             clearTextFields();
@@ -462,9 +462,7 @@ public class HelloController2 {
                 errorAlert.showAndWait();
 
                 // Check if the user clicked OK
-                if (errorAlert.getResult() == ButtonType.OK) {
-                    return; // If OK clicked, return without further action
-                }
+                errorAlert.getResult();// If OK clicked, return without further action
             }
         } else {
             // Display an alert indicating that the student ID is empty

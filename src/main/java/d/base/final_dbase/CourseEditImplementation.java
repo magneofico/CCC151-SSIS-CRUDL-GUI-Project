@@ -1,7 +1,6 @@
 package d.base.final_dbase;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -12,7 +11,7 @@ import java.io.IOException;
 public class CourseEditImplementation {
 
     @FXML
-    private ComboBox<College> CollegeComboBoxEdit;
+    private ComboBox<String> CollegeComboBoxEdit;
 
     @FXML
     private TextField courseCodefield;
@@ -61,7 +60,9 @@ public class CourseEditImplementation {
 
     @FXML
     private void initialize() {
-        CollegeComboBoxEdit.getItems().addAll(College.initializeColleges()); // Populate the ComboBox with colleges
+
+
+        Course.populateCollegeComboBox(CollegeComboBoxEdit);
         CourseNameField.textProperty().addListener((observable, oldValue, newValue) -> fetchAndSetCourseData(newValue));
 
         // Fetch and set course data immediately when initializing

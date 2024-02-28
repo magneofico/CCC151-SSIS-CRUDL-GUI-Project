@@ -198,4 +198,5 @@ public class CrudlImplementation {
         // Close the stage to exit the current scene
         stage.close();
     }
+
 }
