@@ -66,6 +66,7 @@ public class CrudlImplementation {
                 yearLevelField.setText(student.getsYearLevel());
                 CrudlCourseCode.setValue(student.getsCourse()); // Set student's course
                 enrollmentStatus.setText(student.getsStatus());
+
             } else {
                 // Handle the case where student data is not found
                 System.out.println("Student data not found for ID: " + studentID);
@@ -125,10 +126,10 @@ public class CrudlImplementation {
         String updatedMiddleName = middleNameField.getText().trim();
         String updatedGender = genderField.getText().trim();
         String updatedYearLevel = yearLevelField.getText().trim();
-        String updatedCourse = CrudlCourseCode.getValue().trim();
+        String updatedCourse = CrudlCourseCode.getValue(); // Get selected course
 
         // Update the student record
-        boolean success = CSVHandler.updateStudent(studentID, updatedFirstName, updatedLastName, updatedMiddleName, updatedGender, updatedYearLevel, updatedCourse);
+        boolean success = CSVHandler.updateStudent(studentID, updatedLastName, updatedFirstName, updatedMiddleName, updatedGender, updatedYearLevel, updatedCourse);
         if (success) {
             System.out.println("Student information updated successfully.");
         } else {
@@ -198,5 +199,4 @@ public class CrudlImplementation {
         // Close the stage to exit the current scene
         stage.close();
     }
-
 }

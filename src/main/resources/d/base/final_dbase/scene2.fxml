@@ -87,7 +87,7 @@
                                                             </font>
                                                         </Label>
                                                         <ComboBox fx:id="collegeComboBox" editable="true" layoutX="98.0" layoutY="78.0" prefHeight="27.0" prefWidth="385.0" promptText="enter-college-here" styleClass="combo-box" stylesheets="@styling.css" />
-                                                        <Button fx:id="courseRegister" layoutX="509.0" layoutY="76.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="156.0" text="Register Course" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                                        <Button fx:id="courseRegister" layoutX="509.0" layoutY="76.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="156.0" styleClass="buttonGreen" text="Register Course" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                                             <font>
                                                                 <Font name="SF Pro Display Bold" size="14.0" />
                                                             </font>
@@ -163,16 +163,16 @@
                                                     </HBox>
                                                 </top>
                                                 <bottom>
-                                                    <TableView fx:id="studentTable" minHeight="-Infinity" minWidth="-Infinity" onSort="#findStudentIDEdit" prefHeight="564.0" prefWidth="689.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
+                                                    <TableView fx:id="studentTable" minHeight="-Infinity" minWidth="-Infinity" onSort="#findStudentIDEdit" prefHeight="559.0" prefWidth="689.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
                                                         <columns>
                                                             <TableColumn fx:id="sStudentID" editable="false" prefWidth="73.66281127929688" resizable="false" text="Student ID" />
                                                             <TableColumn fx:id="sLastname" editable="false" prefWidth="69.0" resizable="false" text="Lastname" />
                                                             <TableColumn fx:id="sFirstname" editable="false" prefWidth="94.94635009765625" resizable="false" text="Firstname" />
-                                                            <TableColumn fx:id="sMiddlename" editable="false" prefWidth="77.0537109375" resizable="false" text="M.I" />
-                                                            <TableColumn fx:id="sSex" editable="false" prefWidth="45.87518310546875" resizable="false" text="Sex" />
-                                                            <TableColumn fx:id="sYearLevel" editable="false" minWidth="0.0" prefWidth="42.94647216796875" resizable="false" text="Level" />
-                                                            <TableColumn fx:id="sCourse" editable="false" minWidth="0.0" prefWidth="200.46441650390625" resizable="false" text="Course" />
-                                             <TableColumn fx:id="sStatus" editable="false" minWidth="0.0" prefWidth="86.58935546875" resizable="false" text="Status" />
+                                                            <TableColumn fx:id="sMiddlename" editable="false" prefWidth="77.0537109375" resizable="false" text="Middlename" />
+                                                            <TableColumn fx:id="sSex" editable="false" prefWidth="24.0" resizable="false" text="Sex" />
+                                                            <TableColumn fx:id="sYearLevel" editable="false" minWidth="0.0" prefWidth="32.0" resizable="false" text="Level" />
+                                                            <TableColumn fx:id="sCourse" editable="false" minWidth="0.0" prefWidth="250.0" resizable="false" text="Course" />
+                                             <TableColumn fx:id="sStatus" editable="false" minWidth="0.0" prefWidth="66.0" resizable="false" text="Status" />
                                                         </columns>
                                                         <BorderPane.margin>
                                                             <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -186,7 +186,7 @@
                                                             <String fx:value="paneB" />
                                                         </styleClass>
                                                         <children>
-                                                            <TextField fx:id="findStudentID" layoutX="116.0" layoutY="42.0" prefHeight="26.0" prefWidth="330.0" styleClass="text-fieldW" />
+                                                            <TextField fx:id="findStudentID" layoutX="116.0" layoutY="42.0" prefHeight="26.0" prefWidth="330.0" promptText="enter-studentID-here" styleClass="text-fieldW" />
                                                             <Label layoutX="58.0" layoutY="47.0" text="ID Number">
                                                                 <font>
                                                                     <Font name="SF Pro Display Regular" size="10.0" />
@@ -196,12 +196,12 @@
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font></Button>
-                                             <Button fx:id="windowSwitch3" layoutX="581.0" layoutY="45.0" mnemonicParsing="false" onAction="#findStudentIDEdit" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
+                                             <Button fx:id="windowSwitch3" layoutX="581.0" layoutY="45.0" mnemonicParsing="false" onAction="#findStudentIDEdit" prefHeight="17.0" prefWidth="88.0" styleClass="buttonGreen" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>
                                              </Button>
-                                             <TextField fx:id="findCourse" layoutX="116.0" layoutY="83.0" prefHeight="26.0" prefWidth="330.0" styleClass="text-fieldW" />
+                                             <TextField fx:id="findCourse" layoutX="116.0" layoutY="83.0" prefHeight="26.0" prefWidth="330.0" promptText="enter-course-here" styleClass="text-fieldW" />
                                              <Label layoutX="72.0" layoutY="89.0" text="Course">
                                                 <font>
                                                    <Font name="SF Pro Display Regular" size="10.0" />
@@ -212,7 +212,7 @@
                                                    <Font size="10.0" />
                                                 </font>
                                              </Button>
-                                             <Button fx:id="windowSwitch4" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" onAction="#findCourseEdit" prefHeight="17.0" prefWidth="88.0" style="-fx-background-color: #088000;" text="Edit" textFill="WHITE">
+                                             <Button fx:id="windowSwitch4" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" onAction="#findCourseEdit" prefHeight="17.0" prefWidth="88.0" styleClass="buttonGreen" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>
@@ -227,6 +227,11 @@
                                                    <Font size="9.0" />
                                                 </font>
                                              </Button>
+                                             <Label layoutX="145.0" layoutY="113.0" text="Please ensure to completely spell out course name to enable Course Edit." textFill="#797979">
+                                                <font>
+                                                   <Font name="SF Pro Display Light" size="9.0" />
+                                                </font>
+                                             </Label>
                                                         </children>
                                                     </Pane>
                                                 </center>
@@ -283,9 +288,9 @@
                                 </font>
                             </Label>
                             <ComboBox fx:id="courseCodeCombo" editable="true" layoutX="105.0" layoutY="312.0" prefWidth="200.0" promptText="enter-course-here" styleClass="combo-box" />
-                            <Button fx:id="registerThisStudent" layoutX="105.0" layoutY="376.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="200.0" text="Register Student" textFill="WHITE">
+                            <Button fx:id="registerThisStudent" layoutX="105.0" layoutY="376.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="200.0" styleClass="buttonGreen" text="Register Student" textFill="WHITE">
                                 <font>
-                                    <Font name="SF Pro Display Bold" size="11.0" />
+                                    <Font name="SF Pro Display Bold" size="13.0" />
                                 </font>
                             </Button>
                             <Button layoutX="10.0" layoutY="9.0" onAction="#switchToScene1" prefHeight="20.0" prefWidth="50.0" text="Close" textFill="WHITE">

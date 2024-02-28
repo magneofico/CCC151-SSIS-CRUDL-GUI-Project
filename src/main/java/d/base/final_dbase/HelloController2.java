@@ -476,41 +476,53 @@ public class HelloController2 {
 
 
     private void handleCourseSearchButtonAction() {
-        String courseCode = findCourse.getText().trim();
-        if (!courseCode.isEmpty()) {
+        String searchInput = findCourse.getText().trim();
+        if (!searchInput.isEmpty()) {
             try {
                 // Replace "students.csv" with the actual file path
-                Map<String, List<Student>> studentsByCourse = CSVHandler.getStudentsByCourse(STUDENT_CSV_FILE_PATH, courseCode);
+                Map<String, List<Student>> studentsByCourse = CSVHandler.getStudentsByCourse(STUDENT_CSV_FILE_PATH, searchInput);
                 if (!studentsByCourse.isEmpty()) {
                     // Clear previous data in the table
                     studentTable.getItems().clear();
 
                     // Populate the table with students enrolled in the specified course
-                    for (Student student : studentsByCourse.get(courseCode)) {
+                    for (Student student : studentsByCourse.get(searchInput)) {
                         studentTable.getItems().add(student);
                     }
                 } else {
-                    // Display an alert indicating that no students are enrolled in the specified course
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information");
-                    alert.setHeaderText(null);
-                    alert.setContentText("No students are enrolled in the specified course.");
-                    alert.showAndWait();
+                    // Search for substrings in course names
+                    Map<String, List<Student>> studentsByCourseName = CSVHandler.getStudentsByCourseName(STUDENT_CSV_FILE_PATH, searchInput);
+                    if (!studentsByCourseName.isEmpty()) {
+                        // Clear previous data in the table
+                        studentTable.getItems().clear();
+
+                        // Populate the table with students enrolled in the specified course
+                        for (Map.Entry<String, List<Student>> entry : studentsByCourseName.entrySet()) {
+                            for (Student student : entry.getValue()) {
+                                studentTable.getItems().add(student);
+                            }
+                        }
+                    } else {
+                        // Display an alert indicating that no students are enrolled in the specified course
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information");
+                        alert.setHeaderText(null);
+                        alert.setContentText("No students are enrolled in the specified course.");
+                        alert.showAndWait();
+                    }
                 }
             } catch (IOException e) {
-                // Handle the exception accordingly
-                e.printStackTrace();
+                e.printStackTrace(); // Handle the exception accordingly
             }
         } else {
-            // Display an alert indicating that the course code is empty
+            // Display an alert indicating that the search input is empty
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText(null);
-            alert.setContentText("Please enter a course code.");
+            alert.setContentText("Please enter a search input.");
             alert.showAndWait();
         }
     }
-
 
 
     private void handleBackButtonAction() {

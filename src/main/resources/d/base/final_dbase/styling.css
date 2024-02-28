@@ -16,6 +16,25 @@
     -fx-background-color : #73A3EF ;
 }
 
+
+.buttonGreen
+{
+    -fx-background-color : #088000;
+    -fx-background-radius: .2em;
+    /*-fx-padding: 2px 25px;*/
+    /*-fx-tab-max-width: 5px;*/
+}
+
+.buttonGreen:hover
+{
+    -fx-background-color : #A1C1F4 ;
+}
+
+.buttonGreen:pressed
+{
+    -fx-background-color : #73A3EF ;
+}
+
 /*TextField Style*/
 {
     -fx-primary-color: white;

@@ -27,25 +27,22 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="lastNameField" layoutX="108.0" layoutY="141.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
             <Label layoutX="56.0" layoutY="179.0" text="Firstname" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="firstNameField" layoutX="108.0" layoutY="172.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
             <Label layoutX="46.0" layoutY="209.0" text="Middlename" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="middleNameField" layoutX="108.0" layoutY="203.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
             <Label layoutX="53.0" layoutY="241.0" text="Student ID" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="studentIDField" layoutX="108.0" layoutY="234.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
+            <TextField fx:id="studentIDField" editable="false" layoutX="108.0" layoutY="234.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" />
             <Label layoutX="83.0" layoutY="272.0" text="Sex" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
@@ -80,6 +77,9 @@
                </font>
             </Label>
             <TextField fx:id="enrollmentStatus" editable="false" layoutX="189.0" layoutY="352.0" prefHeight="26.0" prefWidth="149.0" styleClass="text-fieldW" />
+            <TextField fx:id="lastNameField" layoutX="108.0" layoutY="141.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" stylesheets="@styling.css" />
+            <TextField fx:id="firstNameField" layoutX="108.0" layoutY="172.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" stylesheets="@styling.css" />
+            <TextField fx:id="middleNameField" layoutX="108.0" layoutY="203.0" prefHeight="26.0" prefWidth="230.0" styleClass="text-fieldW" stylesheets="@styling.css" />
          </children>
       </AnchorPane>
    </children>

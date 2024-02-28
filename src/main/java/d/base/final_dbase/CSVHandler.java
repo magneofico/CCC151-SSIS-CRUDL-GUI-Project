@@ -62,8 +62,6 @@ public class CSVHandler {
         return courses;
     }
 
-
-
     /* Performs reading student.csv file and creating a hashmap method where each
      * student information element is linked to a unique studentID number. */
     public static HashMap<String, String[]> readStudentsFromCSV(String filePath) throws IOException {
@@ -189,6 +187,55 @@ public class CSVHandler {
                 }
             }
         }
+        return studentsByCourse;
+    }
+
+    public static Map<String, List<Student>> getStudentsByCourseName(String filePath, String searchInput) throws IOException {
+        Map<String, List<Student>> studentsByCourse = new HashMap<>();
+
+        // Convert the search input to lowercase (or uppercase)
+        searchInput = searchInput.toLowerCase(); // or searchInput.toUpperCase()
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean headerSkipped = false;
+            while ((line = br.readLine()) != null) {
+                if (!headerSkipped) {
+                    headerSkipped = true;
+                    continue; // Skip the header
+                }
+                String[] parts = line.split(",");
+                if (parts.length >= 8) { // Assuming course name is at least present
+                    String courseName = parts[7].trim().toLowerCase(); // or uppercase()
+
+                    // Check if the lowercase (or uppercase)
+                    // course name contains the lowercase (or uppercase) search input
+                    if (courseName.contains(searchInput)) {
+                        // Student details are assumed to be in the subsequent columns
+                        String timestamp = parts[0].trim();
+                        String studentID = parts[1].trim();
+                        String lastName = parts[2].trim();
+                        String firstName = parts[3].trim();
+                        String middleName = parts[4].trim();
+                        String gender = parts[5].trim();
+                        String yearLevel = parts[6].trim();
+                        String courseCode = parts[7].trim();
+                        String status = parts[8].trim(); // Assuming status is at index 8
+
+                        // Create a Student object
+                        Student student = new Student(timestamp,studentID, lastName, firstName, middleName, gender, yearLevel, courseCode, status);
+
+                        // Add the student to the corresponding list based on the course code
+                        List<Student> students = studentsByCourse.getOrDefault(courseCode, new ArrayList<>());
+                        students.add(student);
+                        studentsByCourse.put(courseCode, students);
+                    }
+                } else {
+                    System.err.println("Invalid line format: " + line); // Print error message for debugging
+                }
+            }
+        }
+
         return studentsByCourse;
     }
 
@@ -332,51 +379,3 @@ public class CSVHandler {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//    public static HashMap<String, List<String>> getEnrolledStudentsByCourse(String courseFilePath, String studentFilePath) throws IOException {
-//        // Read courses
-//        HashMap<String, String> courseMap = readCoursesFromCSV(courseFilePath);
-//
-//        // Read students
-//        HashMap<String, String[]> studentMap = readStudentsFromCSV(studentFilePath);
-//
-//        // Initialize HashMap to store enrolled students by course
-//        HashMap<String, List<String>> enrolledStudentsByCourse = new HashMap<>();
-//
-//        // Iterate through courses
-//        for (String courseCode : courseMap.keySet()) {
-//            String courseName = courseMap.get(courseCode);
-//            // Initialize list for enrolled students in this course
-//            List<String> enrolledStudents = new ArrayList<>();
-//            // Iterate through students
-//            for (String studentID : studentMap.keySet()) {
-//                String[] studentData = studentMap.get(studentID);
-//                // Check if the student is enrolled in this course
-//                if (studentData[7].equals(courseCode)) { // Assuming course code is at index 7
-//                    enrolledStudents.add(studentID);
-//                }
-//            }
-//            // Add enrolled students to the HashMap
-//            enrolledStudentsByCourse.put(courseName, enrolledStudents);
-//        }
-//
-//        return enrolledStudentsByCourse;
-//    }

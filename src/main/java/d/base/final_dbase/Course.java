@@ -20,6 +20,8 @@ public class Course {
 
     // Declare and initialize the colleges HashMap
     private static final Map<String, String> colleges = new HashMap<>();
+    private static final Map<String, String> courses = new HashMap<>();
+
 
     static {
         // Initialize the colleges HashMap
@@ -41,7 +43,6 @@ public class Course {
     public static void populateCourseComboBox(ComboBox<String> comboBox, String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            HashSet<String> courseSet = new HashSet<>();
             boolean headerSkipped = false;
             while ((line = br.readLine()) != null) {
                 if (!headerSkipped) {
@@ -50,12 +51,18 @@ public class Course {
                 }
                 String[] parts = line.split(","); // Split the line by comma
                 if (parts.length >= 3) { // Check if the line has at least three parts
-                    courseSet.add(parts[2].trim()); // Add the course data to the set
+                    String courseCode = parts[1].trim();
+                    String courseName = parts[2].trim();
+                    courses.put(courseCode, courseName); // Add the course data to the map
                 } else {
                     System.err.println("Invalid line format: " + line); // Print error message for debugging
                 }
             }
-            ObservableList<String> courseList = FXCollections.observableArrayList(courseSet);
+            ObservableList<String> courseList = FXCollections.observableArrayList();
+            for (Map.Entry<String, String> entry : courses.entrySet()) {
+                String formattedCourse = entry.getValue() + " (" + entry.getKey() + ") ";
+                courseList.add(formattedCourse);
+            }
             comboBox.setItems(courseList);
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,9 +76,18 @@ public class Course {
         }
     }
 
+
+
+
+
+
     // Method to get the colleges HashMap
     public static Map<String, String> getCollegesHashMap() {
         return colleges;
+    }
+    // Method to get the courses HashMap
+    public static Map<String, String> getCoursesHashMap() {
+        return courses;
     }
 
     // Getters
