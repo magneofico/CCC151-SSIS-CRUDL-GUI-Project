@@ -10,13 +10,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class Course {
     private final StringProperty timestamp;
     private final StringProperty courseCode;
     private final StringProperty courseName;
+    private final StringProperty collegeCName;
+
 
     // Declare and initialize the colleges HashMap
     private static final Map<String, String> colleges = new HashMap<>();
@@ -34,10 +35,11 @@ public class Course {
         colleges.put("CSM", "College of Science and Mathematics");
     }
 
-    public Course(String timestamp, String courseCode, String courseName) {
+    public Course(String timestamp, String courseCode, String courseName, String collegeName) {
         this.timestamp = new SimpleStringProperty(timestamp);
         this.courseCode = new SimpleStringProperty(courseCode);
         this.courseName = new SimpleStringProperty(courseName);
+        this.collegeCName = new SimpleStringProperty(collegeName);
     }
 
     public static void populateCourseComboBox(ComboBox<String> comboBox, String filePath) {
@@ -110,5 +112,9 @@ public class Course {
 
     public StringProperty courseNameProperty() {
         return courseName;
+    }
+
+    public StringProperty collegeProperty() {
+        return collegeCName;
     }
 }

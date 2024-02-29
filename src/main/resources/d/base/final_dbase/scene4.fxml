@@ -12,12 +12,12 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="400.0">
          <children>
-            <Label layoutX="177.0" layoutY="254.0" text="Course Code" textAlignment="RIGHT">
+            <Label layoutX="171.0" layoutY="247.0" text="Course Code" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label layoutX="191.0" layoutY="145.0" text="College" textAlignment="RIGHT">
+            <Label layoutX="185.0" layoutY="144.0" text="College" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
@@ -27,29 +27,35 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <ComboBox fx:id="CollegeComboBoxEdit" editable="true" layoutX="91.0" layoutY="163.0" prefWidth="230.0" promptText="--All Colleges--" styleClass="combo-box2" stylesheets="@styling.css" />
-            <Label layoutX="120.0" layoutY="82.0" prefHeight="29.0" prefWidth="178.0" text="Edit Course Data" AnchorPane.bottomAnchor="489.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="102.0" AnchorPane.topAnchor="82.0">
+            <ComboBox fx:id="CollegeComboBoxEdit" editable="true" layoutX="61.0" layoutY="163.0" prefWidth="280.0" promptText="--All Colleges--" styleClass="combo-box2" stylesheets="@styling.css" />
+            <Label layoutX="116.0" layoutY="82.0" prefHeight="29.0" prefWidth="171.0" text="Edit Course Data" AnchorPane.bottomAnchor="489.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="82.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label layoutX="178.0" layoutY="199.0" text="Course Name" textAlignment="RIGHT">
+            <Label layoutX="172.0" layoutY="198.0" text="Course Name" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="CourseNameField" layoutX="92.0" layoutY="216.0" prefHeight="26.0" prefWidth="230.0" />
-            <Button fx:id="saveUpdatedCourseData" layoutX="97.0" layoutY="393.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
+            <TextField fx:id="CourseNameField" layoutX="60.0" layoutY="212.0" prefHeight="26.0" prefWidth="280.0" styleClass="text-fieldW" />
+            <Button fx:id="saveUpdatedCourseData" layoutX="89.0" layoutY="430.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button fx:id="deleteCourseData" layoutX="97.0" layoutY="356.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="220.0" stylesheets="@styling.css" text="Delete Course Data" textFill="WHITE">
+            <Button fx:id="deleteCourseData" layoutX="89.0" layoutY="393.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="220.0" stylesheets="@styling.css" text="Delete Course Data" textFill="WHITE">
                <font>
                   <Font size="9.0" />
                </font>
             </Button>
-            <TextField fx:id="courseCodefield" layoutX="92.0" layoutY="275.0" prefHeight="26.0" prefWidth="230.0" stylesheets="@styling.css" />
+            <TextField fx:id="courseCodefield" layoutX="60.0" layoutY="268.0" prefHeight="26.0" prefWidth="280.0" styleClass="text-fieldW" stylesheets="@styling.css" />
+            <TextField fx:id="totalEnrollees" editable="false" layoutX="139.0" layoutY="328.0" prefHeight="26.0" prefWidth="117.0" styleClass="text-fieldW" stylesheets="@styling.css" />
+            <Label layoutX="138.0" layoutY="305.0" text="Number of Students Enrolled" textAlignment="RIGHT">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

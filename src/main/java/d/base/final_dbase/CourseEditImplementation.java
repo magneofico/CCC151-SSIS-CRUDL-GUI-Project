@@ -6,7 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 
 public class CourseEditImplementation {
 
@@ -29,6 +29,11 @@ public class CourseEditImplementation {
     private Button closeButton;
 
     private HelloApplication helloApplication;
+
+
+    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/student_registration.csv";
+    private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/course_registration.csv";
+
 
     public void setHelloApplication(HelloApplication helloApplication) {
         this.helloApplication = helloApplication;
@@ -69,7 +74,57 @@ public class CourseEditImplementation {
         fetchAndSetCourseData(CourseNameField.getText());
 
         closeButton.setOnAction(event -> backToTable());
+        deleteCourseData.setOnAction(event -> handleDeleteButton());
+
     }
+
+    @FXML
+    private void handleDeleteButton() {
+        String courseName = CourseNameField.getText().trim();
+        if (courseName.isEmpty()) {
+            System.out.println("Course name is empty.");
+            return;
+        }
+
+        // Call a method to delete the course
+        boolean success = deleteCourse(courseName);
+        if (success) {
+            System.out.println("Course deleted successfully.");
+            // Clear the text fields
+            clearFields();
+        } else {
+            System.out.println("Failed to delete course.");
+        }
+    }
+
+    private boolean deleteCourse(String courseName) {
+        try {
+            // Delete the course record from the CSV file
+            boolean success = CSVHandler.deleteCourse(courseName);
+            if (!success) {
+                System.out.println("Course with name " + courseName + " not found.");
+            }
+            return success;
+        } catch (IOException e) {
+            System.out.println("Error occurred while deleting course.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method to clear all fields
+    private void clearFields() {
+        CourseNameField.clear();
+    }
+
+
+
+
+
+
+
+
+
 
 
     @FXML

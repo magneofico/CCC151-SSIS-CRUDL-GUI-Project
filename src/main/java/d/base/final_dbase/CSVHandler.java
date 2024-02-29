@@ -54,7 +54,8 @@ public class CSVHandler {
                     String timestamp = parts[0].trim(); // Extract timestamp
                     String courseCode = parts[1].trim();
                     String courseName = parts[2].trim();
-                    courses.add(new Course(timestamp, courseCode, courseName));
+                    String collegeCName = parts[3].trim();
+                    courses.add(new Course(timestamp, courseCode, courseName, collegeCName));
                 }
             }
         }
@@ -368,13 +369,56 @@ public class CSVHandler {
                     String currentCourseName = parts[2].trim(); // Assuming student ID is at index 1
                     if (currentCourseName.equals(courseName)) {
                         // Create and return the Student object
-                        return new Course(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                        return new Course(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim());
                     }
                 }
             }
         }
         // If no student with the specified ID is found, return null
         return null;
+    }
+
+
+
+    public static boolean deleteCourse(String courseName) throws IOException {
+        // Path to the course registration CSV file
+        String courseFilePath = COURSE_CSV_FILE_PATH;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(courseFilePath))) {
+            // Create a temporary file to store the updated course registrations
+            File tempFile = new File("temp_course_registration.csv");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String line;
+            boolean courseFound = false;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 3 && parts[2].trim().equalsIgnoreCase(courseName)) {
+                    courseFound = true;
+                    continue; // Skip writing this line to the temporary file
+                }
+                writer.write(line);
+                writer.newLine();
+            }
+
+            writer.close(); // Close the writer
+
+            // Delete the original file
+            boolean deleteSuccess = new File(courseFilePath).delete();
+            if (!deleteSuccess) {
+                System.out.println("Failed to delete original course registration file.");
+                return false;
+            }
+
+            // Rename the temporary file to the original file name
+            boolean renameSuccess = tempFile.renameTo(new File(courseFilePath));
+            if (!renameSuccess) {
+                System.out.println("Failed to rename temporary file to original file name.");
+                return false;
+            }
+
+            return courseFound;
+        }
     }
 
 

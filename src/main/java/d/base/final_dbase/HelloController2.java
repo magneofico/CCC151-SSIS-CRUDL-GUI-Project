@@ -62,6 +62,9 @@ public class HelloController2 {
     @FXML
     private TableColumn<Course, String> tCourseName;
 
+    @FXML
+    private TableColumn<Course, String> tCollege;
+
     /* These @FXML are for Student Registration Table. */
     @FXML
     private TableView<Student> studentTable;
@@ -178,6 +181,7 @@ public class HelloController2 {
 //        timestamp.setCellValueFactory(data -> data.getValue().timestampProperty());
         tCourseCode.setCellValueFactory(data -> data.getValue().courseCodeProperty());
         tCourseName.setCellValueFactory(data -> data.getValue().courseNameProperty());
+        tCollege.setCellValueFactory(data -> data.getValue().collegeProperty());
 
         try {
             tableView.setItems(CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH));
@@ -368,7 +372,7 @@ public class HelloController2 {
         }
 
         // Create a new Course object using the user input
-        Course newCourse = new Course(formattedTimestamp, courseCode, courseName);
+        Course newCourse = new Course(formattedTimestamp, courseCode, courseName, collegeAssigned);
 
         // Write the course information to the CSV file
         try (BufferedWriter courseInfoWriter = new BufferedWriter(new FileWriter(COURSE_CSV_FILE_PATH, true))) {
