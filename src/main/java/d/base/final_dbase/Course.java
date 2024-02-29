@@ -105,6 +105,10 @@ public class Course {
         return courseName.get();
     }
 
+    public String getCollegeName() {
+        return collegeCName.get();
+    }
+
     // Property getters
     public StringProperty courseCodeProperty() {
         return courseCode;

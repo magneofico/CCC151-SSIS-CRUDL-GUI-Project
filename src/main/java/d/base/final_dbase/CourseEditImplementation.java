@@ -50,9 +50,12 @@ public class CourseEditImplementation {
             if (course != null) {
                 CourseNameField.setText(course.getCourseName());
                 courseCodefield.setText(course.getCourseCode()); // Set the course code text
+                CollegeComboBoxEdit.setValue(course.getCollegeName()); // Set student's course
+
             } else {
                 CourseNameField.clear(); // Clear the course name field
                 courseCodefield.clear(); // Clear the course code field
+                CollegeComboBoxEdit.getSelectionModel().clearSelection();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,10 +76,46 @@ public class CourseEditImplementation {
         // Fetch and set course data immediately when initializing
         fetchAndSetCourseData(CourseNameField.getText());
 
-        closeButton.setOnAction(event -> backToTable());
+
+        saveUpdatedCourseData.setOnAction(event -> handleSaveUpdatedCourseData());
         deleteCourseData.setOnAction(event -> handleDeleteButton());
+        closeButton.setOnAction(event -> backToTable());
 
     }
+
+
+
+    @FXML
+    private void handleSaveButton() {
+        String courseName = CourseNameField.getText().trim();
+        if (courseName.isEmpty()) {
+            System.out.println("Student ID is empty.");
+            return;
+        }
+
+        // Retrieve updated information from the text fields
+        String updatedCourseName = CourseNameField.getText().trim();
+        String updatedCourseCode = courseCodefield.getText().trim();
+        String updatedCollegeName = CollegeComboBoxEdit.getValue(); // Get selected course
+
+        // Update the student record
+        boolean success = CSVHandler.updateCourse(updatedCourseName, updatedCourseCode, updatedCollegeName);
+        if (success) {
+            System.out.println("Course information updated successfully.");
+        } else {
+            System.out.println("Failed to update course information.");
+        }
+    }
+
+    @FXML
+    private void handleSaveUpdatedCourseData() {
+        System.out.println("Save button clicked."); // Add this line for debugging
+        handleSaveButton(); // Call handleSaveButton when the saveUpdatedStudentData button is clicked
+    }
+
+
+
+
 
     @FXML
     private void handleDeleteButton() {
@@ -99,18 +138,46 @@ public class CourseEditImplementation {
 
     private boolean deleteCourse(String courseName) {
         try {
-            // Delete the course record from the CSV file
-            boolean success = CSVHandler.deleteCourse(courseName);
-            if (!success) {
+            // Get the course record from the CSV file
+            Course course = CSVHandler.fetchCourseName(courseName);
+            if (course != null) {
+                // Extract the course code
+                String courseCode = course.getCourseCode();
+
+                // Create a string combining course name and course code
+                String courseFullName = courseName + " (" + courseCode + ")";
+
+                // Delete the course record from the CSV file
+                boolean success = CSVHandler.deleteCourse(courseName);
+                if (success) {
+                    // Delete corresponding entries in student_registration.csv
+                    boolean studentRecordsDeleted = CSVHandler.deleteStudentRecordsByCourse(courseFullName);
+                    if (studentRecordsDeleted) {
+                        System.out.println("Course '" + courseFullName + "' deleted successfully.");
+                        // Clear the text fields
+                        clearFields();
+                    } else {
+                        System.out.println("Failed to delete student records for course '" + courseFullName + "'.");
+                    }
+                } else {
+                    System.out.println("Failed to delete course.");
+                }
+                return success;
+            } else {
                 System.out.println("Course with name " + courseName + " not found.");
+                return false;
             }
-            return success;
         } catch (IOException e) {
             System.out.println("Error occurred while deleting course.");
             e.printStackTrace();
             return false;
         }
     }
+
+
+
+
+
 
     // Method to clear all fields
     private void clearFields() {

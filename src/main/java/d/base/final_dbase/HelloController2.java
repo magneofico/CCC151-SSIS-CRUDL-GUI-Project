@@ -1,5 +1,8 @@
 package d.base.final_dbase;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -95,6 +98,9 @@ public class HelloController2 {
 
 
     @FXML
+    private Button refresh;
+
+    @FXML
     private TextField findStudentID;
 
     @FXML
@@ -176,34 +182,23 @@ public class HelloController2 {
             }
         });
 
-
-
-//        timestamp.setCellValueFactory(data -> data.getValue().timestampProperty());
-        tCourseCode.setCellValueFactory(data -> data.getValue().courseCodeProperty());
-        tCourseName.setCellValueFactory(data -> data.getValue().courseNameProperty());
-        tCollege.setCellValueFactory(data -> data.getValue().collegeProperty());
-
         try {
             tableView.setItems(CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-//        sTimestamp.setCellValueFactory(data -> data.getValue().sTimestampProperty());
-        sStudentID.setCellValueFactory(data -> data.getValue().sStudentIDProperty());
-        sLastname.setCellValueFactory(data -> data.getValue().sLastnameProperty());
-        sFirstname.setCellValueFactory(data -> data.getValue().sFirstnameProperty());
-        sMiddlename.setCellValueFactory(data -> data.getValue().sMiddlenameProperty());
-        sSex.setCellValueFactory(data -> data.getValue().sSexProperty());
-        sYearLevel.setCellValueFactory(data -> data.getValue().sYearLevelProperty());
-        sCourse.setCellValueFactory(data -> data.getValue().sCourseProperty());
-        sStatus.setCellValueFactory(data -> data.getValue().sStatusProperty());
-
         try {
             studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Set up table views
+        setupCourseTableView();
+        setupStudentTableView();
+
+        refresh.setOnAction(event -> handleRefreshButtonAction());
 
         courseRegister.setOnAction(event -> addCourse());
         registerThisStudent.setOnAction(event -> addStudent());
@@ -224,6 +219,30 @@ public class HelloController2 {
             findCourseEdit();
         });
 
+    }
+
+    private void setupCourseTableView() {
+        tCourseCode.setCellValueFactory(data -> data.getValue().courseCodeProperty());
+        tCourseName.setCellValueFactory(data -> data.getValue().courseNameProperty());
+        tCollege.setCellValueFactory(data -> data.getValue().collegeProperty());
+
+        // Populate table view with data
+        refreshCourseTableView();
+    }
+
+    private void setupStudentTableView() {
+        // Configure table columns
+        sStudentID.setCellValueFactory(data -> data.getValue().sStudentIDProperty());
+        sLastname.setCellValueFactory(data -> data.getValue().sLastnameProperty());
+        sFirstname.setCellValueFactory(data -> data.getValue().sFirstnameProperty());
+        sMiddlename.setCellValueFactory(data -> data.getValue().sMiddlenameProperty());
+        sSex.setCellValueFactory(data -> data.getValue().sSexProperty());
+        sYearLevel.setCellValueFactory(data -> data.getValue().sYearLevelProperty());
+        sCourse.setCellValueFactory(data -> data.getValue().sCourseProperty());
+        sStatus.setCellValueFactory(data -> data.getValue().sStatusProperty());
+
+        // Populate table view with data
+        refreshStudentTableView();
     }
 
     private void addStudent() {
@@ -542,6 +561,39 @@ public class HelloController2 {
             studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void refreshCourseTableView() {
+        try {
+            ObservableList<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
+            Platform.runLater(() -> tableView.setItems(courses));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void refreshStudentTableView() {
+        try {
+            ObservableList<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
+            Platform.runLater(() -> studentTable.setItems(students));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleRefreshButtonAction() {
+        try {
+            // Reload data from CSV files
+            List<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
+            List<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
+
+            // Update table views with new data
+            tableView.setItems(FXCollections.observableArrayList(courses));
+            studentTable.setItems(FXCollections.observableArrayList(students));
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception accordingly
         }
     }
 

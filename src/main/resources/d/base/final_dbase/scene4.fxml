@@ -39,12 +39,12 @@
                </font>
             </Label>
             <TextField fx:id="CourseNameField" layoutX="60.0" layoutY="212.0" prefHeight="26.0" prefWidth="280.0" styleClass="text-fieldW" />
-            <Button fx:id="saveUpdatedCourseData" layoutX="89.0" layoutY="430.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
+            <Button fx:id="saveUpdatedCourseData" layoutX="89.0" layoutY="430.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" styleClass="buttonGreen" stylesheets="@styling.css" text="SAVE" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button fx:id="deleteCourseData" layoutX="89.0" layoutY="393.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="220.0" stylesheets="@styling.css" text="Delete Course Data" textFill="WHITE">
+            <Button fx:id="deleteCourseData" layoutX="89.0" layoutY="393.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="27.0" prefWidth="220.0" stylesheets="@styling.css" text="Delete Course Data" textFill="WHITE">
                <font>
                   <Font size="9.0" />
                </font>

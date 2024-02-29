@@ -11,6 +11,9 @@ import java.util.Map;
 
 public class CSVHandler {
 
+    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/student_registration.csv";
+    public static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/course_registration.csv";
+
     public static HashMap<String, String> readCoursesFromCSV(String filePath) throws IOException {
         HashMap<String, String> courseMap = new HashMap<>();
 
@@ -240,7 +243,6 @@ public class CSVHandler {
         return studentsByCourse;
     }
 
-    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/student_registration.csv";
 
     public static Student fetchStudentByID(String studentID) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
@@ -357,9 +359,6 @@ public class CSVHandler {
     }
 
 
-
-    private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/course_registration.csv";
-
     public static Course fetchCourseName(String courseName) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
             String line;
@@ -376,6 +375,52 @@ public class CSVHandler {
         }
         // If no student with the specified ID is found, return null
         return null;
+    }
+
+    public static boolean updateCourse(String courseName, String updatedCourseCode, String updatedCollegeName) {
+        try {
+            // Load all courses from the CSV file
+            List<String> fileLines = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    fileLines.add(line);
+                }
+            }
+
+            // Find the course with the provided course name
+            boolean courseFound = false;
+            for (int i = 0; i < fileLines.size(); i++) {
+                String[] parts = fileLines.get(i).split(",");
+                if (parts.length >= 4) {
+                    String currentCourseName = parts[2].trim();
+                    if (currentCourseName.equalsIgnoreCase(courseName)) {
+                        // Update the course information
+                        parts[1] = updatedCourseCode;
+                        parts[3] = updatedCollegeName;
+                        fileLines.set(i, String.join(",", parts));
+                        courseFound = true;
+                        break;
+                    }
+                }
+            }
+
+            // If the course was found and updated, rewrite the file with the new data
+            if (courseFound) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(COURSE_CSV_FILE_PATH))) {
+                    for (String line : fileLines) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
+                }
+                return true; // Update successful
+            } else {
+                return false; // Course with provided name isn't found
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Update failed due to IO error
+        }
     }
 
 
@@ -420,6 +465,52 @@ public class CSVHandler {
             return courseFound;
         }
     }
+
+
+
+    public static boolean deleteStudentRecordsByCourse(String courseFullName) throws IOException {
+        String[] parts = courseFullName.split("\\s+\\("); // Split by space followed by (
+        if (parts.length >= 2) {
+            String courseName = parts[0]; // Extract the course name
+            String courseCode = parts[1].replaceAll("[()]", ""); // Remove parentheses
+            File file = new File(STUDENT_CSV_FILE_PATH);
+            File tempFile = new File("temp.csv");
+            try (BufferedReader reader = new BufferedReader(new FileReader(file));
+                 BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                String line;
+                boolean foundCourse = false;
+                while ((line = reader.readLine()) != null) {
+                    // Check if the line contains the courseFullName and courseCode
+                    if (line.contains(courseFullName) && line.contains(courseCode)) {
+                        // Modify the line to remove the course
+                        line = line.replace(courseFullName, "").trim();
+                        line = line.replace(courseCode, "").trim();
+                        foundCourse = true;
+                    }
+                    // Write the modified or unmodified line to the temp file
+                    if (!line.isEmpty()) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
+                }
+                // Check if the course records were found and deleted
+                if (foundCourse) {
+                    // Rename the temp file to the original file
+                    tempFile.renameTo(file);
+                    return true;
+                } else {
+                    // If the course was not found, delete the temp file
+                    tempFile.delete();
+                    return false;
+                }
+            }
+        } else {
+            System.out.println("Invalid course name format: " + courseFullName);
+            return false;
+        }
+    }
+
+
 
 
 }

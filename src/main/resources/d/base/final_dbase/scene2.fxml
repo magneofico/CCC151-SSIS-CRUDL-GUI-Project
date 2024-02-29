@@ -68,7 +68,7 @@
                                                     </HBox>
                                                 </center>
                                                 <top>
-                                                    <Pane prefHeight="195.0" prefWidth="680.0" styleClass="paneB" BorderPane.alignment="CENTER">
+                                                    <Pane prefHeight="195.0" prefWidth="705.0" styleClass="paneB" BorderPane.alignment="CENTER">
                                                         <Label layoutX="32.0" layoutY="153.0" text="Course Name" textFill="#1e1e1e">
                                                             <font>
                                                                 <Font name="SF Pro Display Regular" size="10.0" />
@@ -332,6 +332,11 @@
                            <Font name="SF Pro Display Light" size="6.0" />
                         </font>
                      </Label>
+                     <Button fx:id="refresh" layoutX="70.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleRefreshButtonAction" text="Refresh" textFill="WHITE">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Button>
                         </children>
                     </Pane>
                 </center>
