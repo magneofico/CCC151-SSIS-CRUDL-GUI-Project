@@ -11,7 +11,6 @@ import java.io.IOException;
 public class CrudlImplementation {
 
     // Instance variable to store the HelloApplication instance
-    private HelloApplication helloApplication;
 
     // FXML fields
     @FXML
@@ -48,8 +47,7 @@ public class CrudlImplementation {
     private Button closeButton;
 
     // Method to set the HelloApplication instance
-    public void setHelloApplication(HelloApplication helloApplication) {
-        this.helloApplication = helloApplication;
+    public void setHelloApplication() {
     }
 
     // Method to fetch student data based on the provided student ID and set it into text fields

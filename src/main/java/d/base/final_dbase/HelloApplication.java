@@ -69,11 +69,11 @@ public class HelloApplication extends Application {
                 }
                 case "scene3.fxml" -> {
                     CrudlImplementation studentCourseEdit = loader.getController();
-                    studentCourseEdit.setHelloApplication(this);
+                    studentCourseEdit.setHelloApplication();
                 }
                 case "scene4.fxml" -> {
                     CourseEditImplementation CourseEdit = loader.getController();
-                    CourseEdit.setHelloApplication(this);
+                    CourseEdit.setHelloApplication();
                 }
 
             }
@@ -105,7 +105,7 @@ public class HelloApplication extends Application {
             newStage.show();
 
             CrudlImplementation crudlController = loader.getController();
-            crudlController.setHelloApplication(this);
+            crudlController.setHelloApplication();
             crudlController.initializeStudentID(studentID); // Pass the student ID to Scene 3 controller
 
         } catch (IOException e) {
@@ -127,7 +127,7 @@ public class HelloApplication extends Application {
             newStage.show();
 
             CourseEditImplementation courseEditController = loader.getController();
-            courseEditController.setHelloApplication(this);
+            courseEditController.setHelloApplication();
             courseEditController.initializeCourseFields(courseCode); // Pass the student ID to Scene 3 controller
 
         } catch (IOException e) {

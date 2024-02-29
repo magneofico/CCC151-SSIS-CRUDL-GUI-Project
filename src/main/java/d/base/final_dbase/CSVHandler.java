@@ -332,7 +332,7 @@ public class CSVHandler {
             if (parts.length >= 2) { // Assuming student ID is at least present
                 String currentStudentID = parts[1].trim(); // Assuming student ID is at index 1
                 if (!currentStudentID.equals(studentID)) {
-                    // If current student ID does not match the one to delete, write the line to temp file
+                    // If the current student ID does not match the one to delete, write the line to temp file
                     bw.write(line + "\n");
                 } else {
                     found = true;
