@@ -23,7 +23,9 @@ public class Student {
         this.sSex= new SimpleStringProperty(sSex);
         this.sYearLevel= new SimpleStringProperty(sYearLevel);
         this.sCourse= new SimpleStringProperty(sCourse);
-        this.sStatus = new SimpleStringProperty(sStatus);
+//        this.sStatus = new SimpleStringProperty(sStatus);
+        this.sStatus = determineStatus(sCourse);
+
     }
 
     public String getsCourse() {
@@ -98,6 +100,14 @@ public class Student {
     }
     public StringProperty sStatusProperty() {
         return sStatus;
+    }
+
+    private StringProperty determineStatus(String sCourse) {
+        if (sCourse == null || sCourse.isEmpty()) {
+            return new SimpleStringProperty("NOT ENROLLED");
+        } else {
+            return new SimpleStringProperty("ENROLLED");
+        }
     }
 
 

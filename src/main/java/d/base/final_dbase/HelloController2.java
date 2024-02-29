@@ -267,7 +267,7 @@ public class HelloController2 {
         String sYearLevel = yearLevelComboBox.getValue();
         String sSex = genderComboBox.getValue().equals("Male") ? "M" : "F";
         String sCourse = courseCodeCombo.getValue(); // Get the selected course
-        String sStatus = "ENROLLED"; // All students are enrolled initially
+        String sStatus = sCourse != null ? "ENROLLED" : "NOT ENROLLED"; // Set status based on course selection
 
 
         // Get current timestamp
