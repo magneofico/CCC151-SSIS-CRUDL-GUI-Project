@@ -297,17 +297,7 @@ public class CSVHandler {
             }
 
             // If the student was found and updated, rewrite the file with the new data
-            if (studentFound) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(STUDENT_CSV_FILE_PATH))) {
-                    for (String line : fileLines) {
-                        writer.write(line);
-                        writer.newLine();
-                    }
-                }
-                return true; // Update successful
-            } else {
-                return false; // Student with provided ID isn't found
-            }
+            return bufferWriter(fileLines, studentFound, STUDENT_CSV_FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
             return false; // Update failed due to IO error
@@ -406,23 +396,26 @@ public class CSVHandler {
             }
 
             // If the course was found and updated, rewrite the file with the new data
-            if (courseFound) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(COURSE_CSV_FILE_PATH))) {
-                    for (String line : fileLines) {
-                        writer.write(line);
-                        writer.newLine();
-                    }
-                }
-                return true; // Update successful
-            } else {
-                return false; // Course with provided name isn't found
-            }
+            return bufferWriter(fileLines, courseFound, COURSE_CSV_FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
             return false; // Update failed due to IO error
         }
     }
 
+    private static boolean bufferWriter(List<String> fileLines, boolean courseFound, String courseCsvFilePath) throws IOException {
+        if (courseFound) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(courseCsvFilePath))) {
+                for (String line : fileLines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+            return true; // Update successful
+        } else {
+            return false; // Course with provided name isn't found
+        }
+    }
 
 
     public static boolean deleteCourse(String courseName) throws IOException {

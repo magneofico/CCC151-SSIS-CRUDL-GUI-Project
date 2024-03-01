@@ -17,7 +17,7 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button fx:id="saveUpdatedStudentData" layoutX="97.0" layoutY="459.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" style="-fx-background-color: #0D652D;" text="SAVE" textFill="WHITE">
+            <Button fx:id="saveUpdatedStudentData" layoutX="97.0" layoutY="459.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="49.0" prefWidth="220.0" styleClass="buttonGreen" text="SAVE" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>

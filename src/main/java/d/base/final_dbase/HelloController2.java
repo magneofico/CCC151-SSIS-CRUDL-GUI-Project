@@ -14,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
-
 public class HelloController2 {
 
     @FXML
@@ -43,7 +42,6 @@ public class HelloController2 {
 
     @FXML
     private Button registerThisStudent;
-
 
 
     /* These @FXML are for Course Registration Table. */
@@ -258,6 +256,18 @@ public class HelloController2 {
             alert.setHeaderText(null);
             alert.setContentText("Student ID cannot be empty.");
             alert.showAndWait();
+            return;
+        }
+
+        if (!sStudentID.matches("\\d{4}-\\d{4}")) {
+            // Display an alert indicating the error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Student ID must follow the format ####-#### (e.g., 1234-5678)");
+            alert.showAndWait();
+
+            clearTextFields();
             return;
         }
 

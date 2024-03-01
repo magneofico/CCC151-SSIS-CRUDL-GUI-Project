@@ -24,20 +24,12 @@ public class Student {
         this.sYearLevel= new SimpleStringProperty(sYearLevel);
         this.sCourse= new SimpleStringProperty(sCourse);
 //        this.sStatus = new SimpleStringProperty(sStatus);
-        this.sStatus = determineStatus(sCourse);
+        this.sStatus = sStatusProperty(sCourse);
 
     }
 
     public String getsCourse() {
         return sCourse.get();
-    }
-
-    public String getsTimestamp() {
-        return sTimestamp.get();
-    }
-
-    public String getsStudentID() {
-        return sStudentID.get();
     }
 
     public String getsLastname() {
@@ -62,13 +54,6 @@ public class Student {
 
     public String getsStatus() {
         return sStatus.get();
-    }
-
-
-
-
-    public StringProperty sTimestampProperty() {
-        return sTimestamp;
     }
 
     public StringProperty sStudentIDProperty() {
@@ -102,7 +87,7 @@ public class Student {
         return sStatus;
     }
 
-    private StringProperty determineStatus(String sCourse) {
+    private StringProperty sStatusProperty(String sCourse) {
         if (sCourse == null || sCourse.isEmpty()) {
             return new SimpleStringProperty("NOT ENROLLED");
         } else {
