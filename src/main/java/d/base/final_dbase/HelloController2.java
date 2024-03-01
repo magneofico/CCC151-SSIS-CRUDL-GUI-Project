@@ -14,140 +14,112 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * {@code HelloController2.java} is the Java class controller of Scene 2.
+ *The main responsibilities of this class include:
+ * <p>
+ * <ul>
+ *     <li> This class handles the user interactions and functionalities related to registering students and courses.
+ *     <li> It facilitates the retrieval and storage of necessary details for student and course registration in the school database.
+ *     <li> This class also manages the reading and writing of data to and from the database, which are the .csv files.
+ *     <li> Additionally, it provides detailed exception handling to ensure robustness during data operations, such as retrieving desired details.
+ * </ul>
+ * </p>
+
+ * <p>
+ * This class also manages the functionality of various buttons used in Scene 2:
+ * <ul>
+ *     <li>{@code backButton}: Handles the action of navigating back to the previous scene.</li>
+ *     <li>{@code refreshButton}: Handles the action of refreshing the view with updated data.</li>
+ *     <li>{@code deleteButton}: Handles the action of deleting selected data entries.</li>
+ *     <li>{@code registrationButton}: Handles the action of registering new students or courses.</li>
+ * </ul>
+ * </p>
+ *
+ * <p>
+ * Additionally, this class populates the table view with the retrieved data, displaying information
+ * about registered students and courses in a structured format for user interaction and management.
+ * </p>
+ *
+ * @author  Kristoffer Neo Senyahan | BSCS2 | kristofferneo.senyahan@g.msuiit.edu.ph | SSIS CCC151 Project
+ */
+
 public class HelloController2 {
 
-    @FXML
-    private TextField lastNameField;
+    /** Annotated {@code @FXML} fields for student registration part.
+     *  These fields are specifically for managing student registration within the application.*/
+    @FXML private Button registerThisStudent;
+    @FXML private TextField lastNameField;
+    @FXML private TextField firstNameField;
+    @FXML private TextField middleNameField;
+    @FXML private TextField studentIDField;
+    @FXML private ComboBox<String> yearLevelComboBox;
+    @FXML private ComboBox<String> sexComboBox;
+    @FXML private ComboBox<String> courseCodeCombo;
+    @FXML private ComboBox<String> collegeComboBox;
 
-    @FXML
-    private TextField firstNameField;
+    /** Annotated {@code @FXML} fields for course registration part.
+     *  These fields are specifically for managing course registration within the application.*/
+    @FXML private Button registerThisCourse;
+    @FXML private TextField courseCodeField;
+    @FXML private TextField courseNameField;
+    @FXML private TableView<Course> tableView;
+    @FXML private TableColumn<Course, String> tCourseCode;
+    @FXML private TableColumn<Course, String> tCourseName;
+    @FXML private TableColumn<Course, String> tCollege;
 
-    @FXML
-    private TextField middleNameField;
+    /** Annotated {@code @FXML} fields for displaying registered students and courses information in the TableView.
+     *  These fields are specifically for populating the TableView with information about registered students and courses in the GUI.*/
+    @FXML private TableView<Student> studentTable;
+    @FXML private TableColumn<Student, String> sStudentID;
+    @FXML private TableColumn<Student, String> sLastname;
+    @FXML private TableColumn<Student, String> sFirstname;
+    @FXML private TableColumn<Student, String> sMiddlename;
+    @FXML private TableColumn<Student, String> sSex;
+    @FXML private TableColumn<Student, String> sYearLevel;
+    @FXML private TableColumn<Student, String> sCourse;
+    @FXML private TableColumn<Student, String> sStatus; // ENROLLED or NOT ENROLLED
 
-    @FXML
-    private TextField studentIDField;
-
-    @FXML
-    private ComboBox<String> yearLevelComboBox; // Changed from TextField to ComboBox
-
-    @FXML
-    private ComboBox<String> genderComboBox;
-
-    @FXML
-    private ComboBox<String> courseCodeCombo;
-
-    @FXML
-    private ComboBox<String> collegeComboBox;
-
-    @FXML
-    private Button registerThisStudent;
-
-
-    /* These @FXML are for Course Registration Table. */
-    @FXML
-    private Button courseRegister;
-
-    @FXML
-    private TextField courseCodeField;
-
-    @FXML
-    private TextField courseNameField;
-
-    @FXML
-    private TableView<Course> tableView;
-
-    @FXML
-    private TableColumn<Course, String> tCourseCode;
-
-    @FXML
-    private TableColumn<Course, String> tCourseName;
-
-    @FXML
-    private TableColumn<Course, String> tCollege;
-
-    /* These @FXML are for Student Registration Table. */
-    @FXML
-    private TableView<Student> studentTable;
-
-    @FXML
-    private TableColumn<Student, String> sStudentID;
-
-    @FXML
-    private TableColumn<Student, String> sLastname;
-
-    @FXML
-    private TableColumn<Student, String> sFirstname;
-
-    @FXML
-    private TableColumn<Student, String> sMiddlename;
-
-    @FXML
-    private TableColumn<Student, String> sSex;
-
-    @FXML
-    private TableColumn<Student, String> sYearLevel;
-
-    @FXML
-    private TableColumn<Student, String> sCourse;
-
-    @FXML
-    private TableColumn<Student, String> sStatus;
+    /** Annotated {@code @FXML} fields for UI elements in the application.
+     *  These fields are used for user interaction and navigation within the application.
+     *  Primarily for searching and editing course and student purposes.*/
+    @FXML private TextField findStudentID;
+    @FXML private Button findStudentIDSearch;
+    @FXML private TextField findCourse;
+    @FXML private Button findCourseSearch;
+    @FXML private Button backButton;// Button to go back to full list view of all the students after a specific search of information.
+    @FXML private Button goToStudentDataEdit;//Button switch scene to student information edit.
+    @FXML private Button goToCourseDataEdit;//Button switch scene to course information edit.
+    @FXML private Button refresh;// Button to refresh, re-fetch and rewrite data in the TableView.
 
 
-    @FXML
-    private Button refresh;
-
-    @FXML
-    private TextField findStudentID;
-
-    @FXML
-    private Button findStudentIDSearch;
-
-
-
-    @FXML
-    private TextField findCourse;
-
-    @FXML
-    private Button findCourseSearch;
-
-    @FXML
-    private Button backButton;
-
-    @FXML
-    private Button windowSwitch3;
-
-    @FXML
-    private Button windowSwitch4;
-
-
-
-
-
+    /** Path to the CSV file containing student data.*/
     private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/studentData.csv";
+
+    /** Path to the CSV file containing course data.*/
     private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/courseData.csv";
 
-    // Assuming you have an instance of HelloApplication
+    /** Instance of the main application.*/
     private HelloApplication helloApplication;
 
     public void setHelloApplication(HelloApplication helloApplication) {
         this.helloApplication = helloApplication;
     }
 
-    @FXML
-    private void initialize() {
-        yearLevelComboBox.getItems().addAll("1st", "2nd", "3rd", "4th", "5th");
-        genderComboBox.getItems().addAll("Male", "Female");
+    /** Initializes UI components, populates combo boxes, sets up event listeners,
+     *  and populates table views with data from CSV files. */
+    @FXML private void initialize() {
+        yearLevelComboBox.getItems().addAll("1st", "2nd", "3rd", "4th", "5th"); //student year-level combobox options.
+        sexComboBox.getItems().addAll("Male", "Female"); //student sexes combobox options.
 
-        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
+        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH); //Populates course combobox from Course java file class.
         courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 courseCodeCombo.getEditor().setText(newValue);
             }
         });
 
-        Course.populateCollegeComboBox(collegeComboBox);
+        Course.populateCollegeComboBox(collegeComboBox); //Populates college combobox from Course java file class.
 
         yearLevelComboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
@@ -168,12 +140,12 @@ public class HelloController2 {
             }
         });
 
-        genderComboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+        sexComboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 String text = newValue.toLowerCase();
-                for (int i = 0; i < genderComboBox.getItems().size(); i++) {
-                    if (genderComboBox.getItems().get(i).toLowerCase().startsWith(text)) {
-                        genderComboBox.getSelectionModel().select(i);
+                for (int i = 0; i < sexComboBox.getItems().size(); i++) {
+                    if (sexComboBox.getItems().get(i).toLowerCase().startsWith(text)) {
+                        sexComboBox.getSelectionModel().select(i);
                         break;
                     }
                 }
@@ -192,33 +164,35 @@ public class HelloController2 {
             e.printStackTrace();
         }
 
-        // Set up table views
-        setupCourseTableView();
-        setupStudentTableView();
-
-        refresh.setOnAction(event -> handleRefreshButtonAction());
-
-        courseRegister.setOnAction(event -> addCourse());
-        registerThisStudent.setOnAction(event -> addStudent());
+        setupStudentTableView(); // Set-up and enables display of registered student information in the GUI TableView.
+        setupCourseTableView(); // Set-up Enables display of registered courses information in the GUI TableView.
 
 
-        findStudentIDSearch.setOnAction(event -> handleStudentIDSearchButtonAction());
-        findCourseSearch.setOnAction(event -> handleCourseSearchButtonAction());
+        backButton.setOnAction(event -> handleBackButtonAction()); // Handles back action.
+        refresh.setOnAction(event -> handleRefreshButtonAction()); // Handles refresh action.
 
-        backButton.setOnAction(event -> handleBackButtonAction());
+        registerThisStudent.setOnAction(event -> addStudent()); // Handles register student action.
+        registerThisCourse.setOnAction(event -> addCourse()); // Handles register course action.
 
-        windowSwitch3.setOnAction(event -> {
-            windowSwitch3Clicked();
+        findStudentIDSearch.setOnAction(event -> handleStudentIDSearchButtonAction()); // Handles search studentID action.
+        findCourseSearch.setOnAction(event -> handleCourseSearchButtonAction()); // Handles search course action.
+
+        // Handles edit student data action.
+        goToStudentDataEdit.setOnAction(event -> {
+            goToStudentDataEditClicked();
             findStudentIDEdit();
         });
 
-        windowSwitch4.setOnAction(event -> {
-            windowSwitch4Clicked();
+        // Handles edit course data action.
+        goToCourseDataEdit.setOnAction(event -> {
+            goToCourseDataEditClicked();
             findCourseEdit();
         });
 
     }
 
+    /** Sets up the table view for displaying course information.
+     *  Configures table columns and populates the table view with data.*/
     private void setupCourseTableView() {
         tCourseCode.setCellValueFactory(data -> data.getValue().courseCodeProperty());
         tCourseName.setCellValueFactory(data -> data.getValue().courseNameProperty());
@@ -228,6 +202,8 @@ public class HelloController2 {
         refreshCourseTableView();
     }
 
+    /** Sets up the table view for displaying student information.
+     *  Configures table columns and populates the table view with data.*/
     private void setupStudentTableView() {
         // Configure table columns
         sStudentID.setCellValueFactory(data -> data.getValue().sStudentIDProperty());
@@ -243,49 +219,45 @@ public class HelloController2 {
         refreshStudentTableView();
     }
 
-
+    /** Adds a new student to the student database based on user input.
+     *  Validates input fields, checks for duplicate student ID, and writes student information to CSV file.
+     *  Displays appropriate error messages if validation fails or if the student already exists.*/
     private void addStudent() {
-        // Get user input for last name
-        String sStudentID = studentIDField.getText();
+        String sStudentID = studentIDField.getText(); // Get user input for last name.
 
-        // Check if student ID is null or empty
-        if (sStudentID.trim().isEmpty()) {
-            System.out.println("Student ID is empty"); // Debugging statement
-            // Display an alert indicating that student ID is required
+        // Check if student ID is null, empty, or doesn't match the required format.
+        if (sStudentID == null || sStudentID.trim().isEmpty() || !sStudentID.matches("\\d{4}-\\d{4}")) {
+            // Display an appropriate alert based on the condition.
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Student ID cannot be empty.");
+
+            if (sStudentID == null || sStudentID.trim().isEmpty()) {
+                alert.setContentText("Student ID cannot be empty.");
+            } else {
+                alert.setContentText("Student ID must follow the format ####-#### (e.g., 1234-5678)");
+            }
+
             alert.showAndWait();
+
             return;
         }
 
-        if (!sStudentID.matches("\\d{4}-\\d{4}")) {
-            // Display an alert indicating the error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Student ID must follow the format ####-#### (e.g., 1234-5678)");
-            alert.showAndWait();
-            return;
-        }
-
-        String sLastname = capitalizeFirstLetter(lastNameField.getText());
-        String sFirstname = capitalizeFirstLetter(firstNameField.getText());
-        String sMiddlename = capitalizeFirstLetter(middleNameField.getText());
-        String sYearLevel = yearLevelComboBox.getValue();
-        String sSex = genderComboBox.getValue().equals("Male") ? "M" : "F";
+        String sLastname = capitalizeFirstLetter(lastNameField.getText()); // Get the student firstname
+        String sFirstname = capitalizeFirstLetter(firstNameField.getText()); // Get the student lastname
+        String sMiddlename = capitalizeFirstLetter(middleNameField.getText()); // Get the student middlename
+        String sYearLevel = yearLevelComboBox.getValue(); // Get the students' year level
+        String sSex = sexComboBox.getValue().equals("Male") ? "M" : "F"; // Get the student sex
         String sCourse = courseCodeCombo.getValue(); // Get the selected course
         String sStatus = sCourse != null ? "ENROLLED" : "NOT ENROLLED"; // Set status based on course selection
 
-
-        // Get current timestamp
+        // Get current timestamp.Timestamp is included but hidden to keep track of the date and time of the student registration.
         LocalDateTime sTimestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         String formattedTimestamp2 = sTimestamp.format(formatter);
 
         try (BufferedReader brS = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
-            String line;
+            String line; // Check if the student already exists in the CSV file
             boolean studentExists = false;
             while ((line = brS.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -297,6 +269,7 @@ public class HelloController2 {
                     }
                 }
             }
+
             if (studentExists) {
                 // Display an alert indicating that the student already exists
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -305,15 +278,13 @@ public class HelloController2 {
                 alert.setContentText("A student with the same ID already exists.");
                 alert.showAndWait();
 
-                // You can clear the text fields if needed
-                clearTextFields();
+                clearTextFields(); // Clear text-fields
 
             } else {
-                // If the student does not exist, add it to the CSV file
+                // Add the student information to the CSV file if it doesn't exist
                 try (BufferedWriter studentInfoWriter = new BufferedWriter(new FileWriter(STUDENT_CSV_FILE_PATH, true))) {
                     // Check if the CSV file already exists
                     if (!Files.exists(Paths.get(STUDENT_CSV_FILE_PATH))) {
-                        // If not, write the header
                         studentInfoWriter.write("Registration Time,Student ID,Last Name,First Name,Middle Name,Sex,Year Level,Course,Status");
                         studentInfoWriter.newLine();
                     }
@@ -322,19 +293,19 @@ public class HelloController2 {
                     String studentInfo = String.join(",", formattedTimestamp2, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sYearLevel, sCourse, sStatus);
                     studentInfoWriter.write(studentInfo);
                     studentInfoWriter.newLine();
-                    System.out.println("Student added: " + sStudentID + " : (" + sCourse + ")" + sLastname + ", " + sFirstname + " " + sMiddlename);
 
-                    // You can clear the text fields if needed
-                    clearTextFields();
+                    clearTextFields(); // Clear text-fields
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        // Populate the course code combo box and set up a listener to update the editor's text
         Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
         courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -342,6 +313,7 @@ public class HelloController2 {
             }
         });
 
+        // Set items in the student table view with data from the CSV file
         try {
             studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
 
@@ -352,35 +324,34 @@ public class HelloController2 {
 
     private void addCourse() {
         // Get user input for course code and course name
-        String courseCode = courseCodeField.getText();
-        String courseName = capitalizeFirstLetter(courseNameField.getText());
+        String courseCode = courseCodeField.getText(); // Get course code
+        String courseName = capitalizeFirstLetter(courseNameField.getText()); // Get course name
+        String collegeAssigned = collegeComboBox.getValue() != null ? collegeComboBox.getValue() : ""; // Get selected college name from ComboBox
 
         // Check if the course code text-field is empty.
-        if (courseCode.isEmpty()) {
+        if (collegeAssigned.isEmpty() || courseCode.isEmpty() || courseName.isEmpty()) {
             // Display an alert indicating that the course code cannot be empty
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Course code cannot be empty.");
+            alert.setContentText("Courses information fields cannot be empty. Please input all the necessary details.");
             alert.showAndWait();
+
             return; // Exit the method
         }
 
-        // Get selected college name from ComboBox
-        String collegeAssigned = collegeComboBox.getValue() != null ? collegeComboBox.getValue() : "";
-
-        // Get current timestamp
+        // Get current timestamp. Timestamp is included but hidden to keep track of the date and time of the course registration.
         LocalDateTime timestamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedTimestamp = timestamp.format(formatter);
 
         // Check if the course code already exists in the CSV file
         try (BufferedReader brC = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
-            String line;
+            String line; // Check if the course already exists in the CSV file
             while ((line = brC.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length >= 2) { // Assuming course code is at least present
-                    String existingCourseCode = parts[1].trim();
+                    String existingCourseCode = parts[1].trim(); // Course code index position in .csv file
                     if (existingCourseCode.equals(courseCode)) {
 
                         // Display an alert indicating that the course already exists
@@ -390,6 +361,7 @@ public class HelloController2 {
                         alert.setContentText("A course with the same code already exists.");
                         alert.showAndWait();
                         clearTextFields();
+
                         return; // Exit the method
                     }
                 }
@@ -415,10 +387,8 @@ public class HelloController2 {
             String courseInfo = String.join(",", newCourse.getTimestamp(), courseCode, courseName, collegeAssigned);
             courseInfoWriter.write(courseInfo);
             courseInfoWriter.newLine();
-            System.out.println("Course added: (" + courseCode + ") " + courseName + " - " + collegeAssigned);
 
-            // Clear the text fields
-            clearTextFields();
+            clearTextFields(); // Clear text-fields
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -432,15 +402,21 @@ public class HelloController2 {
             }
         });
 
+        // Update the table view with the new data
         try {
-            // Update the table view with the new data
             tableView.setItems(CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
+    /**
+     * Capitalizes the first letter of each word in the given string.
+     * Words "of" and "in" are not capitalized unless they appear at the beginning of the string.
+     *
+     * @param str the string to capitalize
+     * @return the string with the first letter of each word capitalized
+     */
     private String capitalizeFirstLetter(String str) {
         if (str == null || str.isEmpty()) {
             return str;
@@ -460,7 +436,52 @@ public class HelloController2 {
         return result.toString().trim();
     }
 
+    /**
+     * Handles the action when the back button is clicked.
+     * Clears the search fields for both students and courses.
+     * Clears the table view of students.
+     * Optionally, repopulates the student table with all students from the CSV file.
+     */
+    private void handleBackButtonAction() {
+        // Clear the search field
+        findCourse.clear();
+        findStudentID.clear(); // Assuming you have a TextField named findStudentID for searching students
 
+        // Clear the table
+        studentTable.getItems().clear();
+
+        // Optionally, you can populate the student table with all students again
+        try {
+            studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handles the action when the refresh button is clicked.
+     * Reloads data from CSV files for both courses and students.
+     * Updates table views with new data.
+     */
+    @FXML private void handleRefreshButtonAction() {
+        try {
+            // Reload data from CSV files
+            List<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
+            List<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
+
+            // Update table views with new data
+            tableView.setItems(FXCollections.observableArrayList(courses));
+            studentTable.setItems(FXCollections.observableArrayList(students));
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception accordingly
+        }
+    }
+
+    /**
+     * Handles the action when the student ID search button is clicked.
+     * Retrieves student information based on the entered student ID and updates the table view.
+     * Displays appropriate alerts for invalid input, a student not found, or errors during the process.
+     */
     private void handleStudentIDSearchButtonAction() {
         // Handle button click event here
         String studentID = findStudentID.getText().trim();
@@ -506,7 +527,12 @@ public class HelloController2 {
         }
     }
 
-
+    /**
+     * Handles the action when the course search button is clicked.
+     * Retrieves students enrolled in the specified course or matching course names based on the entered search input.
+     * Updates the table view with the retrieved student information.
+     * Displays appropriate alerts for empty search input or when no students are found for the specified course.
+     */
     private void handleCourseSearchButtonAction() {
         String searchInput = findCourse.getText().trim();
         if (!searchInput.isEmpty()) {
@@ -557,37 +583,8 @@ public class HelloController2 {
     }
 
 
-    private void handleBackButtonAction() {
-        // Clear the search field
-        findCourse.clear();
-        findStudentID.clear(); // Assuming you have a TextField named findStudentID for searching students
 
-        // Clear the table
-        studentTable.getItems().clear();
-
-        // Optionally, you can populate the student table with all students again
-        try {
-            studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleRefreshButtonAction() {
-        try {
-            // Reload data from CSV files
-            List<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
-            List<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
-
-            // Update table views with new data
-            tableView.setItems(FXCollections.observableArrayList(courses));
-            studentTable.setItems(FXCollections.observableArrayList(students));
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception accordingly
-        }
-    }
-
+    /** Refreshes the table view of courses by reloading data from the CSV file.*/
     private void refreshCourseTableView() {
         try {
             ObservableList<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
@@ -597,6 +594,7 @@ public class HelloController2 {
         }
     }
 
+    /** Refreshes the table view of students by reloading data from the CSV file.*/
     private void refreshStudentTableView() {
         try {
             ObservableList<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
@@ -606,44 +604,46 @@ public class HelloController2 {
         }
     }
 
-
-
+    /** Clears all text fields and resets combo box selections to null.*/
     private void clearTextFields() {
         lastNameField.clear();
         firstNameField.clear();
         middleNameField.clear();
         studentIDField.clear();
-        yearLevelComboBox.setValue(null);
-        genderComboBox.setValue(null);
-        courseCodeCombo.setValue(null);
         courseNameField.clear();
         courseCodeField.clear();
+
+        sexComboBox.setValue(null);
+        yearLevelComboBox.setValue(null);
+        courseCodeCombo.setValue(null);
         collegeComboBox.setValue(null);
     }
 
-
-
-
-
-
-
-    @FXML
-    private void switchToScene1() {
+    // Switch back to scene 1 Login/SignIn pane.
+    @FXML private void switchToScene1() {
         helloApplication.switchToScene1();
     }
 
+    private boolean goToStudentDataEditClicked;
 
-    private boolean windowSwitch3Clicked;
-
-    @FXML
-    private void findStudentIDEdit() {
+    /**Edit registered student information implementation.*/
+    @FXML private void findStudentIDEdit() {
         String studentID = findStudentID.getText().trim();
-        if (studentID.isEmpty()) {
-            // Handle the case where the text field is empty (this should not happen due to your existing validation)
+        if (studentID.isEmpty() || !studentID.matches("\\d{4}-\\d{4}")) {
+            // Display an alert indicating the error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            if (studentID.isEmpty()) {
+                alert.setContentText("Student ID cannot be empty.");
+            } else {
+                alert.setContentText("Student ID must follow the format ####-#### (e.g., 1234-5678)");
+            }
+            alert.showAndWait();
             return;
         }
 
-        if (windowSwitch3Clicked) {
+        if (goToStudentDataEditClicked) {
             // Open Scene 3 for editing student details
             helloApplication.switchToScene3(studentID);
         } else {
@@ -652,24 +652,23 @@ public class HelloController2 {
         }
     }
 
-    @FXML
-    private void windowSwitch3Clicked() {
+    @FXML private void goToStudentDataEditClicked() {
         // Set the flag to indicate that the windowSwitch3 button is clicked
-        windowSwitch3Clicked = true;
+        goToStudentDataEditClicked = true;
     }
 
 
-    private boolean windowSwitch4Clicked;
+    private boolean goToCourseDataEditClicked;
 
-    @FXML
-    private void findCourseEdit() {
+    /**Edit registered course information implementation.*/
+    @FXML private void findCourseEdit() {
         String courseCode = findCourse.getText().trim();
         if (courseCode.isEmpty()) {
             // Handle the case where the text field is empty (this should not happen due to your existing validation)
             return;
         }
 
-        if (windowSwitch4Clicked) {
+        if (goToCourseDataEditClicked) {
             // Open Scene 4 for editing course details
             helloApplication.switchToScene4(courseCode);
         } else {
@@ -678,16 +677,8 @@ public class HelloController2 {
         }
     }
 
-    @FXML
-    private void windowSwitch4Clicked() {
+    @FXML private void goToCourseDataEditClicked() {
         // Set the flag to indicate that the windowSwitch4 button is clicked
-        windowSwitch4Clicked = true;
+        goToCourseDataEditClicked = true;
     }
-
-
-
-
-
-
-
 }

@@ -48,7 +48,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="genderField" layoutX="108.0" layoutY="265.0" prefHeight="26.0" prefWidth="68.0" styleClass="text-fieldW" />
+            <TextField fx:id="sexField" layoutX="108.0" layoutY="265.0" prefHeight="26.0" prefWidth="68.0" styleClass="text-fieldW" />
             <Label layoutX="67.0" layoutY="303.0" text="Course" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />

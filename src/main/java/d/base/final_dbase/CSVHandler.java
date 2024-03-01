@@ -9,11 +9,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The CSVHandler class provides methods for handling operations related to CSV files,
+ * including reading, writing, updating, and deleting data.
+ * It includes functionality for managing both student and course data stored in CSV format.
+ * This class encapsulates the logic for parsing CSV files and performing CRUD operations on the data.
+ * Additionally, it provides error handling for file I/O operations and data manipulation.
+ *
+ * @author  Kristoffer Neo Senyahan | BSCS2 | kristofferneo.senyahan@g.msuiit.edu.ph | SSIS CCC151 Project
+ */
 public class CSVHandler {
 
+    /** Path to the CSV file containing student data.*/
     private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/studentData.csv";
     private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/courseData.csv";
 
+    /**
+     * Reads course data from a CSV file and stores it in a HashMap.
+     *
+     * @param filePath The file path of the CSV file containing course data.
+     * @return A HashMap where the keys are course codes and the values are course names.
+     * @throws IOException If an I/O error occurs.
+     * @throws IllegalArgumentException If a duplicate course code is encountered.
+     */
     public static HashMap<String, String> readCoursesFromCSV(String filePath) throws IOException {
         HashMap<String, String> courseMap = new HashMap<>();
 
@@ -37,10 +55,18 @@ public class CSVHandler {
                 }
             }
         }
-
         return courseMap;
     }
 
+    /**
+     * Retrieves the list of courses from a CSV file and converts it into an ObservableList of Course objects.
+     * Each line in the CSV file represents a course record.
+     * The CSV file is expected to have columns in the following order: Timestamp, Course Code, Course Name, College Name.
+     *
+     * @param filePath The path to the CSV file containing the course records.
+     * @return ObservableList<Course> containing the courses fetched from the CSV file.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public static ObservableList<Course> getCoursesAsObservableList(String filePath) throws IOException {
         ObservableList<Course> courses = FXCollections.observableArrayList();
 
@@ -62,7 +88,6 @@ public class CSVHandler {
                 }
             }
         }
-
         return courses;
     }
 
@@ -99,10 +124,17 @@ public class CSVHandler {
                 }
             }
         }
-
         return studentMap;
     }
 
+    /**
+     * Retrieves the list of students from a CSV file and converts it into an ObservableList of Student objects.
+     * Each line in the CSV file represents a student record.
+     *
+     * @param filePath The path to the CSV file containing the student records.
+     * @return ObservableList<Student> containing the students fetched from the CSV file.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public static ObservableList<Student> getStudentsAsObservableList(String filePath) throws IOException {
         ObservableList<Student> students = FXCollections.observableArrayList();
 
@@ -120,10 +152,17 @@ public class CSVHandler {
             String sStatus = data[8];
             students.add(new Student(timestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sLevel, sCourse, sStatus));
         }
-
         return students;
     }
 
+    /**
+     * Retrieves a student record from a CSV file based on the provided student ID.
+     *
+     * @param studentFilePath The path to the CSV file containing the student records.
+     * @param studentID The ID of the student to retrieve.
+     * @return Student object representing the student with the provided ID, or null if not found.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public static Student getStudentByID(String studentFilePath, String studentID) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(studentFilePath))) {
             String line;
@@ -151,10 +190,17 @@ public class CSVHandler {
                 }
             }
         }
-        // If student ID is not found, return null
-        return null;
+        return null; // If student ID is not found, return null
     }
 
+    /**
+     * Retrieves a list of students enrolled in a particular course from a CSV file.
+     *
+     * @param studentFilePath The path to the CSV file containing the student records.
+     * @param courseCode The code of the course to retrieve students for.
+     * @return Map containing a list of students enrolled in the specified course, keyed by course code.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public static Map<String, List<Student>> getStudentsByCourse(String studentFilePath, String courseCode) throws IOException {
         Map<String, List<Student>> studentsByCourse = new HashMap<>();
 
@@ -194,6 +240,14 @@ public class CSVHandler {
         return studentsByCourse;
     }
 
+    /**
+     * Retrieves a list of students enrolled in courses containing the specified search input in their names.
+     *
+     * @param filePath    The path to the CSV file containing the student records.
+     * @param searchInput The input to search for in course names.
+     * @return Map containing a list of students enrolled in courses containing the search input in their names, keyed by course code.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public static Map<String, List<Student>> getStudentsByCourseName(String filePath, String searchInput) throws IOException {
         Map<String, List<Student>> studentsByCourse = new HashMap<>();
 
@@ -242,7 +296,13 @@ public class CSVHandler {
         return studentsByCourse;
     }
 
-
+    /**
+     * Retrieves a student record by the specified student ID.
+     *
+     * @param studentID The ID of the student to retrieve.
+     * @return The Student object corresponding to the provided student ID, or null if not found.
+     * @throws IOException if an I/O error occurs while reading the file.
+     */
     public static Student fetchStudentByID(String studentID) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
             String line;
@@ -261,8 +321,18 @@ public class CSVHandler {
         return null;
     }
 
-    // Method to update student information in the CSV file
-    // To add parameter String updatedCourse
+    /**
+     * Updates the information of a student with the specified student ID.
+     *
+     * @param studentID        The ID of the student to update.
+     * @param updatedLastName  The updated last name of the student.
+     * @param updatedFirstName The updated first name of the student.
+     * @param updatedMiddleName The updated middle name of the student.
+     * @param updatedSex        The updated gender of the student.
+     * @param updatedYearLevel The updated year level of the student.
+     * @param updatedCourse     The updated course of the student.
+     * @return True if the student information is successfully updated, false otherwise.
+     */
     public static boolean updateStudent(String studentID, String updatedLastName, String updatedFirstName, String updatedMiddleName, String updatedSex, String updatedYearLevel, String updatedCourse) {
         try {
             // Load all students from the CSV file
@@ -302,10 +372,13 @@ public class CSVHandler {
         }
     }
 
-
-
-
-    // Method to delete student information from the CSV file
+    /**
+     * Deletes a student record from the CSV file based on the provided student ID.
+     *
+     * @param studentID The ID of the student to be deleted.
+     * @return True if the student record is deleted successfully, false otherwise.
+     * @throws IOException If an I/O error occurs.
+     */
     public static boolean deleteStudent(String studentID) throws IOException {
         // Read the student CSV file
         File file = new File(STUDENT_CSV_FILE_PATH);
@@ -346,7 +419,13 @@ public class CSVHandler {
         return found;
     }
 
-
+    /**
+     * Fetches a course record from the CSV file based on the provided course name.
+     *
+     * @param courseName The name of the course to fetch.
+     * @return The course object if found, otherwise null.
+     * @throws IOException If an I/O error occurs.
+     */
     public static Course fetchCourseName(String courseName) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
             String line;
@@ -365,6 +444,14 @@ public class CSVHandler {
         return null;
     }
 
+    /**
+     * Updates a course record in the CSV file with the provided course name.
+     *
+     * @param courseName         The name of the course to update.
+     * @param updatedCourseCode  The updated course code.
+     * @param updatedCollegeName The updated college name.
+     * @return True if the course is found and updated successfully, otherwise false.
+     */
     public static boolean updateCourse(String courseName, String updatedCourseCode, String updatedCollegeName) {
         try {
             // Load all courses from the CSV file
@@ -401,6 +488,15 @@ public class CSVHandler {
         }
     }
 
+    /**
+     * Writes the updated course records to the CSV file.
+     *
+     * @param fileLines         The list of lines containing the updated course records.
+     * @param courseFound       Indicates whether the course was found and updated.
+     * @param courseCsvFilePath The file path of the course CSV file.
+     * @return True if the update was successful, otherwise false.
+     * @throws IOException If an I/O error occurs.
+     */
     private static boolean bufferWriter(List<String> fileLines, boolean courseFound, String courseCsvFilePath) throws IOException {
         if (courseFound) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(courseCsvFilePath))) {
@@ -415,7 +511,13 @@ public class CSVHandler {
         }
     }
 
-
+    /**
+     * Deletes the course registration record from the CSV file.
+     *
+     * @param courseName The name of the course to be deleted.
+     * @return True if the course record is deleted successfully, otherwise false.
+     * @throws IOException If an I/O error occurs.
+     */
     public static boolean deleteCourse(String courseName) throws IOException {
         // Path to the course registration CSV file
         String courseFilePath = COURSE_CSV_FILE_PATH;
@@ -457,8 +559,14 @@ public class CSVHandler {
         }
     }
 
-
-
+    /**
+     * Deletes student records associated with a specific course from the CSV file. Particularly, if the course is deleted,
+     * then students with that course in the student registration database must also be cleared.
+     *
+     * @param courseFullName The full name of the course (including course name and code).
+     * @return True if the student records are deleted successfully, otherwise false.
+     * @throws IOException If an I/O error occurs.
+     */
     public static boolean deleteStudentRecordsByCourse(String courseFullName) throws IOException {
         String[] parts = courseFullName.split("\\s+\\("); // Split by space followed by (
         if (parts.length >= 2) {

@@ -28,42 +28,56 @@ public class HelloApplication extends Application {
 
     private Stage primaryStage;
 
+    /**
+     * This method overrides the start method of the JavaFX Application class.
+     * It initializes the primary stage and sets up the initial scene (Scene 1).
+     * Additionally, it registers an event handler to handle the close request
+     * event of the primary stage.
+     *
+     * @param primaryStage The primary stage of the JavaFX application.
+     */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         switchToScene1();
 
         primaryStage.setOnCloseRequest(event -> {
-            // Handle close request here
             Platform.exit(); // Close the application
         });
     }
 
+    /**
+     * This method initializes a scene using an FXML file and sets up the primary stage.
+     * It loads the FXML file, sets up the scene with specified dimensions, adds styling,
+     * and sets event handlers for the primary stage, including close request handling.
+     * Additionally, it sets the controller for the scene based on the FXML file loaded.
+     *
+     * @param fxmlFileName The name of the FXML file to load.
+     * @param title The title of the scene.
+     */
     private void initializeScene(String fxmlFileName, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             StackPane root = loader.load();
-            Scene scene = new Scene(root, 1100, 800);
-            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styling.css")).toExternalForm());
+            Scene scene = new Scene(root, 1100, 800); // sets the size of the application pane to 1100x800 pixels.
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styling.css")).toExternalForm()); // Adds the external CSS file "styling.css" for styling the scene.
 
             primaryStage.setTitle(title);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false); // Make the stage not resizable
             primaryStage.setOnCloseRequest(event -> {
-                // Handle close request
                 event.consume(); // Consume the event to prevent the window from closing immediately
                 switchToScene2(); // Switch to Scene 2
             });
             primaryStage.show();
 
-            // Set the controller for the scene
+            // Set the controllers for each of the scenes.
             switch (fxmlFileName) {
                 case "scene1.fxml" -> {
                     HelloController1 scene1Controller = loader.getController();
                     scene1Controller.setHelloApplication(this);
 
                     primaryStage.setOnCloseRequest(event -> {
-                        // Handle close request here
                         Platform.exit(); // Close the application
                     });
                 }
@@ -72,7 +86,6 @@ public class HelloApplication extends Application {
                     scene2Controller.setHelloApplication(this);
 
                     primaryStage.setOnCloseRequest(event -> {
-                        // Handle close request here
                         Platform.exit(); // Close the application
                     });
                 }
@@ -91,14 +104,22 @@ public class HelloApplication extends Application {
         }
     }
 
+    /** Switches to Scene 1: Student Registration System Sign In.*/
     public void switchToScene1() {
         initializeScene("scene1.fxml", "Student Registration System Sign In");
     }
 
+    /** Switches to Scene 2: Student Registration.*/
     public void switchToScene2() {
         initializeScene("scene2.fxml", "Student Registration");
     }
 
+    /**
+     * Switches to Scene 3(CrudlImplementation) displaying student information.
+     * This also loads Scene 3 FXML, sets up the stage, and initializes controller with student ID.
+     *
+     * @param studentID The ID of the student.
+     */
     public void switchToScene3(String studentID) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("scene3.fxml"));
         try {
@@ -112,7 +133,7 @@ public class HelloApplication extends Application {
             newStage.setResizable(false);
             newStage.show();
 
-            CrudlImplementation crudlController = loader.getController();
+            CrudlImplementation crudlController = loader.getController(); // Set controller for Scene 3 and initialize student ID
             crudlController.setHelloApplication();
             crudlController.initializeStudentID(studentID); // Pass the student ID to Scene 3 controller
 
@@ -121,7 +142,13 @@ public class HelloApplication extends Application {
         }
     }
 
-    public void switchToScene4(String courseCode) {
+    /**
+     * Switches to Scene 3(CrudlImplementation) displaying student information.
+     * This also loads Scene 3 FXML, sets up the stage, and initializes controller with student ID.
+     *
+     * @param courseName The courseCode of the course.
+     */
+    public void switchToScene4(String courseName) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("scene4.fxml"));
         try {
             StackPane root = loader.load();
@@ -136,13 +163,14 @@ public class HelloApplication extends Application {
 
             CourseEditImplementation courseEditController = loader.getController();
             courseEditController.setHelloApplication();
-            courseEditController.initializeCourseFields(courseCode); // Pass the student ID to Scene 3 controller
+            courseEditController.initializeCourseFields(courseName); // Pass the student ID to Scene 3 controller
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /** Main method to launch the JavaFX application.*/
     public static void main(String[] args) {
         launch(args);
     }

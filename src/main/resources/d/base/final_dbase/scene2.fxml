@@ -87,7 +87,7 @@
                                                             </font>
                                                         </Label>
                                                         <ComboBox fx:id="collegeComboBox" editable="true" layoutX="98.0" layoutY="78.0" prefHeight="27.0" prefWidth="385.0" promptText="enter-college-here" styleClass="combo-box" stylesheets="@styling.css" />
-                                                        <Button fx:id="courseRegister" layoutX="509.0" layoutY="76.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="156.0" styleClass="buttonGreen" text="Register Course" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                                        <Button fx:id="registerThisCourse" layoutX="509.0" layoutY="76.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="156.0" styleClass="buttonGreen" text="Register Course" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                                             <font>
                                                                 <Font name="SF Pro Display Bold" size="14.0" />
                                                             </font>
@@ -197,7 +197,7 @@
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font></Button>
-                                             <Button fx:id="windowSwitch3" layoutX="581.0" layoutY="45.0" mnemonicParsing="false" onAction="#findStudentIDEdit" prefHeight="17.0" prefWidth="88.0" styleClass="buttonGreen" text="Edit" textFill="WHITE">
+                                             <Button fx:id="goToStudentDataEdit" layoutX="581.0" layoutY="45.0" mnemonicParsing="false" onAction="#findStudentIDEdit" prefHeight="17.0" prefWidth="88.0" styleClass="buttonGreen" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>
@@ -213,7 +213,7 @@
                                                    <Font size="10.0" />
                                                 </font>
                                              </Button>
-                                             <Button fx:id="windowSwitch4" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" onAction="#findCourseEdit" prefHeight="17.0" prefWidth="88.0" styleClass="buttonGreen" text="Edit" textFill="WHITE">
+                                             <Button fx:id="goToCourseDataEdit" layoutX="581.0" layoutY="86.0" mnemonicParsing="false" onAction="#findCourseEdit" prefHeight="17.0" prefWidth="88.0" styleClass="buttonGreen" text="Edit" textFill="WHITE">
                                                 <font>
                                                    <Font size="10.0" />
                                                 </font>
@@ -299,7 +299,7 @@
                            <Font size="10.0" />
                         </font>
                             </Button>
-                     <ComboBox fx:id="genderComboBox" editable="true" layoutX="105.0" layoutY="244.0" prefWidth="200.0" promptText="Sex" styleClass="combo-box" stylesheets="@styling.css" />
+                     <ComboBox fx:id="sexComboBox" editable="true" layoutX="105.0" layoutY="244.0" prefWidth="200.0" promptText="Sex" styleClass="combo-box" stylesheets="@styling.css" />
                      <ComboBox fx:id="yearLevelComboBox" editable="true" layoutX="105.0" layoutY="278.0" prefWidth="200.0" promptText="e.g. 1st Year" styleClass="combo-box" stylesheets="@styling.css" />
                      <Label layoutX="36.0" layoutY="59.0" text="Register a Student" textFill="WHITE">
                         <font>
