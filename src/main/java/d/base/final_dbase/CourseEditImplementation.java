@@ -14,7 +14,7 @@ public class CourseEditImplementation {
     private ComboBox<String> CollegeComboBoxEdit;
 
     @FXML
-    private TextField courseCodefield;
+    private TextField courseCodeField;
 
     @FXML
     private TextField CourseNameField;
@@ -27,7 +27,6 @@ public class CourseEditImplementation {
 
     @FXML
     private Button closeButton;
-
 
     public void setHelloApplication() {
     }
@@ -42,12 +41,12 @@ public class CourseEditImplementation {
             Course course = CSVHandler.fetchCourseName(courseName);
             if (course != null) {
                 CourseNameField.setText(course.getCourseName());
-                courseCodefield.setText(course.getCourseCode()); // Set the course code text
+                courseCodeField.setText(course.getCourseCode()); // Set the course code text
                 CollegeComboBoxEdit.setValue(course.getCollegeName()); // Set student's course
 
             } else {
                 CourseNameField.clear(); // Clear the course name field
-                courseCodefield.clear(); // Clear the course code field
+                courseCodeField.clear(); // Clear the course code field
                 CollegeComboBoxEdit.getSelectionModel().clearSelection();
             }
         } catch (IOException e) {
@@ -55,25 +54,17 @@ public class CourseEditImplementation {
         }
     }
 
-
-
-
-
     @FXML
     private void initialize() {
-
-
         Course.populateCollegeComboBox(CollegeComboBoxEdit);
         CourseNameField.textProperty().addListener((observable, oldValue, newValue) -> fetchAndSetCourseData(newValue));
 
         // Fetch and set course data immediately when initializing
         fetchAndSetCourseData(CourseNameField.getText());
 
-
         saveUpdatedCourseData.setOnAction(event -> handleSaveUpdatedCourseData());
         deleteCourseData.setOnAction(event -> handleDeleteButton());
         closeButton.setOnAction(event -> backToTable());
-
     }
 
 
@@ -88,7 +79,7 @@ public class CourseEditImplementation {
 
         // Retrieve updated information from the text fields
         String updatedCourseName = CourseNameField.getText().trim();
-        String updatedCourseCode = courseCodefield.getText().trim();
+        String updatedCourseCode = courseCodeField.getText().trim();
         String updatedCollegeName = CollegeComboBoxEdit.getValue(); // Get selected course
 
         // Update the student record
@@ -107,9 +98,6 @@ public class CourseEditImplementation {
     }
 
 
-
-
-
     @FXML
     private void handleDeleteButton() {
         String courseName = CourseNameField.getText().trim();
@@ -117,9 +105,7 @@ public class CourseEditImplementation {
             System.out.println("Course name is empty.");
             return;
         }
-
-        // Call a method to delete the course
-        boolean success = deleteCourse(courseName);
+        boolean success = deleteCourse(courseName); // Call a method to delete the course
         if (success) {
             System.out.println("Course deleted successfully.");
             // Clear the text fields
@@ -167,32 +153,15 @@ public class CourseEditImplementation {
         }
     }
 
-
-
-
-
-
     // Method to clear all fields
     private void clearFields() {
         CourseNameField.clear();
     }
 
-
-
-
-
-
-
-
-
-
-
     @FXML
     private void backToTable() {
         // Get the stage associated with the current scene
         Stage stage = (Stage) closeButton.getScene().getWindow(); // Assuming backButton is a button in the scene
-
-        // Close the stage to exit the current scene
-        stage.close();
+        stage.close(); // Close the stage to exit the current scene
     }
 }

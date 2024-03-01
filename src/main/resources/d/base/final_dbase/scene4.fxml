@@ -49,7 +49,7 @@
                   <Font size="9.0" />
                </font>
             </Button>
-            <TextField fx:id="courseCodefield" layoutX="60.0" layoutY="268.0" prefHeight="26.0" prefWidth="280.0" styleClass="text-fieldW" stylesheets="@styling.css" />
+            <TextField fx:id="courseCodeField" layoutX="60.0" layoutY="268.0" prefHeight="26.0" prefWidth="280.0" styleClass="text-fieldW" stylesheets="@styling.css" />
             <TextField fx:id="totalEnrollees" editable="false" layoutX="139.0" layoutY="328.0" prefHeight="26.0" prefWidth="117.0" styleClass="text-fieldW" stylesheets="@styling.css" />
             <Label layoutX="138.0" layoutY="305.0" text="Number of Students Enrolled" textAlignment="RIGHT">
                <font>

@@ -25,7 +25,6 @@ public class Student {
         this.sCourse= new SimpleStringProperty(sCourse);
 //        this.sStatus = new SimpleStringProperty(sStatus);
         this.sStatus = sStatusProperty(sCourse);
-
     }
 
     public String getsCourse() {
@@ -94,7 +93,5 @@ public class Student {
             return new SimpleStringProperty("ENROLLED");
         }
     }
-
-
 
 }

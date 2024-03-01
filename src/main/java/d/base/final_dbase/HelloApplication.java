@@ -1,8 +1,12 @@
 /**
- * @author Kristoffer Neo Senyahan | BSCS2
- * @project SSIS CCC151 Project
+ * This package file is using a JavaFX language for the SQL Server Integration Services (SSIS) of students'
+ * and courses registration. The code also includes various implementations of functions primarily Create,
+ * Read, Update and Delete (CRUDL) scattered among the files and classes executions.
  *
- */
+ * @author Kristoffer Neo Senyahan | BSCS2
+ * @email kristofferneo.senyahan@g.msuiit.edu.ph
+ * @project SSIS CCC151 Project
+ **/
 
 package d.base.final_dbase;
 
@@ -15,6 +19,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+
+/**
+ * This class integrates all the scenes and Stages of every section.
+ * This also serves as the Main file and the Main stage of the whole package implementations.
+ */
 public class HelloApplication extends Application {
 
     private Stage primaryStage;
@@ -75,7 +84,6 @@ public class HelloApplication extends Application {
                     CourseEditImplementation CourseEdit = loader.getController();
                     CourseEdit.setHelloApplication();
                 }
-
             }
 
         } catch (Exception e) {

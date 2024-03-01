@@ -78,11 +78,6 @@ public class Course {
         }
     }
 
-
-
-
-
-
     // Method to get the colleges HashMap
     public static Map<String, String> getCollegesHashMap() {
         return colleges;

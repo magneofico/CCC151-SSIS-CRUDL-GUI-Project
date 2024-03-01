@@ -239,7 +239,6 @@ public class CSVHandler {
                 }
             }
         }
-
         return studentsByCourse;
     }
 
@@ -274,7 +273,6 @@ public class CSVHandler {
                     fileLines.add(line);
                 }
             }
-
             // Find the student with the provided student ID
             boolean studentFound = false;
             for (int i = 0; i < fileLines.size(); i++) {

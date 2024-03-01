@@ -243,6 +243,7 @@ public class HelloController2 {
         refreshStudentTableView();
     }
 
+
     private void addStudent() {
         // Get user input for last name
         String sStudentID = studentIDField.getText();
@@ -266,8 +267,6 @@ public class HelloController2 {
             alert.setHeaderText(null);
             alert.setContentText("Student ID must follow the format ####-#### (e.g., 1234-5678)");
             alert.showAndWait();
-
-            clearTextFields();
             return;
         }
 
@@ -574,6 +573,21 @@ public class HelloController2 {
         }
     }
 
+    @FXML
+    private void handleRefreshButtonAction() {
+        try {
+            // Reload data from CSV files
+            List<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
+            List<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
+
+            // Update table views with new data
+            tableView.setItems(FXCollections.observableArrayList(courses));
+            studentTable.setItems(FXCollections.observableArrayList(students));
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception accordingly
+        }
+    }
+
     private void refreshCourseTableView() {
         try {
             ObservableList<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
@@ -592,45 +606,6 @@ public class HelloController2 {
         }
     }
 
-    @FXML
-    private void handleRefreshButtonAction() {
-        try {
-            // Reload data from CSV files
-            List<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
-            List<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
-
-            // Update table views with new data
-            tableView.setItems(FXCollections.observableArrayList(courses));
-            studentTable.setItems(FXCollections.observableArrayList(students));
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception accordingly
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private void clearTextFields() {
@@ -645,6 +620,12 @@ public class HelloController2 {
         courseCodeField.clear();
         collegeComboBox.setValue(null);
     }
+
+
+
+
+
+
 
     @FXML
     private void switchToScene1() {
@@ -678,19 +659,6 @@ public class HelloController2 {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     private boolean windowSwitch4Clicked;
 
     @FXML
@@ -715,6 +683,8 @@ public class HelloController2 {
         // Set the flag to indicate that the windowSwitch4 button is clicked
         windowSwitch4Clicked = true;
     }
+
+
 
 
 

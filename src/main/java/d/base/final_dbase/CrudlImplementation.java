@@ -10,8 +10,6 @@ import java.io.IOException;
 
 public class CrudlImplementation {
 
-    // Instance variable to store the HelloApplication instance
-
     // FXML fields
     @FXML
     private TextField firstNameField;
@@ -101,13 +99,9 @@ public class CrudlImplementation {
             }
         });
 
-
-
         saveUpdatedStudentData.setOnAction(event -> handleSaveUpdatedStudentData());
         deleteStudentData.setOnAction(event -> handleDeleteButton());
-
         closeButton.setOnAction(event -> backToTable());
-
     }
 
     @FXML
@@ -175,26 +169,22 @@ public class CrudlImplementation {
         }
     }
 
+    // Clear all text fields
     private void clearFields() {
-        // Clear all text fields
         firstNameField.clear();
         lastNameField.clear();
         middleNameField.clear();
         genderField.clear();
         yearLevelField.clear();
-        // Clear course ComboBox
         CrudlCourseCode.getSelectionModel().clearSelection();
         enrollmentStatus.clear();
     }
-
 
 
     @FXML
     private void backToTable() {
         // Get the stage associated with the current scene
         Stage stage = (Stage) closeButton.getScene().getWindow(); // Assuming backButton is a button in the scene
-
-        // Close the stage to exit the current scene
-        stage.close();
+        stage.close();// Close the stage to exit the current scene
     }
 }

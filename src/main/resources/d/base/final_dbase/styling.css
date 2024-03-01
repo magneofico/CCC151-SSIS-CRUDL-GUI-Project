@@ -1,37 +1,29 @@
-.button
-{
+/*Button design*/
+.button {
     -fx-background-color : #B8282B;
     -fx-background-radius: .2em;
-    /*-fx-padding: 2px 25px;*/
-    /*-fx-tab-max-width: 5px;*/
 }
 
-.button:hover
-{
+.button:hover {
     -fx-background-color : #A1C1F4 ;
 }
 
-.button:pressed
-{
+.button:pressed {
     -fx-background-color : #73A3EF ;
 }
 
-
-.buttonGreen
-{
+.buttonGreen {
     -fx-background-color : #088000;
     -fx-background-radius: .2em;
     /*-fx-padding: 2px 25px;*/
     /*-fx-tab-max-width: 5px;*/
 }
 
-.buttonGreen:hover
-{
+.buttonGreen:hover {
     -fx-background-color : #A1C1F4 ;
 }
 
-.buttonGreen:pressed
-{
+.buttonGreen:pressed {
     -fx-background-color : #73A3EF ;
 }
 
@@ -64,7 +56,6 @@
     -fx-font-weight: bold;
 }
 
-
 .text-fieldW {
     -fx-accent: -fx-primary-color;
     -fx-background-color: white; /* Updated background color to #1e1e1e */
@@ -87,7 +78,6 @@
     -fx-background-color: -fx-primary-color, white;
     -fx-font-weight: bold;
 }
-
 
 
 /* ComboBox settings */
@@ -116,6 +106,7 @@
     -fx-background-color: #1e1e1e; /* Background color */
     -fx-text-fill: white; /* Set prompt text color to white */
 }
+
 .combo-box2 .text-field {
     -fx-opacity: 1; /* Make the text field fully visible */
     -fx-font-size: 10;
@@ -148,7 +139,7 @@
 
 
 
-
+/*Panel design*/
 .paneB {
     -fx-border-width: 0 0 .3px 0 ; /* Border width: top right bottom left */
     -fx-background-color: white;
@@ -162,11 +153,7 @@
 }
 
 
-
-
-
-
-/*Tab*/
+/*Tab design*/
 .tab-pane {
     -fx-tab-min-width: 120px; /* Set minimum width for tabs */
 }
@@ -208,7 +195,7 @@
 
 
 
-
+/*TableView design*/
 .table-view .column-header-background {
     -fx-background-color: #b8282b;
     -fx-font-size: 6pt;
@@ -268,27 +255,4 @@
 
 .table-view .table-row-cell .table-cell {
     -fx-border-width: 0px; /* Remove border for individual cells */
-}
-
-
-
-
-
-
-.toggle-button {
-    -fx-background-color: green;
-    -fx-text-fill: white;
-    -fx-background-radius: 0; /* Set border radius to 0 for sharp edges */
-}
-
-.toggle-button:selected {
-    -fx-background-color: #FCD12A;
-    -fx-text-fill: black;
-    -fx-background-radius: 0; /* Set border radius to 0 for sharp edges */
-}
-
-.toggle-button:disabled {
-    -fx-background-color: gray;
-    -fx-text-fill: white;
-    -fx-background-radius: 0; /* Set border radius to 0 for sharp edges */
 }
