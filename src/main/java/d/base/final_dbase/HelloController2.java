@@ -125,8 +125,8 @@ public class HelloController2 {
 
 
 
-    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/student_registration.csv";
-    private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/registration_dbase/src/course_registration.csv";
+    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/studentData.csv";
+    private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/courseData.csv";
 
     // Assuming you have an instance of HelloApplication
     private HelloApplication helloApplication;
