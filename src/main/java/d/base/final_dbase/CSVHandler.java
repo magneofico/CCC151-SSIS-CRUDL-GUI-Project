@@ -609,5 +609,32 @@ public class CSVHandler {
         }
     }
 
+    /**
+     * Counts the number of students enrolled with a specific course from the CSV file.
+     * @param courseFullName The concatenated variable of course code and course name.
+     * @return The total count of students enrolled with a specific course.
+     * @throws IOException If an I/O error occurs.
+     */
+    public static int countEnrolledStudentsByCourse(String courseFullName) throws IOException {
+        String[] parts = courseFullName.split("\\s+\\("); // Split by space followed by (
+        if (parts.length >= 2) {
+            String courseName = parts[0].trim(); // Extract the course name
+            String courseCode = parts[1].replaceAll("[()]", "").trim(); // Remove parentheses
+            int count = 0;
+            try (BufferedReader reader = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Check if the line contains the courseFullName and courseCode
+                    if (line.contains(courseFullName) && line.contains(courseCode)) {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        } else {
+            System.out.println("Invalid course name format: " + courseFullName);
+            return 0;
+        }
+    }
 
 }

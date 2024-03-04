@@ -28,6 +28,7 @@ public class CourseEditImplementation {
     @FXML private Button deleteCourseData;
     @FXML private Button saveUpdatedCourseData;
     @FXML private Button closeButton;
+    @FXML private TextField totalEnrollees;
 
     /** Instance of the main application.*/
     public void setHelloApplication() {
@@ -65,10 +66,14 @@ public class CourseEditImplementation {
     @FXML
     private void initialize() {
         Course.populateCollegeComboBox(CollegeComboBoxEdit);
-        CourseNameField.textProperty().addListener((observable, oldValue, newValue) -> fetchAndSetCourseData(newValue));
+        CourseNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            fetchAndSetCourseData(newValue);
+            updateEnrolledStudentsCount(newValue); // Update total enrolls when course name changes
+        });
 
         // Fetch and set course data immediately when initializing
         fetchAndSetCourseData(CourseNameField.getText());
+        updateEnrolledStudentsCount(CourseNameField.getText());
 
         saveUpdatedCourseData.setOnAction(event -> handleSaveUpdatedCourseData());
         deleteCourseData.setOnAction(event -> handleDeleteButton());
@@ -166,11 +171,45 @@ public class CourseEditImplementation {
         }
     }
 
+    /**This class implements count and display of students enrolled in the selected course.
+     * @param courseName The name of the course to be searched and counted.*/
+    private void updateEnrolledStudentsCount(String courseName) {
+        if (courseName != null && !courseName.isEmpty()) {
+            try {
+                // Fetch the course object by its name
+                Course course = CSVHandler.fetchCourseName(courseName);
+                if (course != null) {
+                    // Extract the course code from the course object
+                    String courseCode = course.getCourseCode();
+
+                    // Create a string combining course name and course code
+                    String courseFullName = courseName + " (" + courseCode + ")";
+
+                    // Call the method to count enrolled students using the courseFullName
+                    int enrolledStudentsCount = CSVHandler.countEnrolledStudentsByCourse(courseFullName);
+
+                    // Assuming you have a TextField named totalEnrolls
+                    totalEnrollees.setText(String.valueOf(enrolledStudentsCount));
+                    totalEnrollees.setStyle("-fx-alignment: CENTER;");
+
+                } else {
+                    System.out.println("Course not found: " + courseName);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle the exception
+            }
+        }
+    }
+
+
+
     /** Clears all text fields in the user interface.*/
     private void clearFields() {
         CourseNameField.clear();
         CollegeComboBoxEdit.getSelectionModel().clearSelection();
     }
+
 
     /** Handles the action when the user wants to navigate back to the table view.
      *  It retrieves the stage associated with the current scene and closes it,
