@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="d.base.final_dbase.HelloController2">
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="d.base.final_dbase.HelloController2">
     <AnchorPane prefHeight="800.0" prefWidth="1100.0">
         <children>
             <BorderPane prefHeight="800.0" prefWidth="1100.0">
@@ -107,7 +107,7 @@
                                                 </top>
                                                 <bottom>
                                                     <Pane prefHeight="423.0" prefWidth="700.0" styleClass="paneT" BorderPane.alignment="CENTER">
-                                                        <TableView fx:id="tableView" editable="true" layoutX="6.0" onSort="#handleRefreshButtonAction" prefHeight="498.0" prefWidth="690.0">
+                                                        <TableView fx:id="tableView" editable="true" layoutX="6.0" prefHeight="498.0" prefWidth="690.0">
                                                             <columns>
                                                                 <TableColumn fx:id="tCourseCode" editable="false" prefWidth="116.5" resizable="false" text="Course Code" />
                                                                 <TableColumn fx:id="tCourseName" editable="false" prefWidth="276.0" resizable="false" text="Course Name" />
@@ -164,7 +164,7 @@
                                                     </HBox>
                                                 </top>
                                                 <bottom>
-                                                    <TableView fx:id="studentTable" minHeight="-Infinity" minWidth="-Infinity" onSort="#findStudentIDEdit" prefHeight="559.0" prefWidth="689.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
+                                                    <TableView fx:id="studentTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="689.0" stylesheets="@styling.css" BorderPane.alignment="CENTER">
                                                         <columns>
                                                             <TableColumn fx:id="sStudentID" editable="false" prefWidth="73.66281127929688" resizable="false" text="Student ID" />
                                                             <TableColumn fx:id="sLastname" editable="false" prefWidth="69.0" resizable="false" text="Lastname" />

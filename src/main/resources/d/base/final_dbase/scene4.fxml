@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="d.base.final_dbase.CourseEditImplementation">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="d.base.final_dbase.CourseEditImplementation">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="400.0">
          <children>
@@ -50,7 +50,7 @@
                </font>
             </Button>
             <TextField fx:id="courseCodeField" layoutX="60.0" layoutY="268.0" prefHeight="26.0" prefWidth="280.0" styleClass="text-fieldW" stylesheets="@styling.css" />
-            <TextField fx:id="totalEnrollees" editable="false" layoutX="139.0" layoutY="328.0" prefHeight="26.0" prefWidth="117.0" styleClass="text-fieldW" stylesheets="@styling.css" />
+            <TextField fx:id="totalEnrollees" editable="false" layoutX="164.0" layoutY="326.0" prefHeight="26.0" prefWidth="68.0" styleClass="text-fieldW" stylesheets="@styling.css" />
             <Label layoutX="138.0" layoutY="305.0" text="Number of Students Enrolled" textAlignment="RIGHT">
                <font>
                   <Font size="10.0" />
