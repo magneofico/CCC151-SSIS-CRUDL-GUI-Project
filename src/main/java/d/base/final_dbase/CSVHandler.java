@@ -636,5 +636,4 @@ public class CSVHandler {
             return 0;
         }
     }
-
 }

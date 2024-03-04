@@ -202,8 +202,6 @@ public class CourseEditImplementation {
         }
     }
 
-
-
     /** Clears all text fields in the user interface.*/
     private void clearFields() {
         CourseNameField.clear();
