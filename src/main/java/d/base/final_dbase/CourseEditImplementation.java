@@ -208,7 +208,6 @@ public class CourseEditImplementation {
         CollegeComboBoxEdit.getSelectionModel().clearSelection();
     }
 
-
     /** Handles the action when the user wants to navigate back to the table view.
      *  It retrieves the stage associated with the current scene and closes it,
      *  effectively returning to the previous scene.*/
