@@ -32,50 +32,90 @@ public class HelloController1 {
 
     private HelloApplication helloApplication;
 
-    @FXML
-    private TextField usernameField;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private ImageView image;
 
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private ImageView image;
-
-    /** Initializes the controller.*/
+    /**
+     * Initializes the controller.
+     */
     public void initialize() {
+        setImage();
+    }
+
+    /**
+     * Sets the image for the image view.
+     */
+    private void setImage() {
         File file = new File("/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/background.png");
         String fileUrl = file.toURI().toString();
         Image image2 = new Image(fileUrl);
         image.setImage(image2); // sets image of javaFX imageFrame for GUI design purposes.
     }
 
+    /**
+     * Sets the HelloApplication instance.
+     *
+     * @param helloApplication The HelloApplication instance to set.*/
     public void setHelloApplication(HelloApplication helloApplication) {
         this.helloApplication = helloApplication;
     }
 
-    /** Handles the login process.*/
+    /**Handles the login process.*/
     @FXML
     private void handleLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
         // Authentication logic and logIn information.
-        if ("admin".equals(username) && "admin".equals(password)) {
+        if (isValidCredentials(username, password)) {
             helloApplication.switchToScene2();
         } else {
             // Display error pop-up for invalid credentials
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Credentials");
-            alert.setHeaderText(null);
-
-            // Check if the username or password is incorrect and display a specific error message.
-            if (!"admin".equals(username)) {
-                alert.setContentText("The username you entered is incorrect. Please try again.");
-            } else {
-                alert.setContentText("The password you entered is incorrect. Please try again.");
-            }
-
-            alert.showAndWait();
+            showErrorAlert(getErrorMessage(username, password));
         }
+    }
+
+    /**
+     * Checks if the provided credentials are valid.
+     *
+     * @param username The username to check.
+     * @param password The password to check.
+     * @return True if the credentials are valid, false otherwise.*/
+    private boolean isValidCredentials(String username, String password) {
+        return "admin".equals(username) && "admin".equals(password);
+    }
+
+    /**
+     * Constructs an error message based on the provided credentials.
+     *
+     * @param username The username entered by the user.
+     * @param password The password entered by the user.
+     * @return The error message indicating the incorrect username or password.*/
+    private String getErrorMessage(String username, String password) {
+        StringBuilder errorMessage = new StringBuilder("The ");
+        if (!"admin".equals(username)) {
+            errorMessage.append("username ");
+        }
+        if (!"admin".equals(password)) {
+            if (!"admin".equals(username)) {
+                errorMessage.append("and ");
+            }
+            errorMessage.append("password ");
+        }
+        errorMessage.append("you entered is incorrect. Please try again.");
+        return errorMessage.toString();
+    }
+
+    /**
+     * Displays an error alert with the specified title and content.
+     *
+     * @param content The content of the alert.*/
+    private void showErrorAlert(String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Credentials");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

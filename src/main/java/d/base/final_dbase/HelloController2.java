@@ -223,45 +223,35 @@ public class HelloController2 {
      *  Validates input fields, checks for duplicate student ID, and writes student information to CSV file.
      *  Displays appropriate error messages if validation fails or if the student already exists.*/
     private void addStudent() {
-        String sStudentID = studentIDField.getText(); // Get user input for last name.
+        String sStudentID = studentIDField.getText().trim();
+        String sLastname = capitalizeFirstLetter(lastNameField.getText().trim());
+        String sFirstname = capitalizeFirstLetter(firstNameField.getText().trim());
+        String sMiddlename = capitalizeFirstLetter(middleNameField.getText().trim());
+        String sYearLevel = yearLevelComboBox.getValue();
+        String sSex = sexComboBox.getValue() != null ? (sexComboBox.getValue().equals("Male") ? "M" : "F") : "";
+        String sCourse = courseCodeCombo.getValue();
+        String sStatus = sCourse != null ? "ENROLLED" : "NOT ENROLLED";
 
-        // Check if student ID is null, empty, or doesn't match the required format.
-        if (sStudentID == null || sStudentID.trim().isEmpty() || !sStudentID.matches("\\d{4}-\\d{4}")) {
-            // Display an appropriate alert based on the condition.
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-
-            if (sStudentID == null || sStudentID.trim().isEmpty()) {
-                alert.setContentText("Student ID cannot be empty.");
-            } else {
-                alert.setContentText("Student ID must follow the format ####-#### (e.g., 1234-5678)");
-            }
-
-            alert.showAndWait();
-
+        // Validate fields and construct an error message
+        String errorMessage = validateFields(sStudentID, sLastname, sFirstname, sYearLevel, sSex, sCourse);
+        if (errorMessage != null) {
+            displayErrorAlert(errorMessage);
             return;
         }
 
-        String sLastname = capitalizeFirstLetter(lastNameField.getText()); // Get the student firstname
-        String sFirstname = capitalizeFirstLetter(firstNameField.getText()); // Get the student lastname
-        String sMiddlename = capitalizeFirstLetter(middleNameField.getText()); // Get the student middlename
-        String sYearLevel = yearLevelComboBox.getValue(); // Get the students' year level
-        String sSex = sexComboBox.getValue().equals("Male") ? "M" : "F"; // Get the student sex
-        String sCourse = courseCodeCombo.getValue(); // Get the selected course
-        String sStatus = sCourse != null ? "ENROLLED" : "NOT ENROLLED"; // Set status based on course selection
+        // Validate student ID format
+        if (!sStudentID.matches("\\d{4}-\\d{4}")) {
+            displayErrorAlert("Student ID must follow the format ####-#### (e.g., 1234-5678)");
+            return;
+        }
 
-        // Get current timestamp.Timestamp is included but hidden to keep track of the date and time of the student registration.
-        LocalDateTime sTimestamp = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        String formattedTimestamp2 = sTimestamp.format(formatter);
-
+        // Check if student already exists
         try (BufferedReader brS = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
-            String line; // Check if the student already exists in the CSV file
+            String line;
             boolean studentExists = false;
             while ((line = brS.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length >= 2) { // Assuming student ID is at least present
+                if (parts.length >= 2) {
                     String existingStudentID = parts[1].trim();
                     if (existingStudentID.equals(sStudentID)) {
                         studentExists = true;
@@ -271,17 +261,10 @@ public class HelloController2 {
             }
 
             if (studentExists) {
-                // Display an alert indicating that the student already exists
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("A student with the same ID already exists.");
-                alert.showAndWait();
-
-                clearTextFields(); // Clear text-fields
-
+                displayErrorAlert("A student with the same ID already exists.");
+                clearTextFields();
             } else {
-                // Add the student information to the CSV file if it doesn't exist
+                // Add student information to the CSV file
                 try (BufferedWriter studentInfoWriter = new BufferedWriter(new FileWriter(STUDENT_CSV_FILE_PATH, true))) {
                     // Check if the CSV file already exists
                     if (!Files.exists(Paths.get(STUDENT_CSV_FILE_PATH))) {
@@ -289,95 +272,141 @@ public class HelloController2 {
                         studentInfoWriter.newLine();
                     }
 
-                    // Write the student information along with the timestamp to the CSV file
-                    String studentInfo = String.join(",", formattedTimestamp2, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sYearLevel, sCourse, sStatus);
+                    // Get current timestamp
+                    LocalDateTime sTimestamp = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+                    String formattedTimestamp = sTimestamp.format(formatter);
+
+                    // Write student information to the CSV file
+                    String studentInfo = String.join(",", formattedTimestamp, sStudentID, sLastname, sFirstname, sMiddlename, sSex, sYearLevel, sCourse, sStatus);
                     studentInfoWriter.write(studentInfo);
                     studentInfoWriter.newLine();
-
-                    clearTextFields(); // Clear text-fields
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Populate the course code combo box and set up a listener to update the editor's text
-        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
-        courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                courseCodeCombo.getEditor().setText(newValue);
-            }
-        });
+        // Populate course code combo box
+        populateCourseComboBox();
 
         // Set items in the student table view with data from the CSV file
         try {
             studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Clear text fields after successful addition
+        clearTextFields();
     }
+
+    private String validateFields(String sStudentID, String sLastname, String sFirstname, String sYearLevel, String sSex, String sCourse) {
+        StringBuilder errorMessage = new StringBuilder("Please fill out all required fields;\n");
+        if (sStudentID.isEmpty()) {errorMessage.append("Student ID, ");}
+        if (sLastname.isEmpty()) {errorMessage.append("Lastname, ");}
+        if (sFirstname.isEmpty()) {errorMessage.append("Firstname, ");}
+        if (sYearLevel == null) {errorMessage.append("Year Level, ");}
+        if (sSex.isEmpty()) {errorMessage.append("Sex, ");}
+        if (sCourse == null) {errorMessage.append("Course, ");}
+
+        // Remove the trailing comma and space
+        if (errorMessage.charAt(errorMessage.length() - 2) == ',') {
+            errorMessage.deleteCharAt(errorMessage.length() - 2);
+        }
+
+        return errorMessage.length() > 36 ? errorMessage.toString() : null;
+    }
+
+    private void populateCourseComboBox() {
+        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
+    }
+
+
+
+
+
+
+
 
     /** Adds a new course to the student database based on user input.
      *  Validates input fields, checks for duplicate student ID, and writes course information to CSV file.
      *  Displays appropriate error messages if validation fails or if the course already exists.*/
     private void addCourse() {
-        // Get user input for course code and course name
-        String courseCode = courseCodeField.getText(); // Get course code
-        String courseName = capitalizeFirstLetter(courseNameField.getText()); // Get course name
-        String collegeAssigned = collegeComboBox.getValue() != null ? collegeComboBox.getValue() : ""; // Get selected college name from ComboBox
+        // Get user input for course code, course name, and college assigned
+        String courseCode = courseCodeField.getText().trim();
+        String courseName = capitalizeFirstLetter(courseNameField.getText().trim());
+        String collegeAssigned = collegeComboBox.getValue() != null ? collegeComboBox.getValue().trim() : "";
 
-        // Check if the course code text-field is empty.
+        // Check if any of the fields are null or empty
         if (collegeAssigned.isEmpty() || courseCode.isEmpty() || courseName.isEmpty()) {
-            // Display an alert indicating that the course code cannot be empty
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Courses information fields cannot be empty. Please input all the necessary details.");
-            alert.showAndWait();
+            // Construct a message to specify which fields are empty
+            StringBuilder errorMessage = new StringBuilder("Please fill out all required fields;\n");
 
+            if (collegeAssigned.isEmpty()) {
+                errorMessage.append("College, ");
+            }
+            if (courseCode.isEmpty()) {
+                errorMessage.append("Course Code, ");
+            }
+            if (courseName.isEmpty()) {
+                errorMessage.append("Course Name, ");
+            }
+
+            // Remove the trailing comma and space
+            if (errorMessage.charAt(errorMessage.length() - 2) == ',') {
+                errorMessage.deleteCharAt(errorMessage.length() - 2);
+            }
+
+            // Display the error alert with the constructed message
+            displayErrorAlert(errorMessage.toString());
             return; // Exit the method
         }
 
-        // Get current timestamp. Timestamp is included but hidden to keep track of the date and time of the course registration.
-        LocalDateTime timestamp = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedTimestamp = timestamp.format(formatter);
-
         // Check if the course code already exists in the CSV file
+        if (courseExists(courseCode)) {
+            displayErrorAlert("A course with the same code already exists.");
+            clearTextFields();
+            return;
+        }
+
+        // Get current timestamp
+        String formattedTimestamp = getFormattedTimestamp();
+
+        // Write the course information to the CSV file
+        writeCourseToCSV(formattedTimestamp, courseCode, courseName, collegeAssigned);
+
+        // Update UI components
+        updateUIComponents();
+    }
+
+    private boolean courseExists(String courseCode) {
         try (BufferedReader brC = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
-            String line; // Check if the course already exists in the CSV file
+            String line;
             while ((line = brC.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length >= 2) { // Assuming course code is at least present
-                    String existingCourseCode = parts[1].trim(); // Course code index position in .csv file
+                    String existingCourseCode = parts[1].trim();
                     if (existingCourseCode.equals(courseCode)) {
-
-                        // Display an alert indicating that the course already exists
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.setHeaderText(null);
-                        alert.setContentText("A course with the same code already exists.");
-                        alert.showAndWait();
-                        clearTextFields();
-
-                        return; // Exit the method
+                        return true;
                     }
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
+    }
 
-        // Create a new Course object using the user input
-        Course newCourse = new Course(formattedTimestamp, courseCode, courseName, collegeAssigned);
+    private String getFormattedTimestamp() {
+        LocalDateTime timestamp = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return timestamp.format(formatter);
+    }
 
-        // Write the course information to the CSV file
+    private void writeCourseToCSV(String formattedTimestamp, String courseCode, String courseName, String collegeAssigned) {
         try (BufferedWriter courseInfoWriter = new BufferedWriter(new FileWriter(COURSE_CSV_FILE_PATH, true))) {
             // Check if the CSV file already exists
             if (!Files.exists(Paths.get(COURSE_CSV_FILE_PATH))) {
@@ -387,16 +416,17 @@ public class HelloController2 {
             }
 
             // Write the course information to the CSV file
-            String courseInfo = String.join(",", newCourse.getTimestamp(), courseCode, courseName, collegeAssigned);
+            String courseInfo = String.join(",", formattedTimestamp, courseCode, courseName, collegeAssigned);
             courseInfoWriter.write(courseInfo);
             courseInfoWriter.newLine();
 
             clearTextFields(); // Clear text-fields
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private void updateUIComponents() {
         // Update the combo box with the new course
         Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
         courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -412,6 +442,18 @@ public class HelloController2 {
             e.printStackTrace();
         }
     }
+
+    private void displayErrorAlert(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(errorMessage);
+
+        alert.showAndWait();
+    }
+
+
+
 
     /**
      * Capitalizes the first letter of each word in the given string.
@@ -446,8 +488,7 @@ public class HelloController2 {
      * Optionally, repopulates the student table with all students from the CSV file.
      */
     private void handleBackButtonAction() {
-        // Clear the search field
-        findCourse.clear();
+        findCourse.clear(); // Clear the search field
         findStudentID.clear(); // Assuming you have a TextField named findStudentID for searching students
 
         // Clear the table
