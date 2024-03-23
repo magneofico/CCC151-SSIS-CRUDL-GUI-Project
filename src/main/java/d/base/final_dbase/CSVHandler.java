@@ -28,12 +28,12 @@ public class CSVHandler {
      * Reads course data from a CSV file and stores it in a HashMap.
      *
      * @param filePath The file path of the CSV file containing course data.
-     * @return A HashMap where the keys are course codes and the values are course names.
+     * @return A HashMap where the keys are course codes, and the values are course names.
      * @throws IOException If an I/O error occurs.
      * @throws IllegalArgumentException If a duplicate course code is encountered.
      */
-    public static HashMap<String, String> readCoursesFromCSV(String filePath) throws IOException {
-        HashMap<String, String> courseMap = new HashMap<>();
+    public static HashMap<String, String[]> readCoursesFromCSV(String filePath) throws IOException {
+        HashMap<String, String[]> courseMap = new HashMap<>();
 
         try (BufferedReader brC = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -44,19 +44,18 @@ public class CSVHandler {
                     continue; // Skip the header
                 }
                 String[] parts = line.split(","); // Split the line by comma
-                if (parts.length >= 3) { // Check if the line has the desired number of columns
+                if (parts.length >= 4) { // Check if the line has the desired number of columns
+                    String timestamp = parts[0].trim(); // Extract timestamp
                     String courseCode = parts[1].trim();
                     String courseName = parts[2].trim();
-                    if (courseMap.containsKey(courseCode)) {
-                        throw new IllegalArgumentException("Course with code '" + courseCode + "' already registered.");
-                    } else {
-                        courseMap.put(courseCode, courseName);
-                    }
+                    String collegeCName = parts[3].trim();
+                    courseMap.put(courseName + "_" + collegeCName, new String[] { timestamp, courseCode, courseName, collegeCName });
                 }
             }
         }
         return courseMap;
     }
+
 
     /**
      * Retrieves the list of courses from a CSV file and converts it into an ObservableList of Course objects.
@@ -70,26 +69,19 @@ public class CSVHandler {
     public static ObservableList<Course> getCoursesAsObservableList(String filePath) throws IOException {
         ObservableList<Course> courses = FXCollections.observableArrayList();
 
-        try (BufferedReader brC = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            boolean headerSkipped = false;
-            while ((line = brC.readLine()) != null) {
-                if (!headerSkipped) {
-                    headerSkipped = true;
-                    continue; // Skip the header
-                }
-                String[] parts = line.split(","); // Split the line by comma
-                if (parts.length >= 3) { // Check if the line has the desired number of columns
-                    String timestamp = parts[0].trim(); // Extract timestamp
-                    String courseCode = parts[1].trim();
-                    String courseName = parts[2].trim();
-                    String collegeCName = parts[3].trim();
-                    courses.add(new Course(timestamp, courseCode, courseName, collegeCName));
-                }
-            }
+        HashMap<String, String[]> courseMap = readCoursesFromCSV(filePath);
+        for (String key : courseMap.keySet()) {
+            String[] data = courseMap.get(key);
+            String timestamp = data[0];
+            String courseCode = data[1];
+            String courseName = key.split("_")[0];
+            String collegeCName = key.split("_")[1];
+            courses.add(new Course(timestamp, courseCode, courseName, collegeCName));
         }
         return courses;
     }
+
+
 
     /* Performs reading student.csv file and creating a hashmap method where each
      * student information element is linked to a unique studentID number. */
@@ -570,7 +562,6 @@ public class CSVHandler {
     public static boolean deleteStudentRecordsByCourse(String courseFullName) throws IOException {
         String[] parts = courseFullName.split("\\s+\\("); // Split by space followed by (
         if (parts.length >= 2) {
-            String courseName = parts[0]; // Extract the course name
             String courseCode = parts[1].replaceAll("[()]", ""); // Remove parentheses
             File file = new File(STUDENT_CSV_FILE_PATH);
             File tempFile = new File("temp.csv");
@@ -618,7 +609,6 @@ public class CSVHandler {
     public static int countEnrolledStudentsByCourse(String courseFullName) throws IOException {
         String[] parts = courseFullName.split("\\s+\\("); // Split by space followed by (
         if (parts.length >= 2) {
-            String courseName = parts[0].trim(); // Extract the course name
             String courseCode = parts[1].replaceAll("[()]", "").trim(); // Remove parentheses
             int count = 0;
             try (BufferedReader reader = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {

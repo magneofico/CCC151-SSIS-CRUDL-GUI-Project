@@ -1,6 +1,7 @@
 package d.base.final_dbase;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -62,8 +63,19 @@ public class HelloController1 {
         if ("admin".equals(username) && "admin".equals(password)) {
             helloApplication.switchToScene2();
         } else {
-            //Displays invalid credentials if user-inputted information doesn't match the set username and password.
-            System.out.println("Invalid credentials");
+            // Display error pop-up for invalid credentials
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Credentials");
+            alert.setHeaderText(null);
+
+            // Check if the username or password is incorrect and display a specific error message.
+            if (!"admin".equals(username)) {
+                alert.setContentText("The username you entered is incorrect. Please try again.");
+            } else {
+                alert.setContentText("The password you entered is incorrect. Please try again.");
+            }
+
+            alert.showAndWait();
         }
     }
 }

@@ -322,6 +322,9 @@ public class HelloController2 {
         }
     }
 
+    /** Adds a new course to the student database based on user input.
+     *  Validates input fields, checks for duplicate student ID, and writes course information to CSV file.
+     *  Displays appropriate error messages if validation fails or if the course already exists.*/
     private void addCourse() {
         // Get user input for course code and course name
         String courseCode = courseCodeField.getText(); // Get course code
@@ -582,8 +585,6 @@ public class HelloController2 {
         }
     }
 
-
-
     /** Refreshes the table view of courses by reloading data from the CSV file.*/
     private void refreshCourseTableView() {
         try {
@@ -612,7 +613,6 @@ public class HelloController2 {
         studentIDField.clear();
         courseNameField.clear();
         courseCodeField.clear();
-
         sexComboBox.setValue(null);
         yearLevelComboBox.setValue(null);
         courseCodeCombo.setValue(null);
