@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="d.base.final_dbase.HelloController2">
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="d.base.final_dbase.InitializingStage">
     <AnchorPane prefHeight="800.0" prefWidth="1100.0">
         <children>
             <BorderPane prefHeight="800.0" prefWidth="1100.0">

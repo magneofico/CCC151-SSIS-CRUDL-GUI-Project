@@ -44,7 +44,7 @@ import java.util.Map;
  * @author  Kristoffer Neo Senyahan | BSCS2 | kristofferneo.senyahan@g.msuiit.edu.ph | SSIS CCC151 Project
  */
 
-public class HelloController2 {
+public class InitializingStage {
 
     /** Annotated {@code @FXML} fields for student registration part.
      *  These fields are specifically for managing student registration within the application.*/
@@ -92,18 +92,11 @@ public class HelloController2 {
     @FXML private Button goToCourseDataEdit;//Button switch scene to course information edit.
     @FXML private Button refresh;// Button to refresh, re-fetch and rewrite data in the TableView.
 
-
-    /** Path to the CSV file containing student data.*/
-    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/studentData.csv";
-
-    /** Path to the CSV file containing course data.*/
-    private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/courseData.csv";
-
     /** Instance of the main application.*/
-    private HelloApplication helloApplication;
+    private HelloApplication initializingStage;
 
-    public void setHelloApplication(HelloApplication helloApplication) {
-        this.helloApplication = helloApplication;
+    public void setInitializingStage(HelloApplication initializingStage) {
+        this.initializingStage = initializingStage;
     }
 
     /** Initializes UI components, populates combo boxes, sets up event listeners,
@@ -112,7 +105,7 @@ public class HelloController2 {
         yearLevelComboBox.getItems().addAll("1st", "2nd", "3rd", "4th", "5th"); //student year-level combobox options.
         sexComboBox.getItems().addAll("Male", "Female"); //student sexes combobox options.
 
-        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH); //Populates course combobox from Course java file class.
+        Course.populateCourseComboBox(courseCodeCombo, CSVHandler.COURSE_CSV_FILE_PATH); //Populates course combobox from Course java file class.
         courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 courseCodeCombo.getEditor().setText(newValue);
@@ -153,13 +146,13 @@ public class HelloController2 {
         });
 
         try {
-            tableView.setItems(CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH));
+            tableView.setItems(CSVHandler.getCoursesAsObservableList(CSVHandler.COURSE_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
+            studentTable.setItems(CSVHandler.getStudentsAsObservableList(CSVHandler.STUDENT_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -245,8 +238,8 @@ public class HelloController2 {
             return;
         }
 
-        // Check if student already exists
-        try (BufferedReader brS = new BufferedReader(new FileReader(STUDENT_CSV_FILE_PATH))) {
+        // Check if a student already exists
+        try (BufferedReader brS = new BufferedReader(new FileReader(CSVHandler.STUDENT_CSV_FILE_PATH))) {
             String line;
             boolean studentExists = false;
             while ((line = brS.readLine()) != null) {
@@ -265,9 +258,9 @@ public class HelloController2 {
                 clearTextFields();
             } else {
                 // Add student information to the CSV file
-                try (BufferedWriter studentInfoWriter = new BufferedWriter(new FileWriter(STUDENT_CSV_FILE_PATH, true))) {
+                try (BufferedWriter studentInfoWriter = new BufferedWriter(new FileWriter(CSVHandler.STUDENT_CSV_FILE_PATH, true))) {
                     // Check if the CSV file already exists
-                    if (!Files.exists(Paths.get(STUDENT_CSV_FILE_PATH))) {
+                    if (!Files.exists(Paths.get(CSVHandler.STUDENT_CSV_FILE_PATH))) {
                         studentInfoWriter.write("Registration Time,Student ID,Last Name,First Name,Middle Name,Sex,Year Level,Course,Status");
                         studentInfoWriter.newLine();
                     }
@@ -294,7 +287,7 @@ public class HelloController2 {
 
         // Set items in the student table view with data from the CSV file
         try {
-            studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
+            studentTable.setItems(CSVHandler.getStudentsAsObservableList(CSVHandler.STUDENT_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -321,7 +314,7 @@ public class HelloController2 {
     }
 
     private void populateCourseComboBox() {
-        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
+        Course.populateCourseComboBox(courseCodeCombo, CSVHandler.COURSE_CSV_FILE_PATH);
     }
 
 
@@ -383,7 +376,7 @@ public class HelloController2 {
     }
 
     private boolean courseExists(String courseCode) {
-        try (BufferedReader brC = new BufferedReader(new FileReader(COURSE_CSV_FILE_PATH))) {
+        try (BufferedReader brC = new BufferedReader(new FileReader(CSVHandler.COURSE_CSV_FILE_PATH))) {
             String line;
             while ((line = brC.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -407,9 +400,9 @@ public class HelloController2 {
     }
 
     private void writeCourseToCSV(String formattedTimestamp, String courseCode, String courseName, String collegeAssigned) {
-        try (BufferedWriter courseInfoWriter = new BufferedWriter(new FileWriter(COURSE_CSV_FILE_PATH, true))) {
+        try (BufferedWriter courseInfoWriter = new BufferedWriter(new FileWriter(CSVHandler.COURSE_CSV_FILE_PATH, true))) {
             // Check if the CSV file already exists
-            if (!Files.exists(Paths.get(COURSE_CSV_FILE_PATH))) {
+            if (!Files.exists(Paths.get(CSVHandler.COURSE_CSV_FILE_PATH))) {
                 // If not, write the header
                 courseInfoWriter.write("Registration Time,Course Code,Course Name,College");
                 courseInfoWriter.newLine();
@@ -428,7 +421,7 @@ public class HelloController2 {
 
     private void updateUIComponents() {
         // Update the combo box with the new course
-        Course.populateCourseComboBox(courseCodeCombo, COURSE_CSV_FILE_PATH);
+        Course.populateCourseComboBox(courseCodeCombo, CSVHandler.COURSE_CSV_FILE_PATH);
         courseCodeCombo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 courseCodeCombo.getEditor().setText(newValue);
@@ -437,7 +430,7 @@ public class HelloController2 {
 
         // Update the table view with the new data
         try {
-            tableView.setItems(CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH));
+            tableView.setItems(CSVHandler.getCoursesAsObservableList(CSVHandler.COURSE_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -496,7 +489,7 @@ public class HelloController2 {
 
         // Optionally, you can populate the student table with all students again
         try {
-            studentTable.setItems(CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH));
+            studentTable.setItems(CSVHandler.getStudentsAsObservableList(CSVHandler.STUDENT_CSV_FILE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -510,8 +503,8 @@ public class HelloController2 {
     @FXML private void handleRefreshButtonAction() {
         try {
             // Reload data from CSV files
-            List<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
-            List<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
+            List<Course> courses = CSVHandler.getCoursesAsObservableList(CSVHandler.COURSE_CSV_FILE_PATH);
+            List<Student> students = CSVHandler.getStudentsAsObservableList(CSVHandler.STUDENT_CSV_FILE_PATH);
 
             // Update table views with new data
             tableView.setItems(FXCollections.observableArrayList(courses));
@@ -532,7 +525,7 @@ public class HelloController2 {
         if (!studentID.isEmpty()) {
             try {
                 // Replace "students.csv" with the actual file path
-                Student student = CSVHandler.getStudentByID(STUDENT_CSV_FILE_PATH, studentID);
+                Student student = CSVHandler.getStudentByID(CSVHandler.STUDENT_CSV_FILE_PATH, studentID);
                 if (student != null) {
                     // Clear previous data in the table
                     studentTable.getItems().clear();
@@ -582,7 +575,7 @@ public class HelloController2 {
         if (!searchInput.isEmpty()) {
             try {
                 // Replace "students.csv" with the actual file path
-                Map<String, List<Student>> studentsByCourse = CSVHandler.getStudentsByCourse(STUDENT_CSV_FILE_PATH, searchInput);
+                Map<String, List<Student>> studentsByCourse = CSVHandler.getStudentsByCourse(CSVHandler.STUDENT_CSV_FILE_PATH, searchInput);
                 if (!studentsByCourse.isEmpty()) {
                     // Clear previous data in the table
                     studentTable.getItems().clear();
@@ -593,7 +586,7 @@ public class HelloController2 {
                     }
                 } else {
                     // Search for substrings in course names
-                    Map<String, List<Student>> studentsByCourseName = CSVHandler.getStudentsByCourseName(STUDENT_CSV_FILE_PATH, searchInput);
+                    Map<String, List<Student>> studentsByCourseName = CSVHandler.getStudentsByCourseName(CSVHandler.STUDENT_CSV_FILE_PATH, searchInput);
                     if (!studentsByCourseName.isEmpty()) {
                         // Clear previous data in the table
                         studentTable.getItems().clear();
@@ -629,7 +622,7 @@ public class HelloController2 {
     /** Refreshes the table view of courses by reloading data from the CSV file.*/
     private void refreshCourseTableView() {
         try {
-            ObservableList<Course> courses = CSVHandler.getCoursesAsObservableList(COURSE_CSV_FILE_PATH);
+            ObservableList<Course> courses = CSVHandler.getCoursesAsObservableList(CSVHandler.COURSE_CSV_FILE_PATH);
             Platform.runLater(() -> tableView.setItems(courses));
         } catch (IOException e) {
             e.printStackTrace();
@@ -639,7 +632,7 @@ public class HelloController2 {
     /** Refreshes the table view of students by reloading data from the CSV file.*/
     private void refreshStudentTableView() {
         try {
-            ObservableList<Student> students = CSVHandler.getStudentsAsObservableList(STUDENT_CSV_FILE_PATH);
+            ObservableList<Student> students = CSVHandler.getStudentsAsObservableList(CSVHandler.STUDENT_CSV_FILE_PATH);
             Platform.runLater(() -> studentTable.setItems(students));
         } catch (IOException e) {
             e.printStackTrace();
@@ -662,7 +655,7 @@ public class HelloController2 {
 
     // Switch back to scene 1 Login/SignIn pane.
     @FXML private void switchToScene1() {
-        helloApplication.switchToScene1();
+        initializingStage.switchToScene1();
     }
 
     private boolean goToStudentDataEditClicked;
@@ -686,7 +679,7 @@ public class HelloController2 {
 
         if (goToStudentDataEditClicked) {
             // Open Scene 3 for editing student details
-            helloApplication.switchToScene3(studentID);
+            initializingStage.switchToScene3(studentID);
         } else {
             // Handle the case where the windowSwitch3 button is not clicked
             System.out.println("windowSwitch3 button is not clicked.");
@@ -711,7 +704,7 @@ public class HelloController2 {
 
         if (goToCourseDataEditClicked) {
             // Open Scene 4 for editing course details
-            helloApplication.switchToScene4(courseCode);
+            initializingStage.switchToScene4(courseCode);
         } else {
             // Display a message indicating that the windowSwitch4 button must be clicked
             System.out.println("Cannot open Scene 4. Please click the windowSwitch4 button.");

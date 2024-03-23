@@ -82,8 +82,8 @@ public class HelloApplication extends Application {
                     });
                 }
                 case "scene2.fxml" -> {
-                    HelloController2 scene2Controller = loader.getController();
-                    scene2Controller.setHelloApplication(this);
+                    InitializingStage scene2Controller = loader.getController();
+                    scene2Controller.setInitializingStage(this);
 
                     primaryStage.setOnCloseRequest(event -> {
                         Platform.exit(); // Close the application

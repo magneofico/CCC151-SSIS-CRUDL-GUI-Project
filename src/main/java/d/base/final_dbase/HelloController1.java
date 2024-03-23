@@ -47,7 +47,7 @@ public class HelloController1 {
      * Sets the image for the image view.
      */
     private void setImage() {
-        File file = new File("/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/background.png");
+        File file = new File("src/main/java/d/base/final_dbase/assets/background.png");
         String fileUrl = file.toURI().toString();
         Image image2 = new Image(fileUrl);
         image.setImage(image2); // sets image of javaFX imageFrame for GUI design purposes.

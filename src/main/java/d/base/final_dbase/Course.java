@@ -43,6 +43,7 @@ public class Course {
     }
 
     public static void populateCourseComboBox(ComboBox<String> comboBox, String filePath) {
+        Map<String, String> courses = getCoursesHashMap(); // Get the courses HashMap
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             boolean headerSkipped = false;
@@ -71,9 +72,10 @@ public class Course {
         }
     }
 
+
     public static void populateCollegeComboBox(ComboBox<String> comboBox) {
         comboBox.getItems().clear(); // Clear existing items
-        for (Map.Entry<String, String> entry : colleges.entrySet()) {
+        for (Map.Entry<String, String> entry : getCollegesHashMap().entrySet()) {
             comboBox.getItems().add("(" + entry.getKey() + ") " + entry.getValue());
         }
     }
@@ -88,10 +90,6 @@ public class Course {
     }
 
     // Getters
-    public String getTimestamp() {
-        return timestamp.get();
-    }
-
     public String getCourseCode() {
         return courseCode.get();
     }

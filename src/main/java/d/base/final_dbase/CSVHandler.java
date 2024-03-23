@@ -21,8 +21,10 @@ import java.util.Map;
 public class CSVHandler {
 
     /** Path to the CSV file containing student data.*/
-    private static final String STUDENT_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/studentData.csv";
-    private static final String COURSE_CSV_FILE_PATH = "/Users/kristofferneo/Downloads/SSIS-JavaFX-Final/Final_dbase/src/main/java/d/base/final_dbase/assets/courseData.csv";
+    public static final String STUDENT_CSV_FILE_PATH = "src/main/java/d/base/final_dbase/assets/studentData.csv";
+
+    /** Path to the CSV file containing course data.*/
+    public static final String COURSE_CSV_FILE_PATH = "src/main/java/d/base/final_dbase/assets/courseData.csv";
 
     /**
      * Reads course data from a CSV file and stores it in a HashMap.
